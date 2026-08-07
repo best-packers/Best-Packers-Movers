@@ -1,0 +1,252 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-cloud-arrow-down" style="color:var(--accent);margin-right:8px;"></i> Google Business Profile Scraper</h2>
+  <span class="badge">Leads & Directories Seeder</span>
+</div>
+
+<div class="content" style="display:grid;grid-template-columns:1.8fr 1fr;gap:24px;align-items:start;">
+
+  <!-- Main Scraper Form Card -->
+  <div style="display:flex;flex-direction:column;gap:24px;">
+    <div class="card">
+      <div class="card-title">Run Google Maps Scraper</div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">
+        Select a state and city to start fetching Google Business Profile listings. If a city does not exist in the dropdown, add it using the form on the right first.
+      </p>
+
+      <form id="scraper-form">
+        <div class="form-row" style="grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label for="scrape_state">Select State</label>
+            <select id="scrape_state" name="state_id" required style="width:100%;">
+              <option value="">-- Choose State --</option>
+              <% states.forEach(state => { %>
+                <option value="<%= state.id %>"><%= state.name %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <label for="scrape_city">Select City</label>
+            <select id="scrape_city" name="city_name" required style="width:100%;">
+              <option value="">-- Choose City --</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" id="scrape-submit-btn" class="btn btn-primary" style="padding:12px 24px;font-weight:700;">
+          <i class="fa-solid fa-magnifying-glass-location"></i> Fetch Listings from Google Maps
+        </button>
+      </form>
+    </div>
+
+    <!-- Live Log Console -->
+    <div class="card" style="background:#0f172a;border-color:#1e293b;">
+      <div class="card-title" style="color:#f8fafc;display:flex;justify-content:between;align-items:center;">
+        <span><i class="fa-solid fa-terminal" style="color:var(--accent);margin-right:8px;"></i> Scraper Live Console Output</span>
+        <button id="clear-console-btn" class="btn" style="background:rgba(255,255,255,0.05);color:#94a3b8;font-size:11px;padding:4px 8px;min-height:auto;">Clear</button>
+      </div>
+      <div id="console-output" style="background:#020617;border:1px solid #1e293b;border-radius:8px;padding:16px;font-family:monospace;font-size:12px;color:#38bdf8;height:240px;overflow-y:auto;white-space:pre-wrap;line-height:1.6;">
+[System Ready] Select target State and City above and click "Fetch Listings".
+Logs will output here in real-time...
+      </div>
+    </div>
+  </div>
+
+  <!-- Add New State/City Sidebar -->
+  <div style="display:flex;flex-direction:column;gap:24px;">
+    
+    <!-- Add State Card -->
+    <div class="card">
+      <div class="card-title">Add New State</div>
+      <form id="add-state-form">
+        <div style="margin-bottom:14px;">
+          <label for="state_name">State Name</label>
+          <input type="text" id="state_name" name="name" required placeholder="e.g. Odisha">
+        </div>
+        <button type="submit" class="btn btn-secondary" style="width:100%;justify-content:center;">
+          <i class="fa-solid fa-plus"></i> Create State
+        </button>
+      </form>
+    </div>
+
+    <!-- Add City Card -->
+    <div class="card">
+      <div class="card-title">Add New City</div>
+      <form id="add-city-form">
+        <div style="margin-bottom:12px;">
+          <label for="city_state_id">Under State</label>
+          <select id="city_state_id" name="state_id" required style="width:100%;">
+            <option value="">-- Choose State --</option>
+            <% states.forEach(state => { %>
+              <option value="<%= state.id %>"><%= state.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label for="city_name">City Name</label>
+          <input type="text" id="city_name" name="name" required placeholder="e.g. Bhubaneswar">
+        </div>
+        <button type="submit" class="btn btn-secondary" style="width:100%;justify-content:center;">
+          <i class="fa-solid fa-plus"></i> Create City
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Client Script to Handle Dropdown Filtering and AJAX Triggers -->
+<script>
+  // City mapping from EJS data
+  const rawCities = <%- JSON.stringify(cities) %>;
+
+  const stateSelect = document.getElementById('scrape_state');
+  const citySelect = document.getElementById('scrape_city');
+  const consoleOutput = document.getElementById('console-output');
+  const clearConsoleBtn = document.getElementById('clear-console-btn');
+
+  // Filter cities by state select
+  stateSelect.addEventListener('change', () => {
+    const selectedStateId = stateSelect.value;
+    citySelect.innerHTML = '<option value="">-- Choose City --</option>';
+    
+    if (selectedStateId) {
+      const filtered = rawCities.filter(c => c.state_id == selectedStateId);
+      filtered.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.name;
+        opt.textContent = c.name;
+        citySelect.appendChild(opt);
+      });
+    }
+  });
+
+  // Clear Console
+  clearConsoleBtn.addEventListener('click', () => {
+    consoleOutput.textContent = 'Console cleared. Ready for next query...\n';
+  });
+
+  // Log to console helper
+  function logToConsole(text, type = 'info') {
+    const time = new Date().toLocaleTimeString();
+    let color = '#38bdf8'; // blue
+    if (type === 'success') color = '#4ade80'; // green
+    if (type === 'error') color = '#f87171'; // red
+    if (type === 'warn') color = '#fbbf24'; // orange
+    
+    consoleOutput.innerHTML += `\n<span style="color:#64748b;">[${time}]</span> <span style="color:${color};">${text}</span>`;
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+  }
+
+  // Toast Alert Notification
+  function showToast(message, isError = false) {
+    const toast = document.getElementById('admin-toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.className = isError ? 'error' : 'success';
+    toast.style.display = 'block';
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 4000);
+  }
+
+  // Handle Add State AJAX
+  document.getElementById('add-state-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('state_name').value.trim();
+    try {
+      const res = await fetch('/admin/scraper/add-state', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('State created successfully!');
+        setTimeout(() => location.reload(), 1500);
+      } else {
+        showToast(data.message || 'Failed to create state.', true);
+      }
+    } catch(err) {
+      showToast('Network error occurred.', true);
+    }
+  });
+
+  // Handle Add City AJAX
+  document.getElementById('add-city-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('city_name').value.trim();
+    const state_id = document.getElementById('city_state_id').value;
+    try {
+      const res = await fetch('/admin/scraper/add-city', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, state_id })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('City created successfully!');
+        setTimeout(() => location.reload(), 1500);
+      } else {
+        showToast(data.message || 'Failed to create city.', true);
+      }
+    } catch(err) {
+      showToast('Network error occurred.', true);
+    }
+  });
+
+  // Handle Scraper Submission AJAX
+  document.getElementById('scraper-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const city_name = citySelect.value;
+    const state_id = stateSelect.value;
+    const submitBtn = document.getElementById('scrape-submit-btn');
+
+    if (!city_name || !state_id) {
+      showToast('Please select state and city first!', true);
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scraping in progress...';
+    
+    logToConsole(`Initializing scraping request for "${city_name}"...`, 'warn');
+    
+    try {
+      const res = await fetch('/admin/scraper/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ city_name, state_id })
+      });
+      
+      const data = await res.json();
+      
+      // Print backend logs to our terminal display
+      if (data.logs && data.logs.length > 0) {
+        data.logs.forEach(log => {
+          if (log.includes('Created new') || log.includes('complete')) {
+            logToConsole(log, 'success');
+          } else if (log.includes('blocked') || log.includes('failed')) {
+            logToConsole(log, 'error');
+          } else {
+            logToConsole(log, 'info');
+          }
+        });
+      }
+
+      if (data.success) {
+        showToast(data.message || 'Scraping completed successfully!');
+        logToConsole(`Scraper succeeded: ${data.message}`, 'success');
+      } else {
+        showToast(data.message || 'Scraping failed.', true);
+        logToConsole(`Scraper error: ${data.message}`, 'error');
+      }
+    } catch (err) {
+      showToast('Connection timed out or network error.', true);
+      logToConsole('Scraper connection failed. The server took too long to respond.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass-location"></i> Fetch Listings from Google Maps';
+    }
+  });
+</script>

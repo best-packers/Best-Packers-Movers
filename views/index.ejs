@@ -1,0 +1,281 @@
+<!-- Home Page View (Premium Dark Hero Theme) -->
+<div class="relative bg-slate-900 overflow-hidden py-24 sm:py-32">
+  <!-- Glowing Background Orbs -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-orange/10 blur-[120px] pointer-events-none"></div>
+  <div class="absolute top-10 right-10 w-[300px] h-[300px] rounded-full bg-blue-500/5 blur-[80px] pointer-events-none"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center max-w-3xl mx-auto space-y-6">
+      <div class="inline-flex items-center space-x-2 bg-slate-800/80 border border-slate-700/50 px-4 py-1.5 rounded-full text-xs font-semibold text-brand-orange animate-pulse-slow">
+        <i class="fa-solid fa-circle-check text-xs"></i>
+        <span>Verified Relocation Directory for 2026</span>
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-none">
+        Find Verified <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-orange-400">Packers & Movers</span> in India
+      </h1>
+      <p class="text-slate-400 text-base sm:text-xl leading-relaxed">
+        Compare audited, high-rated relocation specialists in your city. Omit the stress and shield yourself from transit fraud with our verified directory listings.
+      </p>
+
+      <!-- Fast Directory Dropdown Selection -->
+      <div class="max-w-xl mx-auto bg-white p-2 rounded-2xl shadow-xl flex flex-col sm:flex-row gap-2 mt-8 border border-slate-100">
+        <div class="flex-grow flex items-center px-3 py-2 sm:py-0">
+          <i class="fa-solid fa-map-location-dot text-slate-400 text-lg mr-3"></i>
+          <select id="quick-city-select" class="w-full text-slate-700 bg-transparent text-sm focus:outline-none py-1 font-semibold">
+            <option value="" disabled selected>Select your city to compare...</option>
+            <% cities.forEach(city => { %>
+              <option value="/<%= city.slug %>"><%= city.name %> (<%= city.state_name %>)</option>
+            <% }) %>
+          </select>
+        </div>
+        <button onclick="navigateCity()" class="bg-brand-orange hover:bg-orange-600 text-white font-bold px-8 py-3.5 rounded-xl shadow-md shadow-orange-500/20 active:scale-95 transition-all text-sm whitespace-nowrap">
+          Compare Shifting Rates
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Category Icons Grid Section -->
+<div class="py-10 bg-slate-50 border-b border-slate-200/80">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-6">Popular Relocation Services</p>
+      <div class="grid grid-cols-3 sm:grid-cols-6 gap-4">
+        <button onclick="prefillSearch('Local House Shifting')" class="bg-white hover:bg-orange-50/50 p-4 rounded-2xl border border-slate-200 hover:border-brand-orange shadow-sm hover:shadow-md transition duration-150 flex flex-col items-center space-y-2.5 group">
+          <div class="w-12 h-12 bg-orange-50 text-brand-orange rounded-xl flex items-center justify-center text-xl group-hover:scale-105 transition-transform"><i class="fa-solid fa-house-chimney"></i></div>
+          <span class="text-[11px] font-bold text-slate-700 leading-tight text-center">Local House Shifting</span>
+        </button>
+        <button onclick="prefillSearch('Office Relocation')" class="bg-white hover:bg-orange-50/50 p-4 rounded-2xl border border-slate-200 hover:border-brand-orange shadow-sm hover:shadow-md transition duration-150 flex flex-col items-center space-y-2.5 group">
+          <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl group-hover:scale-105 transition-transform"><i class="fa-solid fa-building"></i></div>
+          <span class="text-[11px] font-bold text-slate-700 leading-tight text-center">Office Shifting</span>
+        </button>
+        <button onclick="prefillSearch('Car Transportation')" class="bg-white hover:bg-orange-50/50 p-4 rounded-2xl border border-slate-200 hover:border-brand-orange shadow-sm hover:shadow-md transition duration-150 flex flex-col items-center space-y-2.5 group">
+          <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl group-hover:scale-105 transition-transform"><i class="fa-solid fa-car"></i></div>
+          <span class="text-[11px] font-bold text-slate-700 leading-tight text-center">Car Carrier</span>
+        </button>
+        <button onclick="prefillSearch('Bike Shifting')" class="bg-white hover:bg-orange-50/50 p-4 rounded-2xl border border-slate-200 hover:border-brand-orange shadow-sm hover:shadow-md transition duration-150 flex flex-col items-center space-y-2.5 group">
+          <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-xl group-hover:scale-105 transition-transform"><i class="fa-solid fa-motorcycle"></i></div>
+          <span class="text-[11px] font-bold text-slate-700 leading-tight text-center">Bike Shifting</span>
+        </button>
+        <button onclick="prefillSearch('Warehouse Storage')" class="bg-white hover:bg-orange-50/50 p-4 rounded-2xl border border-slate-200 hover:border-brand-orange shadow-sm hover:shadow-md transition duration-150 flex flex-col items-center space-y-2.5 group">
+          <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-xl group-hover:scale-105 transition-transform"><i class="fa-solid fa-warehouse"></i></div>
+          <span class="text-[11px] font-bold text-slate-700 leading-tight text-center">Warehouse Storage</span>
+        </button>
+        <button onclick="prefillSearch('Domestic Relocation')" class="bg-white hover:bg-orange-50/50 p-4 rounded-2xl border border-slate-200 hover:border-brand-orange shadow-sm hover:shadow-md transition duration-150 flex flex-col items-center space-y-2.5 group">
+          <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-xl group-hover:scale-105 transition-transform"><i class="fa-solid fa-truck-fast"></i></div>
+          <span class="text-[11px] font-bold text-slate-700 leading-tight text-center">Intercity Moving</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Latest Blog Posts Section -->
+<% if (latestBlogs && latestBlogs.length > 0) { %>
+<div class="bg-slate-900 py-14 text-white border-t border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <p class="text-xs font-bold text-brand-orange uppercase tracking-wider mb-1">From Our Blog</p>
+        <h2 class="text-2xl font-extrabold text-white">Shifting Tips & Relocation Guides</h2>
+      </div>
+      <a href="/blog" class="hidden sm:flex items-center text-sm font-bold text-brand-orange hover:text-orange-400 transition">
+        View All Articles <i class="fa-solid fa-chevron-right ml-1.5 text-xs"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <% latestBlogs.forEach(blog => { %>
+        <article class="bg-slate-800/60 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-brand-orange/40 hover:shadow-lg hover:shadow-orange-500/10 transition-all group">
+          <% if (blog.cover_image_url) { %>
+            <a href="/blog/<%= blog.slug %>">
+              <div class="h-44 overflow-hidden">
+                <img src="<%= blog.cover_image_url %>" alt="<%= blog.title %>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+              </div>
+            </a>
+          <% } %>
+          <div class="p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-brand-orange bg-orange-500/10 px-2 py-0.5 rounded"><%= blog.category || 'Guide' %></span>
+              <span class="text-[10px] text-slate-400"><%= blog.read_time_mins ? blog.read_time_mins + ' min read' : '' %></span>
+            </div>
+            <h3 class="text-sm font-bold text-white leading-snug">
+              <a href="/blog/<%= blog.slug %>" class="hover:text-brand-orange transition-colors"><%= blog.title %></a>
+            </h3>
+            <p class="text-xs text-slate-400 leading-relaxed line-clamp-2"><%= blog.excerpt %></p>
+            <a href="/blog/<%= blog.slug %>" class="inline-flex items-center text-xs font-bold text-brand-orange hover:text-orange-400 transition pt-1">
+              Read Article <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+            </a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+    <div class="mt-6 text-center sm:hidden">
+      <a href="/blog" class="inline-flex items-center text-sm font-bold text-brand-orange hover:text-orange-400 transition">
+        View All Articles <i class="fa-solid fa-chevron-right ml-1.5 text-xs"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<!-- Premium Directory Highlight Section -->
+<div class="py-16 sm:py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Explore States and Cities</h2>
+      <p class="text-slate-500 text-sm">
+        We serve a dense relocation network across key logistics corridors in Northern, Eastern, and Central India.
+      </p>
+    </div>
+
+    <!-- States Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <% states.forEach(state => { %>
+        <% 
+          // Find cities in this state
+          const stateCities = cities.filter(c => c.state_id === state.id);
+        %>
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/60 hover:shadow-lg hover:border-slate-300 transition-all group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-indigo-50 border border-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-location-arrow"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2"><%= state.name %></h3>
+            <p class="text-slate-500 text-xs mb-6">
+              Verified local and intercity transit logistics listings across <%= stateCities.length %> major cities.
+            </p>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-2">
+              <% stateCities.slice(0, 3).forEach(c => { %>
+                <a href="/<%= c.slug %>" class="text-xs bg-white text-slate-600 font-bold px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-brand-orange hover:text-brand-orange transition">
+                  <%= c.name %>
+                </a>
+              <% }) %>
+              <% if (stateCities.length > 3) { %>
+                <span class="text-xs text-slate-400 font-semibold px-2.5 py-1.5">+<%= stateCities.length - 3 %> more</span>
+              <% } %>
+            </div>
+            <a href="/state/<%= state.slug %>" class="inline-flex items-center text-xs font-bold text-indigo-600 hover:text-brand-orange group transition-colors pt-2">
+              <span>Explore State Directory</span>
+              <i class="fa-solid fa-chevron-right text-[10px] ml-1.5 transform group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<!-- Primary Lead Conversion Section (Trust building) -->
+<div class="bg-slate-50 py-16 sm:py-24 border-y border-slate-200/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-orange bg-orange-50 border border-orange-100 px-3 py-1.5 rounded-md">
+          Featured Relocation Network
+        </span>
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Looking for a 100% Safe Pan-India Relocation?
+        </h2>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          National Packers & Movers is our certified directory partner operating across a premium all-India logistics backbone. Fully licensed, insured, and verified with a pristine 4.9-star customer rating, they offer end-to-end relocation services.
+        </p>
+        
+        <div class="grid grid-cols-2 gap-6 pt-2">
+          <div class="flex items-start space-x-3">
+            <div class="w-5 h-5 text-emerald-500 mt-0.5"><i class="fa-solid fa-circle-check"></i></div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">Zero Hijack Charges</h4>
+              <p class="text-slate-500 text-xs mt-0.5">Written quotations with zero hidden surcharges.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <div class="w-5 h-5 text-emerald-500 mt-0.5"><i class="fa-solid fa-circle-check"></i></div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">100% Transit Insured</h4>
+              <p class="text-slate-500 text-xs mt-0.5">Comprehensive insurance covering item damages.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-col sm:flex-row gap-4">
+          <a href="#" data-vendor-id="0" data-vendor-name="National Packers & Movers (Pan-India)" class="open-quote-btn bg-brand-orange hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl text-center shadow-lg shadow-orange-500/20 active:scale-98 transition-all text-sm">
+            Get Quote from National Packers
+          </a>
+          <a href="https://www.thenationalpackersmovers.com/" target="_blank" rel="noopener" class="border border-slate-300 hover:border-slate-400 bg-white text-slate-700 font-bold px-8 py-4 rounded-xl text-center active:scale-98 transition-all text-sm">
+            Calculate Shifting Rates
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 relative">
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-orange to-amber-500 rounded-3xl rotate-3 opacity-10 blur-md scale-102"></div>
+        <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xl relative z-10 space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">National Packers</h4>
+                <p class="text-xs text-slate-400">Featured Network Partner</p>
+              </div>
+            </div>
+            <span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-xs font-bold px-2.5 py-1 rounded-full flex items-center">
+              <i class="fa-solid fa-circle-check mr-1"></i> Verified
+            </span>
+          </div>
+
+          <div class="space-y-4 text-sm">
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">Service Coverage</span>
+              <span class="font-semibold text-slate-800">Pan-India (600+ Cities)</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">Google Rating</span>
+              <span class="font-bold text-slate-800 flex items-center">
+                4.9 <i class="fa-solid fa-star text-amber-400 text-xs ml-1 mr-1"></i> (1,540+ reviews)
+              </span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-500">Fleet Strength</span>
+              <span class="font-semibold text-slate-800">120+ Self-Owned Trucks</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center space-x-3">
+            <i class="fa-solid fa-phone-volume text-brand-orange text-lg"></i>
+            <div>
+              <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">Call Hub Support</p>
+              <a href="tel:+919835168368" class="text-lg font-black text-slate-800 hover:text-brand-orange transition-colors">+91 98351 68368</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function navigateCity() {
+    const select = document.getElementById('quick-city-select');
+    if (select && select.value) {
+      window.location.href = select.value;
+    } else {
+      alert('Please select a city first.');
+    }
+  }
+
+  function prefillSearch(term) {
+    const input = document.getElementById('header-search-input');
+    if (input) {
+      input.value = term;
+      input.focus();
+      const changeEvent = new Event('input', { bubbles: true });
+      input.dispatchEvent(changeEvent);
+    }
+  }
+</script>

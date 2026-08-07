@@ -1,0 +1,113 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-magnifying-glass-chart" style="color:var(--accent);margin-right:8px;"></i> SEO Manager</h2>
+  <span class="badge">Meta Titles, Descriptions & Keywords</span>
+</div>
+<div class="content">
+  <div class="card" style="margin-bottom:16px;background:rgba(59,130,246,.07);border-color:rgba(59,130,246,.2);">
+    <p style="font-size:13px;color:#93c5fd;"><i class="fa-solid fa-circle-info" style="margin-right:8px;"></i>
+    Override the default meta title, description, and keywords for any city or vendor page. Leave blank to use the auto-generated SEO tags. Changes apply immediately on next page visit.</p>
+  </div>
+
+  <!-- City SEO -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-title">City Pages SEO (<%= cities.length %> cities)</div>
+    <div style="max-height:500px;overflow-y:auto;">
+      <% cities.forEach(city => { %>
+        <div class="seo-row" style="border-top:1px solid var(--border);padding:14px 0;" data-id="<%= city.id %>" data-type="city">
+          <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="toggleSeo(this)">
+            <div>
+              <span style="font-weight:700;font-size:13px;"><%= city.name %></span>
+              <span style="color:var(--muted);font-size:11px;margin-left:8px;"><%= city.state_name %></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="color:var(--muted);font-size:12px;transition:.15s;"></i>
+          </div>
+          <div class="seo-fields" style="display:none;margin-top:12px;">
+            <div style="margin-bottom:10px;">
+              <label>Custom Meta Title (leave blank for auto)</label>
+              <input type="text" class="seo-title" value="<%= city.custom_meta_title || '' %>" placeholder="Best Packers and Movers in <%= city.name %> 2026...">
+            </div>
+            <div style="margin-bottom:10px;">
+              <label>Custom Meta Description</label>
+              <textarea class="seo-desc" rows="2" placeholder="Find verified packers and movers in <%= city.name %>..."><%= city.custom_meta_description || '' %></textarea>
+            </div>
+            <div style="margin-bottom:10px;">
+              <label>Custom Keywords (comma-separated)</label>
+              <input type="text" class="seo-keywords" value="<%= city.custom_keywords || '' %>" placeholder="packers movers <%= city.name %>, shifting...">
+            </div>
+            <button onclick="saveCitySeo(<%= city.id %>, this)" class="btn btn-primary btn-sm"><i class="fa-solid fa-check"></i> Save <%= city.name %> SEO</button>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Vendor SEO -->
+  <% if (vendors && vendors.length > 0) { %>
+  <div class="card">
+    <div class="card-title">Vendor Profile SEO (<%= vendors.length %> vendors)</div>
+    <div style="max-height:400px;overflow-y:auto;">
+      <% vendors.forEach(v => { %>
+        <div class="seo-row" style="border-top:1px solid var(--border);padding:14px 0;" data-id="<%= v.id %>" data-type="vendor">
+          <div style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="toggleSeo(this)">
+            <div>
+              <span style="font-weight:700;font-size:13px;"><%= v.name %></span>
+              <span style="color:var(--muted);font-size:11px;margin-left:8px;"><%= v.city_name %></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="color:var(--muted);font-size:12px;transition:.15s;"></i>
+          </div>
+          <div class="seo-fields" style="display:none;margin-top:12px;">
+            <div style="margin-bottom:10px;">
+              <label>Custom Meta Title</label>
+              <input type="text" class="seo-title" value="<%= v.custom_meta_title || '' %>" placeholder="<%= v.name %> - Packers Movers...">
+            </div>
+            <div style="margin-bottom:10px;">
+              <label>Custom Meta Description</label>
+              <textarea class="seo-desc" rows="2" placeholder="Reviews, address, contact for <%= v.name %>..."><%= v.custom_meta_description || '' %></textarea>
+            </div>
+            <div style="margin-bottom:10px;">
+              <label>Custom Keywords</label>
+              <input type="text" class="seo-keywords" value="<%= v.custom_keywords || '' %>" placeholder="<%= v.name %>, packers movers...">
+            </div>
+            <button onclick="saveVendorSeo(<%= v.id %>, this)" class="btn btn-primary btn-sm"><i class="fa-solid fa-check"></i> Save SEO</button>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+  <% } %>
+</div>
+
+<script>
+  function toggleSeo(header) {
+    const row = header.closest('.seo-row');
+    const fields = row.querySelector('.seo-fields');
+    const icon = header.querySelector('.fa-chevron-down');
+    const isOpen = fields.style.display !== 'none';
+    fields.style.display = isOpen ? 'none' : 'block';
+    icon.style.transform = isOpen ? '' : 'rotate(180deg)';
+  }
+
+  async function saveCitySeo(id, btn) {
+    const row = btn.closest('.seo-row');
+    const data = {
+      custom_meta_title: row.querySelector('.seo-title').value,
+      custom_meta_description: row.querySelector('.seo-desc').value,
+      custom_keywords: row.querySelector('.seo-keywords').value
+    };
+    const result = await adminPost(`/admin/seo/city/${id}`, data);
+    if (result.success) showToast(result.message);
+    else showToast(result.message, 'error');
+  }
+
+  async function saveVendorSeo(id, btn) {
+    const row = btn.closest('.seo-row');
+    const data = {
+      custom_meta_title: row.querySelector('.seo-title').value,
+      custom_meta_description: row.querySelector('.seo-desc').value,
+      custom_keywords: row.querySelector('.seo-keywords').value
+    };
+    const result = await adminPost(`/admin/seo/vendor/${id}`, data);
+    if (result.success) showToast(result.message);
+    else showToast(result.message, 'error');
+  }
+</script>

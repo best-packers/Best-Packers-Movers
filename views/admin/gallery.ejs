@@ -1,0 +1,206 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-images" style="color:var(--accent);margin-right:8px;"></i> Gallery Manager</h2>
+  <span class="badge"><%= images.length %> images</span>
+</div>
+<div class="content">
+
+  <!-- Add Image Form with Cascading State -> City -> Listed Packers Selectors -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-title"><i class="fa-solid fa-cloud-arrow-up" style="color:var(--accent);margin-right:8px;"></i> Upload Asset to Listed Packer Profile</div>
+    <form id="add-img-form">
+      <div class="form-row">
+        <div>
+          <label>1. Select State</label>
+          <select id="img-state" onchange="onStateChange()" required>
+            <option value="">-- Select State --</option>
+            <% states.forEach(s => { %>
+              <option value="<%= s.id %>"><%= s.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div>
+          <label>2. Select City</label>
+          <select id="img-city" onchange="onCityChange()" required disabled>
+            <option value="">-- Select State First --</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>3. Select Listed Packer / Mover</label>
+          <select id="img-vendor" disabled>
+            <option value="">-- Select City First --</option>
+          </select>
+        </div>
+        <div>
+          <label>Sort Order (Lower = Shown First)</label>
+          <input type="number" id="img-sort" value="0" min="0" max="999">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>Image URL (Auto-Populates on Upload)</label>
+          <input type="text" id="img-url" required placeholder="https://... or choose local file below">
+        </div>
+        <div>
+          <label>Upload Local Photo (Auto-Compress to WebP)</label>
+          <input type="file" id="local-gallery-file" accept="image/*" style="padding: 5px 10px;">
+          <div id="gallery-progress" class="hidden" style="margin-top:6px; background:var(--accent); color:white; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; width:45%; text-align:center;">
+            Compressing...
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div>
+          <label>Caption / Photo Label (optional)</label>
+          <input type="text" id="img-caption" placeholder="e.g. Office Relocation Logistics, Container Truck Loading...">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="margin-top:8px;">
+        <i class="fa-solid fa-plus"></i> Add Image to Gallery
+      </button>
+    </form>
+  </div>
+
+  <!-- Search & Filter Bar -->
+  <form class="search-bar" method="GET" action="/admin/gallery" style="display:flex;gap:10px;align-items:center;margin-bottom:20px;">
+    <select name="state" id="filter-state" onchange="this.form.submit()">
+      <option value="">All States</option>
+      <% states.forEach(s => { %>
+        <option value="<%= s.slug %>" <%= typeof stateFilter !== 'undefined' && stateFilter === s.slug ? 'selected' : '' %>><%= s.name %></option>
+      <% }) %>
+    </select>
+
+    <select name="city" id="filter-city" onchange="this.form.submit()">
+      <option value="">All Cities</option>
+      <% cities.forEach(c => { %>
+        <option value="<%= c.slug %>" <%= cityFilter === c.slug ? 'selected' : '' %>><%= c.name %></option>
+      <% }) %>
+    </select>
+
+    <input type="text" name="vendor" value="<%= vendorSearch %>" placeholder="Search vendor name..." style="flex:1;">
+    <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-filter"></i> Filter</button>
+    <a href="/admin/gallery" class="btn btn-secondary btn-sm">Clear</a>
+  </form>
+
+  <!-- Gallery Grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;">
+    <% if (images.length === 0) { %>
+      <div class="card" style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);">
+        <i class="fa-solid fa-images" style="font-size:36px;margin-bottom:12px;display:block;color:var(--accent);"></i>
+        No images found. Select State → City → Listed Packer above to build galleries.
+      </div>
+    <% } else { %>
+      <% images.forEach(img => { %>
+        <div class="card" style="padding:12px;position:relative;">
+          <img src="<%= img.image_url %>" alt="<%= img.caption || 'Gallery' %>"
+            style="width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px;border:1px solid var(--border);"
+            onerror="this.src='https://via.placeholder.com/220x140?text=Invalid+Image+URL'">
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;"><%= img.caption || 'Gallery Photo' %></div>
+          <div style="font-size:11px;color:var(--muted);space-y:2px;">
+            <div><i class="fa-solid fa-building" style="margin-right:5px;color:var(--accent);"></i><%= img.vendor_name || 'General City Asset' %></div>
+            <% if (img.city_name) { %>
+              <div><i class="fa-solid fa-map-location-dot" style="margin-right:5px;color:var(--accent2);"></i><%= img.city_name %><% if (img.state_name) { %>, <%= img.state_name %><% } %></div>
+            <% } %>
+          </div>
+          <button onclick="deleteImage(<%= img.id %>)" class="btn btn-danger btn-sm" style="margin-top:10px;width:100%;justify-content:center;">
+            <i class="fa-solid fa-trash"></i> Delete Image
+          </button>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  const statesMap = <%- JSON.stringify(states) %>;
+  const citiesMap = <%- JSON.stringify(cities) %>;
+  const vendorsMap = <%- JSON.stringify(vendors) %>;
+
+  function onStateChange() {
+    const stateId = document.getElementById('img-state').value;
+    const citySel = document.getElementById('img-city');
+    const vendorSel = document.getElementById('img-vendor');
+
+    citySel.innerHTML = '<option value="">-- Select City --</option>';
+    vendorSel.innerHTML = '<option value="">-- Select City First --</option>';
+    vendorSel.disabled = true;
+
+    if (!stateId) {
+      citySel.disabled = true;
+      return;
+    }
+
+    const stateCities = citiesMap.filter(c => c.state_id == stateId);
+    stateCities.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = c.name;
+      citySel.appendChild(opt);
+    });
+    citySel.disabled = false;
+  }
+
+  function onCityChange() {
+    const cityId = document.getElementById('img-city').value;
+    const vendorSel = document.getElementById('img-vendor');
+
+    vendorSel.innerHTML = '<option value="">-- Option A: General City Gallery (No Vendor) --</option>';
+
+    if (!cityId) {
+      vendorSel.disabled = true;
+      return;
+    }
+
+    // 1. Always add National Packers & Movers (Gold Partner #1)
+    const natOpt = document.createElement('option');
+    natOpt.value = "0";
+    natOpt.textContent = "🏆 National Packers & Movers (Gold Partner)";
+    vendorSel.appendChild(natOpt);
+
+    // 2. Filter local competitors for this specific city
+    const cityVendors = vendorsMap.filter(v => v.city_id == cityId && v.id !== 0);
+    cityVendors.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v.id;
+      opt.textContent = v.name;
+      vendorSel.appendChild(opt);
+    });
+
+    vendorSel.disabled = false;
+  }
+
+  document.getElementById('add-img-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = {
+      image_url: document.getElementById('img-url').value,
+      caption: document.getElementById('img-caption').value,
+      vendor_id: document.getElementById('img-vendor').value,
+      city_id: document.getElementById('img-city').value,
+      sort_order: document.getElementById('img-sort').value
+    };
+    const result = await adminPost('/admin/gallery/add', data);
+    if (result.success) {
+      showToast('Image added to gallery!');
+      setTimeout(() => location.reload(), 700);
+    } else {
+      showToast(result.message, 'error');
+    }
+  });
+
+  async function deleteImage(id) {
+    if (!confirm('Delete this image from gallery?')) return;
+    const result = await adminPost(`/admin/gallery/delete/${id}`, {});
+    if (result.success) { showToast('Image deleted.'); setTimeout(() => location.reload(), 700); }
+    else showToast(result.message, 'error');
+  }
+</script>
+
+<script src="/admin/js/compressor.js"></script>
+<script>
+  window.setupImageUpload('local-gallery-file', 'img-url', null, 'gallery-progress', 'gallery');
+</script>

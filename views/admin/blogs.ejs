@@ -1,0 +1,209 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-pen-nib" style="color:var(--accent);margin-right:8px;"></i> Blog Posts</h2>
+  <a href="/admin/blogs/edit/new" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> New Blog Post</a>
+</div>
+<div class="content">
+  <div style="display:grid;grid-template-columns:<% if(editBlog !== undefined){ %>1fr 1.4fr<% } else { %>1fr<% } %>;gap:20px;align-items:start;">
+
+    <!-- Blog List -->
+    <div class="card">
+      <div class="card-title">All Blog Posts (<%= blogs.length %>)</div>
+      <% if (blogs.length === 0) { %>
+        <p style="color:var(--muted);font-size:13px;padding:12px 0;">No blog posts yet. Click "New Blog Post" to get started.</p>
+      <% } else { %>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <% blogs.forEach(blog => { %>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><%= blog.title %></div>
+                <div style="font-size:11px;color:var(--muted);margin-top:2px;">
+                  <span style="background:rgba(249,115,22,.1);color:var(--accent);border-radius:4px;padding:1px 6px;"><%= blog.category %></span>
+                  &nbsp; <%= new Date(blog.created_at).toLocaleDateString('en-IN') %>
+                </div>
+              </div>
+              <div style="display:flex;gap:7px;align-items:center;margin-left:10px;flex-shrink:0;">
+                <button onclick="toggleBlog(<%= blog.id %>, this)" class="btn btn-sm <%= blog.is_published ? 'btn-success' : 'btn-secondary' %>">
+                  <i class="fa-solid fa-<%= blog.is_published ? 'eye' : 'eye-slash' %>"></i>
+                </button>
+                <a href="/admin/blogs/edit/<%= blog.id %>" class="btn btn-secondary btn-sm"><i class="fa-solid fa-pen"></i></a>
+                <button onclick="deleteBlog(<%= blog.id %>)" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Editor (shown when editing) -->
+    <% if (editBlog !== undefined) { %>
+    <div class="card">
+      <div class="card-title"><%= editBlog ? 'Edit Blog Post' : 'New Blog Post' %></div>
+      <form id="blog-form">
+        <input type="hidden" id="blog-id" value="<%= editBlog ? editBlog.id : 'new' %>">
+        <div class="form-row single"><div>
+          <label>Title *</label>
+          <input type="text" id="blog-title" required placeholder="e.g. How to Pack Your Kitchen for Moving" value="<%= editBlog ? editBlog.title : '' %>">
+        </div></div>
+        <div class="form-row">
+          <div>
+            <label>Category</label>
+            <select id="blog-category">
+              <% BLOG_CATEGORIES.forEach(cat => { %>
+                <option value="<%= cat %>" <%= editBlog && editBlog.category === cat ? 'selected' : '' %>><%= cat %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <label>Read Time (mins)</label>
+            <input type="number" id="blog-readtime" value="<%= editBlog ? editBlog.read_time_mins : 3 %>" min="1" max="60">
+          </div>
+        </div>
+        <div class="form-row single"><div>
+          <label>Excerpt / Summary (shown on listing)</label>
+          <textarea id="blog-excerpt" rows="2" placeholder="Short description..."><%= editBlog ? editBlog.excerpt : '' %></textarea>
+        </div></div>
+        <div class="form-row">
+          <div>
+            <label>Cover Image URL (populates on upload)</label>
+            <input type="text" id="blog-cover" placeholder="https://..." value="<%= editBlog ? (editBlog.cover_image_url || '') : '' %>">
+          </div>
+          <div>
+            <label>Upload Local Cover (Auto-Compress to WebP)</label>
+            <input type="file" id="local-blog-cover-file" accept="image/*" style="padding: 5px 10px;">
+            <div id="blog-cover-progress" class="hidden" style="margin-top:6px; background:var(--accent); color:white; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; width:45%; text-align:center;">
+              Compressing...
+            </div>
+          </div>
+        </div>
+        <div class="form-row single"><div>
+          <label>Article Body (HTML)</label>
+          <textarea id="blog-body" rows="12" placeholder="<h2>Introduction</h2><p>Your article content here...</p>"><%= editBlog ? (editBlog.body_html || '') : '' %></textarea>
+        </div></div>
+        <div class="form-row single"><div>
+          <label>FAQs (JSON format: [{&quot;question&quot;:&quot;...&quot;,&quot;answer&quot;:&quot;...&quot;}])</label>
+          <textarea id="blog-faqs" rows="4" placeholder='[{"question":"How long does shifting take?","answer":"Typically 1-3 days for intercity."}]'><%= editBlog ? (editBlog.faqs_json || '[]') : '[]' %></textarea>
+        </div></div>
+        <div class="form-row single"><div>
+          <label>Meta Keywords (comma-separated, for SEO)</label>
+          <input type="text" id="blog-keywords" placeholder="shifting tips, packing guide..." value="<%= editBlog ? (editBlog.meta_keywords || '') : '' %>">
+        </div></div>
+
+        <!-- Live Preview Section -->
+        <div style="margin:16px 0 12px;">
+          <label>Cover Image Preview</label>
+          <div id="cover-preview" style="height:160px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:6px;">
+            <% if (editBlog && editBlog.cover_image_url) { %>
+              <img src="<%= editBlog.cover_image_url %>" style="width:100%;height:100%;object-fit:cover;">
+            <% } else { %>
+              <div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;">
+                Preview will appear here when you enter a cover URL
+              </div>
+            <% } %>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button type="submit" name="publish" value="true" class="btn btn-primary"><i class="fa-solid fa-globe"></i> Save & Publish</button>
+          <button type="submit" name="publish" value="false" class="btn btn-secondary"><i class="fa-solid fa-floppy-disk"></i> Save as Draft</button>
+          <a href="/admin/blogs" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  // Cover image live preview
+  const coverInput = document.getElementById('blog-cover');
+  const coverPreview = document.getElementById('cover-preview');
+  if (coverInput && coverPreview) {
+    coverInput.addEventListener('input', () => {
+      const url = coverInput.value.trim();
+      if (url) {
+        coverPreview.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\\'height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;\\'>Invalid image URL</div>'">`;
+      } else {
+        coverPreview.innerHTML = '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;">Preview will appear here</div>';
+      }
+    });
+  }
+
+  const blogForm = document.getElementById('blog-form');
+  if (blogForm) {
+    blogForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const publishBtn = e.submitter;
+      const isPublish = publishBtn && publishBtn.value === 'true';
+
+      const data = {
+        id: document.getElementById('blog-id').value,
+        title: document.getElementById('blog-title').value,
+        category: document.getElementById('blog-category').value,
+        read_time_mins: document.getElementById('blog-readtime').value,
+        excerpt: document.getElementById('blog-excerpt').value,
+        cover_image_url: document.getElementById('blog-cover').value,
+        body_html: document.getElementById('blog-body').value,
+        faqs_json: document.getElementById('blog-faqs').value,
+        meta_keywords: document.getElementById('blog-keywords').value,
+        is_published: isPublish
+      };
+
+      const result = await adminPost('/admin/blogs/save', data);
+      if (result.success) {
+        showToast(result.message + (result.slug ? ` — /blog/${result.slug}` : ''));
+        setTimeout(() => window.location.href = '/admin/blogs', 1200);
+      } else {
+        showToast(result.message, 'error');
+      }
+    });
+  }
+
+  async function toggleBlog(id, btn) {
+    const result = await adminPost(`/admin/blogs/toggle/${id}`, {});
+    if (result.success) {
+      showToast(result.is_published ? 'Published!' : 'Set to draft.');
+      btn.className = `btn btn-sm ${result.is_published ? 'btn-success' : 'btn-secondary'}`;
+      btn.innerHTML = `<i class="fa-solid fa-${result.is_published ? 'eye' : 'eye-slash'}"></i>`;
+    } else {
+      showToast(result.message, 'error');
+    }
+  }
+
+  async function deleteBlog(id) {
+    if (!confirm('Delete this blog post? This cannot be undone.')) return;
+    const result = await adminPost(`/admin/blogs/delete/${id}`, {});
+    if (result.success) { showToast('Blog post deleted.'); setTimeout(() => location.reload(), 700); }
+    else showToast(result.message, 'error');
+  }
+</script>
+
+<script src="/admin/js/compressor.js"></script>
+<script>
+  // Setup automatic upload for blog cover image preview
+  window.setupImageUpload('local-blog-cover-file', 'blog-cover', null, 'blog-cover-progress', 'blog');
+  
+  // Set up live update of the cover preview div
+  const blogCoverInput = document.getElementById('blog-cover');
+  if (blogCoverInput) {
+    blogCoverInput.addEventListener('input', function() {
+      const url = this.value.trim();
+      const previewDiv = document.getElementById('cover-preview');
+      if (previewDiv) {
+        if (url) {
+          previewDiv.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;">`;
+        } else {
+          previewDiv.innerHTML = `<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;">Preview will appear here when you enter a cover URL</div>`;
+        }
+      }
+    });
+    
+    // Periodically sync the preview when the value changes programmatically on upload completion
+    setInterval(() => {
+      const url = blogCoverInput.value.trim();
+      const previewDiv = document.getElementById('cover-preview');
+      if (previewDiv && url && !previewDiv.querySelector('img')) {
+        previewDiv.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;">`;
+      }
+    }, 1000);
+  }
+</script>

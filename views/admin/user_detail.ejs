@@ -1,0 +1,114 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-user-ninja" style="color:var(--accent);margin-right:8px;"></i> User Log Detail: <%= user.phone %></h2>
+  <a href="/admin/users" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back to Users</a>
+</div>
+
+<div class="content" style="display:grid;grid-template-columns:1.2fr 1.8fr;gap:24px;align-items:start;">
+
+  <!-- User Card Details and Map -->
+  <div style="display:flex;flex-direction:column;gap:20px;">
+    
+    <div class="card">
+      <div class="card-title">Metadata Profile</div>
+      <div style="font-size:13px;line-height:1.8;">
+        <div style="margin-bottom:8px;">
+          <strong style="color:var(--muted);">Phone Contact:</strong>
+          <span style="font-size:15px;font-weight:800;color:var(--accent);"><%= user.phone %></span>
+        </div>
+        <div style="margin-bottom:8px;">
+          <strong style="color:var(--muted);">IP Address:</strong>
+          <span style="font-family:monospace;font-weight:600;"><%= user.ip_address %></span>
+        </div>
+        <div style="margin-bottom:8px;">
+          <strong style="color:var(--muted);">Device Context:</strong>
+          <span><%= user.device_type %></span>
+        </div>
+        <div style="margin-bottom:8px;">
+          <strong style="color:var(--muted);">Registered Location:</strong>
+          <span><%= user.city %>, <%= user.state %></span>
+        </div>
+        <% if (user.locality) { %>
+          <div style="margin-bottom:8px;">
+            <strong style="color:var(--muted);">High-Precision GPS Locality:</strong>
+            <span class="badge green"><%= user.locality %></span>
+          </div>
+        <% } %>
+        <div>
+          <strong style="color:var(--muted);">First Login:</strong>
+          <span><%= new Date(user.created_at).toLocaleString('en-IN') %></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Preview -->
+    <% if (user.locality || user.city) { %>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="card-title" style="padding:16px;border-bottom:1px solid var(--border);margin-bottom:0;">
+          <i class="fa-solid fa-map-location-dot"></i> GPS Locality Map
+        </div>
+        <div style="width:100%;height:220px;">
+          <iframe 
+            class="w-full h-full border-0" 
+            loading="lazy" 
+            allowfullscreen 
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=<%= encodeURIComponent((user.locality || '') + ' ' + user.city + ' ' + user.state) %>&t=&z=14&ie=UTF8&iwloc=&output=embed">
+          </iframe>
+        </div>
+      </div>
+    <% } %>
+
+  </div>
+
+  <!-- Actions Audit Timeline -->
+  <div class="card">
+    <div class="card-title">User Behavior &amp; Action Path Timeline</div>
+    
+    <% if (actions.length === 0) { %>
+      <div style="text-align:center;color:#64748b;padding:48px;">
+        <i class="fa-solid fa-shoe-prints text-2xl mb-2 text-slate-300 block"></i>
+        This user authenticated successfully but has not clicked call, website, or left reviews yet.
+      </div>
+    <% } else { %>
+      <div style="position:relative;padding-left:24px;border-left:2px solid var(--border);margin-left:12px;">
+        <% actions.forEach(act => { %>
+          <div style="position:relative;margin-bottom:24px;">
+            
+            <!-- Timeline dot -->
+            <div style="position:absolute;left:-31px;top:2px;width:12px;height:12px;border-radius:50%;background:<%= act.action_type === 'review' ? 'var(--accent)' : act.action_type === 'call' ? '#10b981' : '#3b82f6' %>;border:2px solid #1e293b;"></div>
+            
+            <div style="font-size:11px;color:var(--muted);font-weight:600;">
+              <%= new Date(act.created_at).toLocaleTimeString('en-IN') %> — <%= new Date(act.created_at).toLocaleDateString('en-IN', {day:'numeric', month:'short'}) %>
+            </div>
+            
+            <div style="margin-top:4px;">
+              <% if (act.action_type === 'review') { %>
+                <span class="badge" style="background:rgba(249,115,22,0.1);color:var(--accent);">REVIEW POSTED</span>
+                <span style="font-weight:600;">Submitted review for <%= act.vendor_name %></span>
+              <% } else if (act.action_type === 'call') { %>
+                <span class="badge" style="background:rgba(16,185,129,0.1);color:#34d399;">PHONE CALL</span>
+                <span style="font-weight:600;">Clicked Phone Call contact number for <%= act.vendor_name %></span>
+              <% } else { %>
+                <span class="badge" style="background:rgba(59,130,246,0.1);color:#60a5fa;">WEBSITE VISIT</span>
+                <span style="font-weight:600;">Redirected to company website for <%= act.vendor_name %></span>
+              <% } %>
+            </div>
+
+            <div style="font-size:12px;color:var(--muted);margin-top:6px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;padding:8px 12px;width:fit-content;min-width:320px;">
+              <div><strong style="color:var(--muted);font-size:10px;">Target Vendor:</strong> <%= act.vendor_name %> (<%= act.city_name %>)</div>
+              <% if (act.target_url) { %>
+                <div style="margin-top:3px;max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                  <strong style="color:var(--muted);font-size:10px;">URL:</strong> 
+                  <a href="<%= act.target_url %>" target="_blank" style="color:var(--accent2);"><%= act.target_url %></a>
+                </div>
+              <% } %>
+            </div>
+
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+  </div>
+
+</div>

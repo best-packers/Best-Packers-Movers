@@ -1,0 +1,404 @@
+<!-- City Directory View (Premium Dark Hero Theme) -->
+<div class="bg-slate-900 text-white py-16 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-transparent pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <nav class="flex space-x-2 text-xs font-semibold text-slate-400 mb-3">
+      <a href="/" class="hover:text-white transition">Home</a>
+      <span>/</span>
+      <a href="/state/<%= state.slug %>" class="hover:text-white transition"><%= state.name %></a>
+      <span>/</span>
+      <span class="text-brand-orange"><%= city.name %></span>
+    </nav>
+    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+      <%= typeof pageH1 !== 'undefined' ? pageH1 : `Top-Rated Packers & Movers in ${city.name}` %>
+    </h1>
+    <!-- Required Boilerplate SEO Text -->
+    <p class="text-slate-300 mt-4 text-sm sm:text-base max-w-3xl leading-relaxed">
+      <%= typeof pageDescription !== 'undefined' ? pageDescription : `Finding reliable shifting services in ${city.name} can be stressful. We analyzed over ${totalCount} logistics providers based on customer reviews, fleet capacity, and track records to bring you the top-rated choices in ${city.name} for 2026.` %>
+    </p>
+  </div>
+</div>
+
+<div class="py-12 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- List of Vendors (Main Column) -->
+      <div class="lg:col-span-2 space-y-6">
+        <h2 class="text-xl font-extrabold text-slate-900 flex items-center mb-2">
+          <i class="fa-solid fa-list-check text-brand-orange mr-2.5"></i>
+          <span>Vetted Shifting Companies in <%= city.name %></span>
+        </h2>
+
+        <% if (vendors.length === 0) { %>
+          <div class="bg-white rounded-3xl p-12 border border-slate-200 text-center shadow-sm">
+            <i class="fa-solid fa-hourglass-empty text-4xl text-slate-300 mb-4"></i>
+            <h3 class="font-bold text-slate-800">No competitor listings loaded</h3>
+            <p class="text-slate-400 text-sm mt-1">Check back later or manage listings from the admin dashboard.</p>
+          </div>
+        <% } else { %>
+          <div class="space-y-4">
+            <% vendors.forEach((vendor, index) => { %>
+              <% if (vendor.is_national) { %>
+                <!-- Slot #1: Premium Featured Partner (National Packers & Movers) -->
+                <div class="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-2xl p-6 sm:p-8 border border-brand-orange/30 shadow-xl relative overflow-hidden group">
+                  <div class="absolute -right-16 -top-16 w-36 h-36 rounded-full bg-brand-orange/20 blur-xl pointer-events-none group-hover:scale-110 transition-transform"></div>
+                  
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
+                    <div class="space-y-4">
+                      <!-- Badge Row -->
+                      <div class="flex flex-wrap items-center gap-2">
+                        <span class="bg-brand-orange text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                          <i class="fa-solid fa-crown mr-1"></i> #1 Ranked Partner
+                        </span>
+                        <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md flex items-center">
+                          <i class="fa-solid fa-circle-check mr-1 text-xs"></i> Verified Audit
+                        </span>
+                        <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                          All-India Service
+                        </span>
+                      </div>
+
+                      <!-- Name & Meta -->
+                      <div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white leading-tight">
+                          <a href="/<%= city.slug %>/<%= vendor.slug %>" class="hover:text-brand-orange transition-colors"><%= vendor.name %></a>
+                        </h3>
+                        <p class="text-slate-400 text-xs mt-1.5 flex items-center">
+                          <i class="fa-solid fa-location-dot text-brand-orange mr-1.5 text-sm"></i> <%= vendor.address %>
+                        </p>
+                      </div>
+
+                      <!-- Rating -->
+                      <div class="flex items-center space-x-3 text-sm">
+                        <div class="flex items-center text-amber-400 font-bold bg-amber-400/10 border border-amber-400/20 px-2.5 py-1 rounded-lg">
+                          <span class="mr-1">4.9</span>
+                          <i class="fa-solid fa-star text-xs"></i>
+                        </div>
+                        <span class="text-slate-400 font-semibold">(1,540+ Customer Audits)</span>
+                      </div>
+                    </div>
+
+                    <!-- Call To Action Buttons -->
+                    <div class="flex flex-col sm:items-end justify-center gap-3">
+                      <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/60 flex items-center space-x-3 w-full sm:w-auto">
+                        <i class="fa-solid fa-phone text-brand-orange text-lg"></i>
+                        <div>
+                          <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Call Hub Support</p>
+                          <a href="tel:+919835168368" class="text-sm font-extrabold text-white hover:text-brand-orange transition-colors">+91 98351 68368</a>
+                        </div>
+                      </div>
+                      <a href="#" data-vendor-id="0" data-vendor-name="<%= vendor.name %>" class="open-quote-btn bg-brand-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-600/30 transform hover:-translate-y-0.5 active:translate-y-0 transition duration-150 text-center w-full sm:w-auto text-sm">
+                        Get Shifting Rates
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+              <% } else { %>
+                <!-- Standard Scraped Competitor Card -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200/80 hover:shadow-md hover:border-slate-300 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative">
+                  <div class="space-y-3.5">
+                    <!-- Badges -->
+                    <div class="flex items-center space-x-2">
+                      <span class="bg-slate-100 text-slate-500 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md">
+                        Slot #<%= index + 1 + ((page - 1) * limit) %>
+                      </span>
+                      <% if (vendor.status === 'verified') { %>
+                        <span class="bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-md flex items-center shadow-sm">
+                          <i class="fa-solid fa-circle-check mr-1 text-xs"></i> Verified Business
+                        </span>
+                      <% } else { %>
+                        <span class="bg-amber-50 text-amber-600 border border-amber-100 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md">
+                          Unclaimed Listing
+                        </span>
+                      <% } %>
+                    </div>
+
+                    <!-- Vendor Name -->
+                    <div>
+                      <h3 class="text-lg font-bold text-slate-800 hover:text-indigo-600 transition-colors">
+                        <a href="/<%= city.slug %>/<%= vendor.slug %>"><%= vendor.name %></a>
+                      </h3>
+                      <p class="text-slate-400 text-xs mt-1.5 flex items-center">
+                        <i class="fa-solid fa-location-dot mr-1.5 text-slate-400"></i> <%= vendor.address %>
+                      </p>
+                    </div>
+
+                    <!-- Ratings -->
+                    <div class="flex items-center space-x-3 text-xs">
+                      <div class="flex items-center text-white font-extrabold bg-emerald-600 px-2.5 py-1 rounded-lg shadow-sm">
+                        <span class="mr-1"><%= vendor.rating %></span>
+                        <i class="fa-solid fa-star text-[9px] text-amber-300 ml-0.5"></i>
+                      </div>
+                      <span class="text-slate-500 font-bold"><%= vendor.reviews_count %> Ratings</span>
+                    </div>
+                  </div>
+
+                  <!-- CTAs & Outbound Preservations -->
+                  <div class="flex flex-col sm:items-end justify-center gap-3">
+                    <div class="flex gap-2">
+                      <button data-vendor-id="<%= vendor.id %>" data-vendor-name="<%= vendor.name %>" class="open-quote-btn text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 px-4 py-2.5 rounded-xl transition-all">
+                        Get Quote
+                      </button>
+                    </div>
+                    <p class="text-[10px] text-slate-400 font-semibold italic text-center sm:text-right">Outbound website links disabled.</p>
+                  </div>
+                </div>
+              <% } %>
+            <% }) %>
+          </div>
+
+          <!-- Pagination Bar -->
+          <% if (totalPages > 1) { %>
+            <div class="flex justify-center items-center space-x-4 pt-6">
+              <% if (page > 1) { %>
+                <a href="?page=<%= page - 1 %>" class="bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-sm transition">
+                  <i class="fa-solid fa-chevron-left mr-1.5"></i> Previous
+                </a>
+              <% } %>
+              
+              <span class="text-sm font-semibold text-slate-500">Page <%= page %> of <%= totalPages %></span>
+              
+              <% if (page < totalPages) { %>
+                <a href="?page=<%= page + 1 %>" class="bg-white border border-slate-200 hover:border-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-sm transition">
+                  Next <i class="fa-solid fa-chevron-right mr-1.5"></i>
+                </a>
+              <% } %>
+            </div>
+          <% } %>
+        <% } %>
+      </div>
+
+      <!-- Cost Estimator Calculator & Sidebar (Sidebar Column) -->
+      <div class="space-y-8 lg:col-span-1">
+        
+        <!-- Cost Estimator Card -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-6">
+          <div class="flex items-center space-x-3 pb-4 border-b border-slate-100">
+            <div class="w-10 h-10 bg-orange-100 text-brand-orange rounded-xl flex items-center justify-center">
+              <i class="fa-solid fa-calculator text-lg"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900">Moving Cost Calculator</h3>
+              <p class="text-xs text-slate-400">Get instant local & intercity estimates</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label for="calc-bhk" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">House Size (BHK)</label>
+              <select id="calc-bhk" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm text-slate-700 font-semibold bg-slate-50">
+                <option value="1bhk">1 BHK / Studio Apartment</option>
+                <option value="2bhk" selected>2 BHK House / Flat</option>
+                <option value="3bhk">3 BHK Family Flat</option>
+                <option value="4bhk">4 BHK Villa / Penthouse</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="calc-distance" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Transit Distance Range</label>
+              <select id="calc-distance" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm text-slate-700 font-semibold bg-slate-50">
+                <option value="local" selected>Within City Limits (Local Shifting)</option>
+                <option value="50-150">50 - 150 km (Short Route)</option>
+                <option value="150-350">150 - 350 km (Mid Distance)</option>
+                <option value="350-750">350 - 750 km (Inter-state)</option>
+                <option value="750+">750+ km (Long Distance)</option>
+              </select>
+            </div>
+
+            <div class="bg-orange-50 border border-orange-100 p-4 rounded-2xl text-center space-y-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-brand-orange">Estimated Rate Range</span>
+              <div id="calc-result" class="text-xl font-black text-slate-800">₹ 6,500 - ₹ 11,500</div>
+              <p class="text-[10px] text-slate-400">Inclusive of transport, labor, and basic packaging.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Call to Action Box -->
+        <div class="bg-gradient-to-br from-indigo-950 to-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl relative overflow-hidden group">
+          <div class="absolute -right-16 -bottom-16 w-36 h-36 rounded-full bg-brand-orange/20 blur-xl pointer-events-none group-hover:scale-110 transition-transform"></div>
+          <div class="relative z-10 space-y-4">
+            <span class="bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">Quick Relocation</span>
+            <h3 class="text-lg font-extrabold leading-tight">National Packers Shifting Support</h3>
+            <p class="text-slate-300 text-xs leading-relaxed">
+              Book India's top relocation network directly. Secure pricing, premium transit protection, and damage guarantees.
+            </p>
+            <div class="pt-2 flex flex-col gap-2">
+              <a href="#" data-vendor-id="0" data-vendor-name="National Packers & Movers" class="open-quote-btn bg-brand-orange hover:bg-orange-600 text-white font-bold py-2.5 rounded-xl text-center shadow-lg shadow-orange-500/10 active:scale-95 transition-all text-xs">
+                Request Quick Callback
+              </a>
+              <a href="tel:+919835168368" class="border border-slate-700 hover:border-slate-600 bg-slate-800/80 text-white font-bold py-2.5 rounded-xl text-center active:scale-95 transition-all text-xs flex items-center justify-center">
+                <i class="fa-solid fa-phone mr-1.5 text-brand-orange"></i> Call +91 98351 68368
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Latest Blog Posts (Phase 4) -->
+        <% if (sidebarBlogs && sidebarBlogs.length > 0) { %>
+          <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+            <h3 class="font-bold text-sm text-slate-800 uppercase tracking-wider pb-2 border-b border-slate-100">Shifting Guides</h3>
+            <div class="space-y-4">
+              <% sidebarBlogs.forEach(blog => { %>
+                <a href="/blog/<%= blog.slug %>" class="flex items-start space-x-3 group">
+                  <% if (blog.cover_image_url) { %>
+                    <img src="<%= blog.cover_image_url %>" alt="<%= blog.title %>" class="w-16 h-12 object-cover rounded-lg shrink-0 border border-slate-200">
+                  <% } %>
+                  <div>
+                    <h4 class="text-xs font-bold text-slate-700 group-hover:text-brand-orange transition-colors line-clamp-2 leading-snug"><%= blog.title %></h4>
+                  </div>
+                </a>
+              <% }) %>
+            </div>
+          </div>
+        <% } %>
+
+        <!-- Sidebar City Gallery (Phase 7) -->
+        <% if (cityGallery && cityGallery.length > 0) { %>
+          <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+            <h3 class="font-bold text-sm text-slate-800 uppercase tracking-wider pb-2 border-b border-slate-100">Local Area Operations</h3>
+            <div class="grid grid-cols-3 gap-2">
+              <% cityGallery.forEach(img => { %>
+                <div class="aspect-square rounded-lg overflow-hidden border border-slate-200 cursor-pointer">
+                  <img src="<%= img.image_url %>" alt="<%= img.caption || 'City Gallery' %>" class="gallery-thumb w-full h-full object-cover hover:scale-105 transition duration-300" data-full="<%= img.image_url %>" data-caption="<%= img.caption || '' %>">
+                </div>
+              <% }) %>
+            </div>
+          </div>
+        <% } %>
+
+      </div>
+
+    </div>
+
+    <!-- Programmatic SEO Local Insights & Shifting Price Tables (Full Width above Footer) -->
+    <% if (city.seo_text) { %>
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border-y border-r border-l-4 border-l-brand-orange border-slate-200 shadow-[0_4px_20px_rgba(15,23,42,0.05)] mt-8 space-y-4">
+        <h3 class="text-lg font-extrabold text-slate-900 flex items-center border-b border-slate-100 pb-3">
+          <i class="fa-solid fa-circle-info text-brand-orange mr-2.5"></i>
+          <span><%= city.name %> Relocation Insights &amp; Guide</span>
+        </h3>
+        <div class="text-slate-600 text-sm leading-relaxed space-y-3 font-medium">
+          <%- city.seo_text %>
+        </div>
+      </div>
+    <% } %>
+
+    <% if (typeof pricing !== 'undefined' && pricing) { %>
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border-y border-r border-l-4 border-l-emerald-500 border-slate-200 shadow-[0_4px_20px_rgba(15,23,42,0.05)] mt-8 space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h3 class="text-lg font-extrabold text-slate-900 flex items-center">
+            <i class="fa-solid fa-indian-rupee-sign text-emerald-600 mr-2.5"></i>
+            <span>Estimated Shifting Rates in <%= city.name %></span>
+          </h3>
+          <p class="text-xs text-slate-400 font-semibold mt-1">Average market rates based on load size and distance</p>
+        </div>
+
+        <!-- Local Shifting Rates Table -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-slate-700 flex items-center">
+            <i class="fa-solid fa-truck-ramp-box text-brand-orange mr-1.5"></i>
+            <span>Local Shifting Costs (Within <%= city.name %>)</span>
+          </h4>
+          <div class="overflow-x-auto rounded-2xl border border-slate-100">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100">
+                  <th class="p-3.5">Type of Shifting</th>
+                  <th class="p-3.5">Up to 5 KM</th>
+                  <th class="p-3.5">Up to 10 KM</th>
+                  <th class="p-3.5">Up to 30 KM</th>
+                  <th class="p-3.5">Up to 50 KM</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-600 divide-y divide-slate-100 font-medium">
+                <% pricing.local.forEach(row => { %>
+                  <tr class="hover:bg-slate-50/55 transition-colors">
+                    <td class="p-3.5 font-bold text-slate-700"><%= row.type %></td>
+                    <td class="p-3.5"><%= row.d5 %></td>
+                    <td class="p-3.5"><%= row.d10 %></td>
+                    <td class="p-3.5"><%= row.d30 %></td>
+                    <td class="p-3.5"><%= row.d50 %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Domestic Shifting Rates Table -->
+        <div class="space-y-3 pt-2">
+          <h4 class="text-sm font-bold text-slate-700 flex items-center">
+            <i class="fa-solid fa-route text-indigo-600 mr-1.5"></i>
+            <span>Inter-City Domestic Shifting Costs (From <%= city.name %>)</span>
+          </h4>
+          <div class="overflow-x-auto rounded-2xl border border-slate-100">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100">
+                  <th class="p-3.5">Distance Range</th>
+                  <th class="p-3.5">1 BHK Shifting</th>
+                  <th class="p-3.5">2 BHK Shifting</th>
+                  <th class="p-3.5">3 BHK Shifting</th>
+                  <th class="p-3.5">4 BHK Shifting</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-600 divide-y divide-slate-100 font-medium">
+                <% pricing.domestic.forEach(row => { %>
+                  <tr class="hover:bg-slate-50/55 transition-colors">
+                    <td class="p-3.5 font-bold text-slate-700"><%= row.dist %></td>
+                    <td class="p-3.5"><%= row.cost1BHK %></td>
+                    <td class="p-3.5"><%= row.cost2BHK %></td>
+                    <td class="p-3.5"><%= row.cost3BHK %></td>
+                    <td class="p-3.5"><%= row.cost4BHK %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% } %>
+
+    <!-- Collapsible FAQs Section (SEO FAQ page) -->
+    <% if (typeof faqs !== 'undefined' && faqs && faqs.length > 0) { %>
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border-y border-r border-l-4 border-l-indigo-600 border-slate-200 shadow-[0_4px_20px_rgba(15,23,42,0.05)] mt-8 space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h3 class="text-lg font-extrabold text-slate-900 flex items-center">
+            <i class="fa-solid fa-circle-question text-brand-orange mr-2.5"></i>
+            <span>Frequently Asked Questions (FAQs)</span>
+          </h3>
+          <p class="text-xs text-slate-400 font-semibold mt-1">Get answers to the most common queries about shifting in <%= city.name %></p>
+        </div>
+
+        <div class="space-y-3.5">
+          <% faqs.forEach((faq, index) => { %>
+            <details class="group border border-slate-100 rounded-2xl p-4 [&_summary::-webkit-details-marker]:hidden bg-slate-50/30 hover:bg-slate-50/70 transition duration-300">
+              <summary class="flex items-center justify-between cursor-pointer focus:outline-none">
+                <span class="text-sm font-bold text-slate-800 group-open:text-brand-orange transition-colors"><%= faq.q %></span>
+                <span class="ml-1.5 flex-shrink-0 w-6 h-6 bg-white rounded-full flex items-center justify-center border border-slate-100 shadow-sm group-open:rotate-180 transition duration-300">
+                  <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-open:text-brand-orange"></i>
+                </span>
+              </summary>
+              <p class="text-xs text-slate-500 font-medium leading-relaxed mt-3 pt-3 border-t border-slate-100/60 transition-all duration-300">
+                <%= faq.a %>
+              </p>
+            </details>
+          <% }) %>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<!-- Lightbox Modal Element (Phase 7) -->
+<div id="gallery-lightbox" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 items-center justify-center hidden p-4 animate-fade-in">
+  <button id="close-lightbox" class="absolute top-4 right-4 text-white/70 hover:text-white hover:bg-white/10 p-2.5 rounded-full transition-all">
+    <i class="fa-solid fa-xmark text-xl"></i>
+  </button>
+  <div class="max-w-4xl w-full flex flex-col items-center">
+    <img id="lightbox-img" src="" alt="Full resolution view" class="max-h-[80vh] max-w-full object-contain rounded-xl shadow-2xl">
+    <p id="lightbox-caption" class="text-white/90 text-sm font-semibold mt-4 text-center"></p>
+  </div>
+</div>

@@ -1,0 +1,273 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-photo-film" style="color:var(--accent);margin-right:8px;"></i> Media Management Dashboard</h2>
+  <span class="badge"><%= stats.total %> total assets</span>
+</div>
+
+<div class="content">
+  <!-- Upload Wizard Widget -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-title"><i class="fa-solid fa-cloud-arrow-up" style="margin-right:6px;"></i> Upload & Auto-Compress New Asset</div>
+    <form id="media-upload-form">
+      <div class="form-row">
+        <div>
+          <label>Target Category</label>
+          <select id="upload-category" required onchange="toggleUploadFields()">
+            <option value="gallery">Profile Gallery Photo (Optimized: 1000x750)</option>
+            <option value="logo">Company Logo (Square: 300x300)</option>
+            <option value="banner">Company Hero Banner (Widescreen: 1200x400)</option>
+            <option value="blog">Blog Cover Image (Banner: 800x500)</option>
+          </select>
+        </div>
+        <div>
+          <label>Select Image File (Local PC)</label>
+          <input type="file" id="local-file-picker" accept="image/*" required style="padding: 6px 12px;">
+          <!-- Progress bar -->
+          <div id="upload-progress" class="hidden" style="margin-top:8px; background:var(--accent); color:white; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; width:15%; text-align:center; transition:width 0.3s ease;">
+            Compressing...
+          </div>
+        </div>
+      </div>
+
+      <!-- Context Dropdowns -->
+      <div class="form-row" id="vendor-selector-row">
+        <div>
+          <label>Assign to Vendor</label>
+          <select id="upload-vendor">
+            <option value="">Choose Vendor (e.g. National Packers, Competitor)...</option>
+            <% vendors.forEach(v => { %>
+              <option value="<%= v.id %>"><%= v.name %> (<%= v.city_name || 'Global' %>)</option>
+            <% }) %>
+          </select>
+        </div>
+        <div id="city-selector-col">
+          <label>Assign to City (optional for gallery)</label>
+          <select id="upload-city">
+            <option value="">No City (Global / Same for All Cities)</option>
+            <% cities.forEach(c => { %>
+              <option value="<%= c.id %>"><%= c.name %></option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row hidden" id="blog-selector-row">
+        <div>
+          <label>Assign to Blog Post</label>
+          <select id="upload-blog">
+            <option value="">Choose Blog Post...</option>
+            <% blogs.forEach(b => { %>
+              <option value="<%= b.id %>"><%= b.title %></option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" id="caption-row">
+        <div>
+          <label>Gallery Caption / Description (optional)</label>
+          <input type="text" id="upload-caption" placeholder="e.g. Office shifting team, warehouse inventory loader...">
+        </div>
+      </div>
+
+      <input type="hidden" id="uploaded-url-val">
+      <button type="submit" class="btn btn-primary" id="submit-upload-btn" style="margin-top:10px;">
+        <i class="fa-solid fa-plus"></i> Confirm & Map Uploaded Asset
+      </button>
+    </form>
+  </div>
+
+  <!-- Filter & Search Widget -->
+  <form class="search-bar" method="GET" action="/admin/media">
+    <select name="type">
+      <option value="">All Asset Types</option>
+      <option value="gallery" <%= typeFilter === 'gallery' ? 'selected' : '' %>>Gallery Photos</option>
+      <option value="logo" <%= typeFilter === 'logo' ? 'selected' : '' %>>Logos</option>
+      <option value="banner" <%= typeFilter === 'banner' ? 'selected' : '' %>>Hero Banners</option>
+      <option value="blog" <%= typeFilter === 'blog' ? 'selected' : '' %>>Blog Covers</option>
+    </select>
+
+    <select name="city">
+      <option value="">All Cities</option>
+      <% cities.forEach(c => { %>
+        <option value="<%= c.slug %>" <%= cityFilter === c.slug ? 'selected' : '' %>><%= c.name %></option>
+      <% }) %>
+    </select>
+
+    <input type="text" name="search" value="<%= search %>" placeholder="Search caption or vendor...">
+    <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-filter"></i> Filter</button>
+    <a href="/admin/media" class="btn btn-secondary btn-sm">Clear</a>
+  </form>
+
+  <!-- Media Library Grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;">
+    <% if (mediaItems.length === 0) { %>
+      <div class="card" style="grid-column:1/-1;text-align:center;padding:50px;color:var(--muted);">
+        <i class="fa-solid fa-images" style="font-size:36px;margin-bottom:12px;display:block;opacity:0.6;"></i>
+        No images found matching your search. Upload dynamic compressed WebPs above.
+      </div>
+    <% } else { %>
+      <% mediaItems.forEach(item => { %>
+        <div class="card" style="padding:14px; position:relative; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="position:absolute; top:8px; right:8px; z-index:10;">
+              <span class="badge" style="background-color: var(--accent); color: white; font-size:10px; font-weight:800; text-transform:uppercase;">
+                <%= item.type %>
+              </span>
+            </div>
+            
+            <img src="<%= item.image_url %>" alt="<%= item.caption || item.type %>"
+              style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:8px;"
+              onerror="this.src='https://via.placeholder.com/250x150?text=Invalid+Image+URL'">
+            
+            <div style="font-size:13px; font-weight:700; color:var(--text-color); margin-top:4px;">
+              <%= item.caption || 'Untitled Asset' %>
+            </div>
+
+            <div style="font-size:11px; color:var(--muted); margin-top:4px; line-height:1.4;">
+              <% if (item.vendor_name) { %>
+                <div><i class="fa-solid fa-building" style="margin-right:6px;width:12px;"></i><%= item.vendor_name %></div>
+              <% } %>
+              <% if (item.city_name) { %>
+                <div><i class="fa-solid fa-map-location-dot" style="margin-right:6px;width:12px;"></i><%= item.city_name %></div>
+              <% } %>
+              <% if (item.blog_title) { %>
+                <div><i class="fa-solid fa-newspaper" style="margin-right:6px;width:12px;"></i>Blog: <%= item.blog_title %></div>
+              <% } %>
+            </div>
+          </div>
+
+          <button onclick="purgeMedia('<%= item.type %>', '<%= item.id %>', '<%= item.vendor_id || '' %>', '<%= item.blog_id || '' %>')" 
+                  class="btn btn-danger btn-sm" 
+                  style="margin-top:12px; width:100%; font-weight:700;">
+            <i class="fa-solid fa-trash-can"></i> Delete Asset
+          </button>
+        </div>
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+
+<script src="/admin/js/compressor.js"></script>
+<script>
+  // Dynamic fields toggle based on upload type
+  function toggleUploadFields() {
+    const cat = document.getElementById('upload-category').value;
+    const vendorRow = document.getElementById('vendor-selector-row');
+    const blogRow = document.getElementById('blog-selector-row');
+    const captionRow = document.getElementById('caption-row');
+    const cityCol = document.getElementById('city-selector-col');
+
+    if (cat === 'blog') {
+      vendorRow.classList.add('hidden');
+      blogRow.classList.remove('hidden');
+      captionRow.classList.add('hidden');
+    } else {
+      vendorRow.classList.remove('hidden');
+      blogRow.classList.add('hidden');
+      captionRow.classList.remove('hidden');
+
+      if (cat === 'logo' || cat === 'banner') {
+        cityCol.classList.add('hidden');
+        captionRow.classList.add('hidden');
+      } else {
+        cityCol.classList.remove('hidden');
+        captionRow.classList.remove('hidden');
+      }
+    }
+  }
+
+  // Bind local file input picker to compression logic
+  document.getElementById('local-file-picker').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const cat = document.getElementById('upload-category').value;
+    const progress = document.getElementById('upload-progress');
+    const submitBtn = document.getElementById('submit-upload-btn');
+
+    submitBtn.disabled = true;
+
+    window.compressAndUpload(
+      file,
+      { category: cat },
+      // onStart
+      () => {
+        progress.classList.remove('hidden');
+        progress.style.width = '20%';
+        progress.textContent = 'Compressing to WebP...';
+      },
+      // onProgress
+      (percent) => {
+        progress.style.width = percent + '%';
+        if (percent === 100) {
+          progress.textContent = 'Compress & Upload Success!';
+        } else {
+          progress.textContent = 'Uploading...';
+        }
+      },
+      // onSuccess
+      (url) => {
+        document.getElementById('uploaded-url-val').value = url;
+        submitBtn.disabled = false;
+        showToast('Image uploaded successfully!');
+        setTimeout(() => progress.classList.add('hidden'), 3000);
+      },
+      // onError
+      (err) => {
+        alert('Compression / Upload Error: ' + err);
+        submitBtn.disabled = false;
+        progress.classList.add('hidden');
+      }
+    );
+  });
+
+  // Handle Form mapping submission
+  document.getElementById('media-upload-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const cat = document.getElementById('upload-category').value;
+    const url = document.getElementById('uploaded-url-val').value;
+
+    if (!url) {
+      alert('Please wait for the image upload process to complete.');
+      return;
+    }
+
+    const vendorId = document.getElementById('upload-vendor').value;
+    const cityId = document.getElementById('upload-city').value;
+    const blogId = document.getElementById('upload-blog').value;
+    const caption = document.getElementById('upload-caption').value;
+
+    const data = {
+      type: cat,
+      image_url: url,
+      vendor_id: vendorId ? parseInt(vendorId) : null,
+      city_id: (cat === 'gallery' && cityId) ? parseInt(cityId) : null,
+      blog_id: blogId ? parseInt(blogId) : null,
+      caption: caption
+    };
+
+    const result = await adminPost('/admin/media/save', data);
+    if (result.success) {
+      showToast('Asset mapped successfully.');
+      setTimeout(() => location.reload(), 700);
+    } else {
+      showToast(result.message, 'error');
+    }
+  });
+
+  // Purge/Delete Media handler
+  async function purgeMedia(type, id, vendorId, blogId) {
+    if (!confirm(`Are you sure you want to delete this ${type}?`)) return;
+    
+    const result = await adminPost('/admin/media/delete', { type, id, vendorId, blogId });
+    if (result.success) {
+      showToast('Asset deleted successfully.');
+      setTimeout(() => location.reload(), 700);
+    } else {
+      showToast(result.message, 'error');
+    }
+  }
+
+  // Initialize view states
+  toggleUploadFields();
+</script>

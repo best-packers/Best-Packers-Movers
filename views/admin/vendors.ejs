@@ -1,0 +1,247 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-building" style="color:var(--accent);margin-right:8px;"></i> Vendor Manager</h2>
+  <span class="badge"><%= vendors.length %> vendors</span>
+</div>
+<div class="content">
+  <!-- Search & Filter -->
+  <form class="search-bar" method="GET" action="/admin/vendors">
+    <input type="text" name="search" value="<%= search %>" placeholder="Search vendor name...">
+    <select name="city">
+      <option value="">All Cities</option>
+      <% cities.forEach(c => { %>
+        <option value="<%= c.slug %>" <%= cityFilter === c.slug ? 'selected' : '' %>><%= c.name %></option>
+      <% }) %>
+    </select>
+    <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-magnifying-glass"></i> Filter</button>
+    <a href="/admin/vendors" class="btn btn-secondary btn-sm">Clear</a>
+  </form>
+
+  <div class="card">
+    <div class="card-title">All Vendor Listings</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Company Name</th>
+            <th>City / State</th>
+            <th>Status</th>
+            <th>Rating</th>
+            <th>Logo</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (vendors.length === 0) { %>
+            <tr><td colspan="7" style="text-align:center;color:#64748b;padding:30px;">No vendors found.</td></tr>
+          <% } else { %>
+            <% vendors.forEach((v, i) => { %>
+              <tr>
+                <td style="color:var(--muted)"><%= i + 1 %></td>
+                <td>
+                  <div style="font-weight:700;font-size:13px;"><%= v.name %></div>
+                  <div style="font-size:11px;color:var(--muted)"><a href="/<%= v.city_slug %>/<%= v.slug %>" target="_blank" style="color:var(--accent)">View Profile</a></div>
+                </td>
+                <td><%= v.city_name %>, <span style="color:var(--muted)"><%= v.state_name %></span></td>
+                <td>
+                  <% if (v.status === 'verified') { %>
+                    <span class="badge-success">Verified</span>
+                  <% } else { %>
+                    <span class="badge-warning">Unclaimed</span>
+                  <% } %>
+                </td>
+                <td><span style="color:#fbbf24;font-weight:700;"><%= v.rating %> ★</span> <span style="color:var(--muted);font-size:11px;">(<%= v.reviews_count %>)</span></td>
+                <td>
+                  <% if (v.logo_url) { %>
+                    <img src="<%= v.logo_url %>" style="width:32px;height:32px;object-fit:cover;border-radius:6px;border:1px solid var(--border);">
+                  <% } else { %>
+                    <span style="color:var(--muted);font-size:11px;">None</span>
+                  <% } %>
+                </td>
+                <td>
+                  <button onclick="openVendorEdit(<%= JSON.stringify(v) %>)" class="btn btn-secondary btn-sm">
+                    <i class="fa-solid fa-pen"></i> Edit
+                  </button>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Vendor Edit Modal -->
+<div id="vendor-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h3 style="font-size:16px;font-weight:700;"><i class="fa-solid fa-pen" style="color:var(--accent);margin-right:8px;"></i> Edit Vendor: <span id="edit-vendor-name"></span></h3>
+      <button onclick="closeVendorModal()" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="vendor-form">
+      <input type="hidden" id="edit-vendor-id">
+      <div class="form-row">
+        <div>
+          <label>Company Name</label>
+          <input type="text" id="edit-name" required placeholder="e.g. Agarwal Packers & Movers">
+        </div>
+        <div>
+          <label>Phone Number</label>
+          <input type="text" id="edit-phone" placeholder="+91 98765 43210">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>Website URL (Outbound Link)</label>
+          <input type="text" id="edit-website" placeholder="https://companywebsite.com">
+        </div>
+        <div>
+          <label>Google Business Profile Rank</label>
+          <input type="number" id="edit-rank" placeholder="0" min="0">
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div>
+          <label>Physical Address</label>
+          <input type="text" id="edit-address" placeholder="Plot No. 12, Industrial Area...">
+        </div>
+      </div>
+
+      <div class="form-row single" style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);padding:12px;border-radius:10px;margin-bottom:12px;">
+        <label style="display:flex;align-items:center;cursor:pointer;margin:0;font-weight:700;color:var(--text);">
+          <input type="checkbox" id="edit-dofollow" style="width:18px;height:18px;margin-right:10px;">
+          <span>Pass SEO Link Juice (Dofollow Outbound Link)</span>
+        </label>
+        <p style="font-size:10px;color:var(--muted);margin-top:4px;margin-left:28px;">If checked, search engines will follow this website link. Unchecked = Nofollow (safeguards your directory authority).</p>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label>Logo URL (auto-populates on upload)</label>
+          <input type="text" id="edit-logo-url" placeholder="https://...">
+        </div>
+        <div>
+          <label>Upload Local Logo (WebP Square)</label>
+          <input type="file" id="local-logo-file" accept="image/*" style="padding: 5px 10px;">
+          <div id="logo-progress" class="hidden" style="margin-top:6px; background:var(--accent); color:white; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; width:65%; text-align:center;">
+            Compressing...
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Banner URL (auto-populates on upload)</label>
+          <input type="text" id="edit-banner-url" placeholder="https://...">
+        </div>
+        <div>
+          <label>Upload Local Banner (WebP Landscape)</label>
+          <input type="file" id="local-banner-file" accept="image/*" style="padding: 5px 10px;">
+          <div id="banner-progress" class="hidden" style="margin-top:6px; background:var(--accent); color:white; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:700; width:65%; text-align:center;">
+            Compressing...
+          </div>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div>
+          <label>About the Company</label>
+          <textarea id="edit-about" rows="4" placeholder="Describe this company..."></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Year Founded</label>
+          <input type="number" id="edit-year" placeholder="e.g. 2010" min="1900" max="2026">
+        </div>
+        <div>
+          <label>Status</label>
+          <select id="edit-status">
+            <option value="unclaimed">Unclaimed</option>
+            <option value="verified">Verified</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div>
+          <label>Services (comma-separated)</label>
+          <input type="text" id="edit-services" placeholder="Household Shifting, Office Relocation...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Working Hours</label>
+          <input type="text" id="edit-timings" placeholder="9:00 AM - 8:00 PM">
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:4px;">
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Changes</button>
+        <button type="button" onclick="closeVendorModal()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openVendorEdit(v) {
+    document.getElementById('edit-vendor-name').textContent = v.name;
+    document.getElementById('edit-vendor-id').value = v.id;
+    document.getElementById('edit-name').value = v.name || '';
+    document.getElementById('edit-phone').value = v.phone || '';
+    document.getElementById('edit-website').value = v.website || '';
+    document.getElementById('edit-address').value = v.address || '';
+    document.getElementById('edit-rank').value = v.google_rank || 0;
+    document.getElementById('edit-dofollow').checked = !!v.is_dofollow;
+    document.getElementById('edit-logo-url').value = v.logo_url || '';
+    document.getElementById('edit-banner-url').value = v.banner_url || '';
+    document.getElementById('edit-about').value = v.about_text || '';
+    document.getElementById('edit-year').value = v.year_founded || '';
+    document.getElementById('edit-status').value = v.status || 'unclaimed';
+    document.getElementById('edit-services').value = v.services || '';
+    document.getElementById('edit-timings').value = v.timings || '9:00 AM - 8:00 PM';
+    const modal = document.getElementById('vendor-modal');
+    modal.style.display = 'flex';
+  }
+
+  function closeVendorModal() {
+    document.getElementById('vendor-modal').style.display = 'none';
+  }
+
+  document.getElementById('vendor-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('edit-vendor-id').value;
+    const data = {
+      name: document.getElementById('edit-name').value,
+      phone: document.getElementById('edit-phone').value,
+      website: document.getElementById('edit-website').value,
+      address: document.getElementById('edit-address').value,
+      google_rank: document.getElementById('edit-rank').value,
+      is_dofollow: document.getElementById('edit-dofollow').checked,
+      logo_url: document.getElementById('edit-logo-url').value,
+      banner_url: document.getElementById('edit-banner-url').value,
+      about_text: document.getElementById('edit-about').value,
+      year_founded: document.getElementById('edit-year').value,
+      status: document.getElementById('edit-status').value,
+      services: document.getElementById('edit-services').value,
+      timings: document.getElementById('edit-timings').value
+    };
+    const result = await adminPost(`/admin/vendors/${id}`, data);
+    if (result.success) {
+      showToast('Vendor updated successfully!');
+      closeVendorModal();
+      setTimeout(() => location.reload(), 800);
+    } else {
+      showToast(result.message, 'error');
+    }
+  });
+</script>
+
+<script src="/admin/js/compressor.js"></script>
+<script>
+  // Bind logo input picker to logo quality compression constraints
+  window.setupImageUpload('local-logo-file', 'edit-logo-url', null, 'logo-progress', 'logo');
+  
+  // Bind banner input picker to wide landscape quality compression constraints
+  window.setupImageUpload('local-banner-file', 'edit-banner-url', null, 'banner-progress', 'banner');
+</script>

@@ -1,0 +1,75 @@
+<div class="topbar">
+  <h2><i class="fa-solid fa-users-viewfinder" style="color:var(--accent);margin-right:8px;"></i> User Logins &amp; Activity Logs</h2>
+  <span class="badge"><%= users.length %> verified numbers collected</span>
+</div>
+
+<div class="content">
+
+  <!-- Users Table Card -->
+  <div class="card">
+    <div class="card-title">Verified Customer Contacts &amp; Locations</div>
+    
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Phone Number</th>
+            <th>Location Details (IP / GPS)</th>
+            <th>Precision Locality</th>
+            <th>IP Address &amp; Device</th>
+            <th>Login Date</th>
+            <th style="text-align:right;">Actions Log</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (users.length === 0) { %>
+            <tr>
+              <td colspan="6" style="text-align:center;color:#64748b;padding:24px;">
+                No user contacts collected yet. When visitors verify their phone numbers to call/visit websites, they will appear here.
+              </td>
+            </tr>
+          <% } else { %>
+            <% users.forEach(user => { %>
+              <tr>
+                <td>
+                  <span style="font-weight:800;color:var(--accent);font-size:14px;"><%= user.phone %></span>
+                </td>
+                <td>
+                  <div style="font-weight:600;font-size:12px;">
+                    <%= user.city || 'Unknown City' %>, <%= user.state || 'Unknown State' %>
+                  </div>
+                </td>
+                <td>
+                  <% if (user.locality) { %>
+                    <span class="badge green" style="font-size:10px;"><i class="fa-solid fa-location-crosshairs mr-1"></i> <%= user.locality %></span>
+                  <% } else { %>
+                    <span style="font-size:11px;color:var(--muted);">IP Geo Level Only</span>
+                  <% } %>
+                </td>
+                <td>
+                  <div style="font-family:monospace;font-size:11px;color:var(--muted);"><%= user.ip_address %></div>
+                  <div style="font-size:10px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-top:2px;">
+                    <% if (user.device_type === 'Mobile') { %>
+                      <i class="fa-solid fa-mobile-screen-button text-success"></i> Mobile
+                    <% } else { %>
+                      <i class="fa-solid fa-desktop text-accent2"></i> Desktop
+                    <% } %>
+                  </div>
+                </td>
+                <td style="font-size:11px;color:var(--muted);white-space:nowrap;">
+                  <%= new Date(user.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) %>
+                </td>
+                <td style="text-align:right;">
+                  <a href="/admin/users/<%= user.id %>" class="btn btn-secondary" style="font-size:11px;padding:6px 12px;">
+                    <i class="fa-solid fa-eye"></i> View Path (<%= user.action_count || 0 %> clicks)
+                  </a>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

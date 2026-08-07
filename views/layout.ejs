@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof metaTitle !== 'undefined' ? metaTitle : 'Best Packers and Movers - Relocation Directory' %></title>
+  <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : 'Compare and book the top-rated local and national shifting companies in India.' %>">
+  <meta name="keywords" content="<%= typeof metaKeywords !== 'undefined' ? metaKeywords : 'packers and movers, relocation services india' %>">
+  <meta name="robots" content="index, follow">
+
+  <!-- Canonical URL -->
+  <% if (typeof canonicalUrl !== 'undefined' && canonicalUrl) { %>
+    <link rel="canonical" href="<%= canonicalUrl %>">
+  <% } %>
+
+  <!-- Structured JSON-LD Schema Markup -->
+  <%- typeof schemaMarkup !== 'undefined' ? schemaMarkup : '' %>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= typeof metaTitle !== 'undefined' ? metaTitle : 'Best Packers and Movers - Relocation Directory' %>">
+  <meta property="og:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : 'Compare and book the top-rated local and national shifting companies in India.' %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= typeof canonicalUrl !== 'undefined' ? canonicalUrl : '' %>">
+  <meta property="og:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '' %>">
+  <meta property="og:site_name" content="BestPackersMovers">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= typeof metaTitle !== 'undefined' ? metaTitle : 'Best Packers and Movers' %>">
+  <meta name="twitter:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : 'Compare and book the top-rated shifting companies in India.' %>">
+  <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '' %>">
+
+  <!-- Font Imports -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icon Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col antialiased">
+
+  <!-- Premium Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <!-- Logo -->
+        <a href="/" class="flex items-center space-x-3 group shrink-0">
+          <div class="w-10 h-10 bg-brand-orange text-white rounded-xl flex items-center justify-center font-bold shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform duration-200">
+            <i class="fa-solid fa-truck-ramp-box text-lg"></i>
+          </div>
+          <span class="text-xl font-extrabold tracking-tight text-brand-dark">Best<span class="text-brand-orange">Packers</span>Movers</span>
+        </a>
+
+        <!-- Justdial-style Double Search Bar in Header -->
+        <div class="hidden lg:flex items-center space-x-1.5 bg-slate-100 border border-slate-200 rounded-xl p-1 max-w-xl w-full mx-6 relative">
+          <!-- Location Dropdown Selector -->
+          <div class="relative shrink-0">
+            <button id="header-loc-btn" type="button" class="flex items-center px-3 py-2 bg-white rounded-lg w-44 border border-slate-200/50 shadow-sm text-left hover:border-brand-orange transition duration-150">
+              <i class="fa-solid fa-location-dot text-brand-orange text-xs mr-2"></i>
+              <span id="header-loc-label" class="text-xs font-bold text-slate-700 truncate flex-grow">
+                <%= typeof city !== 'undefined' ? city.name : 'Detecting location...' %>
+              </span>
+              <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
+            </button>
+
+            <!-- Location Dropdown List -->
+            <div id="header-loc-dropdown" class="absolute left-0 mt-2 w-64 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 py-2 hidden animate-scale-up max-h-60 overflow-y-auto">
+              <button type="button" class="w-full text-left px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-orange-50 hover:text-brand-orange transition flex items-center" onclick="detectUserLocation(true)">
+                <i class="fa-solid fa-location-crosshairs mr-2 text-brand-orange"></i> Auto-detect Location
+              </button>
+              <div class="border-t border-slate-100 my-1"></div>
+              <div id="header-city-list" class="space-y-0.5 max-h-48 overflow-y-auto">
+                <!-- Dynamically populated in js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Search Input -->
+          <div class="flex items-center px-3 py-2 flex-grow relative">
+            <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs mr-2"></i>
+            <input type="text" id="header-search-input" autocomplete="off" placeholder="Search packers &amp; movers in your city..." class="text-xs font-semibold text-slate-600 bg-transparent focus:outline-none w-full">
+
+            <!-- Autocomplete suggestions dropdown -->
+            <div id="header-search-dropdown" class="absolute left-0 right-0 top-full mt-2 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 py-2 hidden animate-scale-up max-h-72 overflow-y-auto">
+              <div id="header-search-suggestions" class="space-y-0.5">
+                <!-- Dynamically populated in js -->
+              </div>
+            </div>
+          </div>
+
+          <button id="header-search-btn" type="button" class="bg-brand-orange hover:bg-orange-600 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition shrink-0">
+            Search
+          </button>
+        </div>
+
+        <!-- Navigation Links & CTA -->
+        <div class="flex items-center space-x-4">
+          <nav class="hidden md:flex space-x-6 text-sm font-semibold mr-2 items-center">
+            <a href="/" class="text-slate-600 hover:text-brand-orange transition-colors">Home</a>
+            <a href="/blog" class="text-slate-600 hover:text-brand-orange transition-colors">Blog</a>
+            <% if (typeof userPhone !== 'undefined' && userPhone) { %>
+              <a href="/logout" class="text-rose-600 hover:text-rose-700 transition-colors font-bold flex items-center gap-1"><i class="fa-solid fa-right-from-bracket text-xs"></i> Logout</a>
+            <% } else { %>
+              <button type="button" onclick="openOtpModal()" class="text-indigo-600 hover:text-indigo-700 transition-colors font-bold flex items-center gap-1"><i class="fa-solid fa-lock text-xs"></i> Login</button>
+            <% } %>
+          </nav>
+          <a href="#" data-vendor-id="0" data-vendor-name="National Packers & Movers (Pan-India)" class="open-quote-btn bg-brand-orange hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md shadow-orange-500/20 hover:shadow-orange-600/30 transform hover:-translate-y-0.5 active:translate-y-0 transition duration-150 text-sm">
+            Get Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main class="flex-grow">
+    <%- body %>
+  </main>
+
+  <!-- Quote capture modal -->
+  <div id="quote-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 items-center justify-center hidden p-4 animate-fade-in">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100 transform scale-100 transition-transform duration-300">
+      <button id="close-quote-btn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 hover:bg-slate-100 p-2 rounded-full transition-all">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 bg-orange-100 text-brand-orange rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fa-solid fa-file-invoice text-xl"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900">Get Free Shifting Quote</h3>
+        <p class="text-slate-500 text-sm mt-1">Requesting pricing details for: <span id="quote-vendor-name" class="font-semibold text-brand-orange">National Packers & Movers</span></p>
+      </div>
+
+      <form id="quote-form" class="space-y-4">
+        <input type="hidden" id="quote-vendor-id" value="0">
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="quote-from" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Moving From</label>
+            <input type="text" id="quote-from" required placeholder="e.g. Lucknow" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm">
+          </div>
+          <div>
+            <label for="quote-to" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Moving To</label>
+            <input type="text" id="quote-to" required placeholder="e.g. Kolkata" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm">
+          </div>
+        </div>
+
+        <div>
+          <label for="quote-date" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Moving Date</label>
+          <input type="date" id="quote-date" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm text-slate-700">
+        </div>
+
+        <div>
+          <label for="quote-phone" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">WhatsApp / Phone Number</label>
+          <div class="relative">
+            <span class="absolute left-4 top-3.5 text-slate-400 font-semibold text-sm">+91</span>
+            <input type="tel" id="quote-phone" required pattern="[0-9]{10}" placeholder="9876543210" class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-600/30 transform hover:-translate-y-0.5 active:translate-y-0 transition duration-150 text-sm mt-2">
+          Calculate My Rate & Connect
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Premium Footer -->
+  <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div class="col-span-1 md:col-span-2 space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold">
+              <i class="fa-solid fa-truck-ramp-box text-sm"></i>
+            </div>
+            <span class="text-lg font-extrabold tracking-tight text-white">Best<span class="text-brand-orange">Packers</span>Movers</span>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+            We analyze, audit, and rank local logistics and relocation specialists across India to connect residential and business shippers with verified, reputable movers.
+          </p>
+          <div class="space-y-2 text-sm">
+            <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Powered By</p>
+            <a href="https://www.thenationalpackersmovers.com/" target="_blank" rel="noopener" class="text-white font-bold hover:text-brand-orange transition-colors flex items-center">
+              <i class="fa-solid fa-shield-halved text-brand-orange mr-2"></i>
+              National Packers & Movers
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Serviced Regions</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="/state/uttar-pradesh" class="hover:text-white transition-colors">Uttar Pradesh</a></li>
+            <li><a href="/state/west-bengal" class="hover:text-white transition-colors">West Bengal</a></li>
+            <li><a href="/state/jharkhand" class="hover:text-white transition-colors">Jharkhand</a></li>
+            <li><a href="/state/bihar" class="hover:text-white transition-colors">Bihar</a></li>
+            <li><a href="/state/madhya-pradesh" class="hover:text-white transition-colors">Madhya Pradesh</a></li>
+            <li><a href="/state/andhra-pradesh" class="hover:text-white transition-colors">Andhra Pradesh</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="/" class="hover:text-white transition-colors">Find Local Movers</a></li>
+            <li><a href="/blog" class="hover:text-white transition-colors">Shifting Tips Blog</a></li>
+            <li><a href="https://www.thenationalpackersmovers.com/" target="_blank" rel="noopener" class="hover:text-white transition-colors">National Packers Website</a></li>
+            <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Privacy & Terms</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs">
+        <p>&copy; <%= typeof currentYear !== 'undefined' ? currentYear : new Date().getFullYear() %> BestPackersMovers Directory Network. All rights reserved.</p>
+        <p class="mt-2 sm:mt-0">
+          <a href="/sitemap.xml" class="hover:text-white transition-colors mr-4">Sitemap</a>
+          <a href="/robots.txt" class="hover:text-white transition-colors">Robots.txt</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/919835168368?text=Hello!%20I%20would%20like%20to%20get%20a%20free%20shifting%20quote." target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center shadow-xl shadow-green-500/30 hover:scale-110 transition-all duration-200" aria-label="Chat on WhatsApp" id="whatsapp-float-btn">
+    <i class="fa-brands fa-whatsapp text-2xl"></i>
+  </a>
+
+  <!-- Global Phone OTP Login Modal Gate -->
+  <div id="otp-auth-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-sm w-full relative shadow-2xl">
+      <button onclick="closeOtpModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      
+      <div class="text-center space-y-3 mb-6">
+        <div class="w-12 h-12 bg-orange-500/10 text-brand-orange rounded-2xl flex items-center justify-center mx-auto text-xl shadow-inner">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Phone Verification Required</h3>
+        <p class="text-xs text-slate-400">Please verify your mobile number to proceed with call clicks, website redirects, or reviews.</p>
+      </div>
+
+      <!-- Step 1: Input Phone Number -->
+      <form id="otp-send-form" class="space-y-4" onsubmit="handleSendOtp(event)">
+        <div>
+          <label for="otp-phone" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Mobile Number</label>
+          <div class="relative">
+            <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">+91</span>
+            <input type="tel" id="otp-phone" required pattern="[0-9]{10}" placeholder="9876543210" style="background-color: #020617 !important; color: #ffffff !important; border: 1px solid #1e293b !important;" class="w-full pl-12 pr-4 py-2.5 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-brand-orange transition">
+          </div>
+        </div>
+        <button type="submit" id="otp-send-btn" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-2.5 rounded-xl text-xs shadow-lg shadow-orange-500/10 transition-all">
+          Send Verification Code (OTP)
+        </button>
+      </form>
+
+      <!-- Step 2: Input Verification Code -->
+      <form id="otp-verify-form" class="space-y-4 hidden" onsubmit="handleVerifyOtp(event)">
+        <div>
+          <label for="otp-code" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Enter 6-Digit OTP</label>
+          <input type="text" id="otp-code" required pattern="[0-9]{6}" placeholder="123456" style="background-color: #020617 !important; color: #ffffff !important; border: 1px solid #1e293b !important;" class="w-full px-4 py-2.5 rounded-xl text-center text-sm font-mono font-bold tracking-widest focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-brand-orange transition">
+        </div>
+        
+        <!-- Locality GPS coordinates placeholder (hidden) -->
+        <input type="hidden" id="gps-latitude" value="">
+        <input type="hidden" id="gps-longitude" value="">
+        <input type="hidden" id="gps-locality" value="">
+
+        <button type="submit" id="otp-verify-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs shadow-lg shadow-emerald-600/10 transition-all">
+          Verify &amp; Continue
+        </button>
+        <button type="button" onclick="resetOtpFlow()" class="w-full text-slate-400 hover:text-white text-xs font-semibold pt-1">
+          Back / Change Number
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script Integration -->
+  <script src="/js/main.js"></script>
+
+  <script>
+    // Global User State variables
+    window.isUserLoggedIn = <%= (typeof userPhone !== 'undefined' && userPhone) ? 'true' : 'false' %>;
+    window.userPhone = "<%= (typeof userPhone !== 'undefined' && userPhone) ? userPhone : '' %>";
+    let pendingAction = null; // Callback stored when modal interrupts user action
+
+    function triggerOtpGate(callback) {
+      if (window.isUserLoggedIn) {
+        callback();
+      } else {
+        pendingAction = callback;
+        openOtpModal();
+      }
+    }
+
+    function openOtpModal() {
+      document.getElementById('otp-auth-modal').classList.remove('hidden');
+      document.getElementById('otp-auth-modal').classList.add('flex');
+      
+      // Request location coordinates proactively to resolve precision locality
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          document.getElementById('gps-latitude').value = lat;
+          document.getElementById('gps-longitude').value = lon;
+          try {
+            const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`);
+            const geoData = await geoRes.json();
+            if (geoData && geoData.address) {
+              const locality = geoData.address.suburb || geoData.address.neighbourhood || geoData.address.residential || geoData.address.village || geoData.address.road || '';
+              document.getElementById('gps-locality').value = locality;
+            }
+          } catch(e) {}
+        }, (err) => {
+          console.log('Location access denied or timed out.');
+        });
+      }
+    }
+
+    function closeOtpModal() {
+      document.getElementById('otp-auth-modal').classList.remove('flex');
+      document.getElementById('otp-auth-modal').classList.add('hidden');
+      resetOtpFlow();
+    }
+
+    function resetOtpFlow() {
+      document.getElementById('otp-send-form').classList.remove('hidden');
+      document.getElementById('otp-verify-form').classList.add('hidden');
+      document.getElementById('otp-code').value = '';
+    }
+
+    async function handleSendOtp(e) {
+      e.preventDefault();
+      const phone = document.getElementById('otp-phone').value.trim();
+      const btn = document.getElementById('otp-send-btn');
+      
+      btn.disabled = true;
+      btn.innerText = 'Sending OTP...';
+
+      try {
+        const res = await fetch('/api/otp/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone })
+        });
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerText = 'Send Verification Code (OTP)';
+
+        if (data.success) {
+          // Switch view
+          document.getElementById('otp-send-form').classList.add('hidden');
+          document.getElementById('otp-verify-form').classList.remove('hidden');
+          
+          // Sandbox alert to user for testing
+          if (data.otpSandboxValue) {
+            alert(`[TEST MODE] OTP code generated: ${data.otpSandboxValue}`);
+          }
+        } else {
+          alert(data.message || 'Error sending OTP.');
+        }
+      } catch(err) {
+        btn.disabled = false;
+        btn.innerText = 'Send Verification Code (OTP)';
+        alert('Network error sending OTP.');
+      }
+    }
+
+    async function handleVerifyOtp(e) {
+      e.preventDefault();
+      const phone = document.getElementById('otp-phone').value.trim();
+      const code = document.getElementById('otp-code').value.trim();
+      const gps_locality = document.getElementById('gps-locality').value;
+      const btn = document.getElementById('otp-verify-btn');
+
+      btn.disabled = true;
+      btn.innerText = 'Verifying...';
+
+      try {
+        const res = await fetch('/api/otp/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone, code, gps_locality })
+        });
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerText = 'Verify & Continue';
+
+        if (data.success) {
+          window.isUserLoggedIn = true;
+          window.userPhone = phone;
+          closeOtpModal();
+          
+          // Run the pending callback action
+          if (pendingAction) {
+            pendingAction();
+            pendingAction = null;
+          } else {
+            // Reload page to reflect authenticated state (Logout button) immediately
+            location.reload();
+          }
+        } else {
+          alert(data.message || 'Invalid code.');
+        }
+      } catch(err) {
+        btn.disabled = false;
+        btn.innerText = 'Verify & Continue';
+        alert('Network verification failed.');
+      }
+    }
+  </script>
+</body>
+</html>
