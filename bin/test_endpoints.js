@@ -1,7 +1,9 @@
-const { db } = require('../config/db');
+const { db, initDb } = require('../config/db');
 
 async function runTests() {
   console.log('=== STARTING AUTOMATED API ENDPOINT INTEGRATION TESTS ===');
+  await initDb();
+
   
   try {
     // Test 1: Check DB Tables

@@ -1,4 +1,4 @@
-const { db } = require('../config/db');
+const { db, initDb } = require('../config/db');
 
 const INDIAN_NAMES = [
   "Ramesh Kumar", "Suresh Sharma", "Amit Patel", "Priya Singh", "Anjali Mehta",
@@ -120,6 +120,7 @@ function shuffle(array) {
 
 async function startSeeding() {
   console.log('=== STARTING BULK SEO REVIEWS SEEDER ===');
+  await initDb();
   
   try {
     // 1. Fetch cities and vendors
