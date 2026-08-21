@@ -272,9 +272,10 @@ The user shared a comprehensive project plan from his mobile device to build a h
      4. Corrected `vercel.json` with `@vercel/static` for `public/**` and proper route definitions.
 8. **Custom Domain DNS Mapping Guide (GoDaddy -> Vercel)**:
    - Formulated step-by-step master plan for connecting `www.bestpackermovers.com` and `bestpackermovers.com` from GoDaddy DNS records to Vercel (A record `@ -> 76.76.21.21` and CNAME `www -> cname.vercel-dns.com` with automated 301 canonical redirects and free SSL provisioning).
-9. **Homepage & Brand Logo Redirection Fix**:
+9. **Homepage & Brand Logo Redirection Fix & Cache Invalidation**:
    - **Root Cause**: `detectUserLocation()` in `public/js/main.js` was automatically redirecting all visitors landing on the homepage (`/`) to their detected city URL (e.g. `/kolkata`), which caused clicking the logo to navigate away from the home page.
-   - **Resolution**: Removed the auto-redirection on `/` so clicking the **BestPackersMovers** logo and the "Home" navigation link always keeps the user on the root homepage (`https://www.bestpackermovers.com/`). Committed (`fb29dde`) and pushed to GitHub.
+   - **Resolution**: Removed the auto-redirection on `/` so clicking the **BestPackersMovers** logo and the "Home" navigation link always keeps the user on the root homepage (`https://www.bestpackermovers.com/`). Added version cache busters (`?v=2.2`) in `views/layout.ejs` to force all user browsers to instantly load the newest client scripts. Committed (`2380f23`) and synchronized with GitHub.
+
 
 
 
