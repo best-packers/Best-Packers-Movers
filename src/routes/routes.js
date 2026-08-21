@@ -13,6 +13,17 @@ function slugify(text) {
     .replace(/\-\-+/g, '-');
 }
 
+// ─── Helper: Get Absolute Canonical Base URL ─────────────────────────────────
+function getBaseUrl(req) {
+  const host = (req && req.get && req.get('host')) || 'www.bestpackermovers.com';
+  // On production or custom domain, enforce https
+  if (host.includes('bestpackermovers.com') || host.includes('vercel.app')) {
+    return `https://${host}`;
+  }
+  const proto = (req && req.headers && req.headers['x-forwarded-proto']) || (req && req.protocol) || 'http';
+  return `${proto}://${host}`;
+}
+
 // ─── National Packers & Movers Config (Single Source of Truth) ────────────────
 const NATIONAL_MOVER = {
   id: 0,
@@ -153,7 +164,7 @@ router.get('/', async (req, res, next) => {
         .select('title', 'slug', 'excerpt', 'category', 'cover_image_url', 'read_time_mins', 'created_at');
     } catch(e) { /* blog table may not exist yet */ }
 
-    const base = `${req.protocol}://${req.get('host')}`;
+    const base = getBaseUrl(req);
     res.render('index', {
       metaTitle: "Best Packers and Movers in India — Compare Top Relocation Providers",
       metaDescription: "Find verified local and national shifting services in India. Get instant quotes, check customer ratings, and book top-rated movers. Trusted directory for 2026.",
@@ -173,7 +184,7 @@ router.get('/state/:state_slug', async (req, res, next) => {
     const state = await db('states').where({ slug: state_slug }).first();
     if (!state) return res.status(404).render('404', { message: "State not found" });
     const cities = await db('cities').where({ state_id: state.id }).select('*');
-    const base = `${req.protocol}://${req.get('host')}`;
+    const base = getBaseUrl(req);
 
     const schemaMarkup = `<script type="application/ld+json">
     {
@@ -415,7 +426,7 @@ router.post('/api/review', async (req, res) => {
 
 // ─── 5. Blog Listing Page ─────────────────────────────────────────────────────
 router.get('/blog', async (req, res, next) => {
-  const base = `${req.protocol}://${req.get('host')}`;
+  const base = getBaseUrl(req);
   try {
     const category = req.query.category || 'all';
     let query = db('blog_posts').where({ is_published: true }).orderBy('created_at', 'desc');
@@ -446,7 +457,7 @@ router.get('/blog', async (req, res, next) => {
 
 // ─── 6. Individual Blog Post ──────────────────────────────────────────────────
 router.get('/blog/:slug', async (req, res, next) => {
-  const base = `${req.protocol}://${req.get('host')}`;
+  const base = getBaseUrl(req);
   try {
     const { slug } = req.params;
     const blog = await db('blog_posts').where({ slug, is_published: true }).first();
@@ -647,7 +658,7 @@ function generateVendorFAQs(vendor, city, state, pricing) {
 
 // ─── 7. City Page Renderer (shared logic) ─────────────────────────────────────
 async function renderCityPage(req, res, next, city, state, overrides = {}) {
-  const base = `${req.protocol}://${req.get('host')}`;
+  const base = getBaseUrl(req);
   const page = parseInt(req.query.page, 10) || 1;
   const limit = 15;
   const offset = (page - 1) * limit;
@@ -771,11 +782,13 @@ async function renderCityPage(req, res, next, city, state, overrides = {}) {
   ${JSON.stringify(faqSchema, null, 2)}
   </script>`;
 
+  const canonical = overrides.canonical || (page > 1 ? `${base}/${city.slug}?page=${page}` : `${base}/${city.slug}`);
+
   res.render('city', {
     metaTitle: overrides.title || city.custom_meta_title || `Best Packers and Movers in ${city.name} for 2026 — Rated & Compared`,
     metaDescription: overrides.description || city.custom_meta_description || `Looking for top shifting services in ${city.name}? We reviewed over ${count + 1} vendors based on reviews, rates, and track records. Compare and get free quotes today.`,
     metaKeywords: overrides.keywords || city.custom_keywords || `packers and movers ${city.name}, shifting services ${city.name}, movers ${city.name}, relocation ${city.name}`,
-    canonicalUrl: `${base}/${city.slug}`,
+    canonicalUrl: canonical,
     ogImage: `${base}/images/og-home.jpg`,
     pageH1: overrides.h1 || `Top-Rated Packers & Movers in ${city.name}`,
     pageDescription: overrides.description || city.custom_meta_description || `Finding reliable shifting services in ${city.name} can be stressful. We analyzed over ${count + 1} logistics providers based on customer reviews, fleet capacity, and track records to bring you the top-rated choices in ${city.name} for 2026.`,
@@ -811,7 +824,8 @@ KEYWORD_CONFIGS.forEach(kw => {
         title: kw.titleFn(city),
         description: kw.descFn(city),
         keywords: `${kw.suffix.replace(/-/g,' ')} ${city.name}, packers movers ${city.name}`,
-        h1: kw.h1Fn(city)
+        h1: kw.h1Fn(city),
+        canonical: `${getBaseUrl(req)}/${city.slug}/${kw.suffix}`
       });
     } catch (error) { next(error); }
   });
@@ -822,7 +836,7 @@ router.get('/:city_slug/:vendor_slug', async (req, res, next) => {
   const { city_slug, vendor_slug } = req.params;
   if (KW_SUFFIXES.includes(vendor_slug)) return next();
 
-  const base = `${req.protocol}://${req.get('host')}`;
+  const base = getBaseUrl(req);
   try {
     const city = await db('cities').where({ slug: city_slug }).first();
     if (!city) return next();

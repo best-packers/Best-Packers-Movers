@@ -7,6 +7,7 @@ require('dotenv').config();
 const { db, initDb } = require('../config/db');
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 // Set up views and template engine
