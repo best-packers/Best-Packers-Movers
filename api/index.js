@@ -15,6 +15,33 @@ app.set('layout', 'layout');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'views'));
 
+// Serverless Database Connection Initialization Lifecycle
+let dbInitialized = false;
+let dbInitPromise = null;
+
+async function ensureDb() {
+  if (dbInitialized) return;
+  if (!dbInitPromise) {
+    dbInitPromise = initDb().then(() => {
+      dbInitialized = true;
+    }).catch(err => {
+      console.error('Error initializing database in serverless function:', err);
+      dbInitPromise = null;
+    });
+  }
+  return dbInitPromise;
+}
+
+// Middleware to ensure DB is connected on Vercel serverless requests
+app.use(async (req, res, next) => {
+  try {
+    await ensureDb();
+  } catch (err) {
+    console.error('DB middleware init error:', err);
+  }
+  next();
+});
+
 // Middlewares
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));

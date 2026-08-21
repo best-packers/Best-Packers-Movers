@@ -26,10 +26,11 @@ const pgConfig = {
   }
 };
 
+const isServerless = !!(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
 const sqliteConfig = {
   client: 'sqlite3',
   connection: {
-    filename: path.join(__dirname, '..', 'database.sqlite')
+    filename: isServerless ? '/tmp/database.sqlite' : path.join(__dirname, '..', 'database.sqlite')
   },
   useNullAsDefault: true
 };
