@@ -275,6 +275,18 @@ The user shared a comprehensive project plan from his mobile device to build a h
 9. **Homepage & Brand Logo Redirection Fix & Cache Invalidation**:
    - **Root Cause**: `detectUserLocation()` in `public/js/main.js` was automatically redirecting all visitors landing on the homepage (`/`) to their detected city URL (e.g. `/kolkata`), which caused clicking the logo to navigate away from the home page.
    - **Resolution**: Removed the auto-redirection on `/` so clicking the **BestPackersMovers** logo and the "Home" navigation link always keeps the user on the root homepage (`https://www.bestpackermovers.com/`). Added version cache busters (`?v=2.2`) in `views/layout.ejs` to force all user browsers to instantly load the newest client scripts. Committed (`2380f23`) and synchronized with GitHub.
+10. **Screaming Frog SEO Audit ("Non-Indexable / Canonicalised") Diagnosis & Fix**:
+   - **Root Cause**:
+     1. Express was running behind Vercel's reverse proxy without `app.set('trust proxy', 1)`. Consequently, `req.protocol` defaulted to `http://` rather than `https://`.
+     2. When crawling `https://www.bestpackermovers.com/indore`, the generated HTML declared `<link rel="canonical" href="http://www.bestpackermovers.com/indore">` (`http` instead of `https`).
+     3. Screaming Frog flagged the HTTPS page as **"Non-Indexable (Canonicalised)"** because it declared an HTTP version as its canonical URL.
+     4. When following the HTTP canonical, Vercel issued a **308 Permanent Redirect** back to HTTPS, causing a circular canonical/redirect chain.
+   - **Resolution**:
+     1. Added `app.set('trust proxy', 1)` in `api/index.js`.
+     2. Created `getBaseUrl(req)` in `src/routes/routes.js` that strictly guarantees `https://www.bestpackermovers.com` for all canonical tags, JSON-LD schemas (`BreadcrumbList`, `ItemList`, `LocalBusiness`), and OpenGraph tags.
+     3. Enabled self-referential canonical URLs for all keyword variant routes (e.g. `/:city_slug/shifting-services`).
+     4. Verified 100% test pass with `verify_seo_crawler.js`. Committed (`71ad970`) and pushed to GitHub.
+
 
 
 
