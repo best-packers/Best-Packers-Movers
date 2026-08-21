@@ -30,6 +30,10 @@
   <meta name="twitter:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : 'Compare and book the top-rated shifting companies in India.' %>">
   <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' ? ogImage : '' %>">
 
+  <!-- Favicon & Mobile Touch Icons -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23f97316'/><path d='M25 65 L45 30 L55 50 L75 25' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='35' cy='70' r='6' fill='white'/><circle cx='65' cy='70' r='6' fill='white'/></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23f97316'/><path d='M25 65 L45 30 L55 50 L75 25' stroke='white' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/><circle cx='35' cy='70' r='6' fill='white'/><circle cx='65' cy='70' r='6' fill='white'/></svg>">
+
   <!-- Font Imports -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +43,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="/css/style.css?v=2.2">
+  <link rel="stylesheet" href="/css/style.css?v=2.3">
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 min-h-screen flex flex-col antialiased">
 
@@ -102,11 +106,6 @@
           <nav class="hidden md:flex space-x-6 text-sm font-semibold mr-2 items-center">
             <a href="/" class="text-slate-600 hover:text-brand-orange transition-colors">Home</a>
             <a href="/blog" class="text-slate-600 hover:text-brand-orange transition-colors">Blog</a>
-            <% if (typeof userPhone !== 'undefined' && userPhone) { %>
-              <a href="/logout" class="text-rose-600 hover:text-rose-700 transition-colors font-bold flex items-center gap-1"><i class="fa-solid fa-right-from-bracket text-xs"></i> Logout</a>
-            <% } else { %>
-              <button type="button" onclick="openOtpModal()" class="text-indigo-600 hover:text-indigo-700 transition-colors font-bold flex items-center gap-1"><i class="fa-solid fa-lock text-xs"></i> Login</button>
-            <% } %>
           </nav>
           <a href="#" data-vendor-id="0" data-vendor-name="National Packers & Movers (Pan-India)" class="open-quote-btn bg-brand-orange hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md shadow-orange-500/20 hover:shadow-orange-600/30 transform hover:-translate-y-0.5 active:translate-y-0 transition duration-150 text-sm">
             Get Quote
@@ -138,6 +137,8 @@
 
       <form id="quote-form" class="space-y-4">
         <input type="hidden" id="quote-vendor-id" value="0">
+        <!-- Anti-Spam Honeypot -->
+        <input type="text" id="quote-website-hp" name="website_hp" style="display:none !important;" tabindex="-1" autocomplete="off">
 
         <div class="grid grid-cols-2 gap-4">
           <div>
@@ -159,12 +160,12 @@
           <label for="quote-phone" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">WhatsApp / Phone Number</label>
           <div class="relative">
             <span class="absolute left-4 top-3.5 text-slate-400 font-semibold text-sm">+91</span>
-            <input type="tel" id="quote-phone" required pattern="[0-9]{10}" placeholder="9876543210" class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm">
+            <input type="tel" id="quote-phone" required pattern="[6-9][0-9]{9}" placeholder="9876543210" class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange transition text-sm">
           </div>
         </div>
 
         <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-orange-500/20 hover:shadow-orange-600/30 transform hover:-translate-y-0.5 active:translate-y-0 transition duration-150 text-sm mt-2">
-          Calculate My Rate & Connect
+          Calculate My Rate &amp; Connect
         </button>
       </form>
     </div>
@@ -174,7 +175,7 @@
   <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 pt-16 pb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-        <div class="col-span-1 md:col-span-2 space-y-4">
+        <div class="space-y-4">
           <div class="flex items-center space-x-3">
             <div class="w-8 h-8 bg-brand-orange text-white rounded-lg flex items-center justify-center font-bold">
               <i class="fa-solid fa-truck-ramp-box text-sm"></i>
@@ -188,7 +189,7 @@
             <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Powered By</p>
             <a href="https://www.thenationalpackersmovers.com/" target="_blank" rel="noopener" class="text-white font-bold hover:text-brand-orange transition-colors flex items-center">
               <i class="fa-solid fa-shield-halved text-brand-orange mr-2"></i>
-              National Packers & Movers
+              National Packers &amp; Movers
             </a>
           </div>
         </div>
@@ -212,7 +213,7 @@
             <li><a href="/blog" class="hover:text-white transition-colors">Shifting Tips Blog</a></li>
             <li><a href="https://www.thenationalpackersmovers.com/" target="_blank" rel="noopener" class="hover:text-white transition-colors">National Packers Website</a></li>
             <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Privacy & Terms</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Privacy &amp; Terms</a></li>
           </ul>
         </div>
       </div>
@@ -232,191 +233,7 @@
     <i class="fa-brands fa-whatsapp text-2xl"></i>
   </a>
 
-  <!-- Global Phone OTP Login Modal Gate -->
-  <div id="otp-auth-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-sm w-full relative shadow-2xl">
-      <button onclick="closeOtpModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
-        <i class="fa-solid fa-xmark text-lg"></i>
-      </button>
-      
-      <div class="text-center space-y-3 mb-6">
-        <div class="w-12 h-12 bg-orange-500/10 text-brand-orange rounded-2xl flex items-center justify-center mx-auto text-xl shadow-inner">
-          <i class="fa-solid fa-shield-halved"></i>
-        </div>
-        <h3 class="text-lg font-bold text-white">Phone Verification Required</h3>
-        <p class="text-xs text-slate-400">Please verify your mobile number to proceed with call clicks, website redirects, or reviews.</p>
-      </div>
-
-      <!-- Step 1: Input Phone Number -->
-      <form id="otp-send-form" class="space-y-4" onsubmit="handleSendOtp(event)">
-        <div>
-          <label for="otp-phone" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Mobile Number</label>
-          <div class="relative">
-            <span class="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">+91</span>
-            <input type="tel" id="otp-phone" required pattern="[0-9]{10}" placeholder="9876543210" style="background-color: #020617 !important; color: #ffffff !important; border: 1px solid #1e293b !important;" class="w-full pl-12 pr-4 py-2.5 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-brand-orange transition">
-          </div>
-        </div>
-        <button type="submit" id="otp-send-btn" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-2.5 rounded-xl text-xs shadow-lg shadow-orange-500/10 transition-all">
-          Send Verification Code (OTP)
-        </button>
-      </form>
-
-      <!-- Step 2: Input Verification Code -->
-      <form id="otp-verify-form" class="space-y-4 hidden" onsubmit="handleVerifyOtp(event)">
-        <div>
-          <label for="otp-code" class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Enter 6-Digit OTP</label>
-          <input type="text" id="otp-code" required pattern="[0-9]{6}" placeholder="123456" style="background-color: #020617 !important; color: #ffffff !important; border: 1px solid #1e293b !important;" class="w-full px-4 py-2.5 rounded-xl text-center text-sm font-mono font-bold tracking-widest focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-brand-orange transition">
-        </div>
-        
-        <!-- Locality GPS coordinates placeholder (hidden) -->
-        <input type="hidden" id="gps-latitude" value="">
-        <input type="hidden" id="gps-longitude" value="">
-        <input type="hidden" id="gps-locality" value="">
-
-        <button type="submit" id="otp-verify-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs shadow-lg shadow-emerald-600/10 transition-all">
-          Verify &amp; Continue
-        </button>
-        <button type="button" onclick="resetOtpFlow()" class="w-full text-slate-400 hover:text-white text-xs font-semibold pt-1">
-          Back / Change Number
-        </button>
-      </form>
-    </div>
-  </div>
-
   <!-- Script Integration -->
-  <script src="/js/main.js?v=2.2"></script>
-
-  <script>
-    // Global User State variables
-    window.isUserLoggedIn = <%= (typeof userPhone !== 'undefined' && userPhone) ? 'true' : 'false' %>;
-    window.userPhone = "<%= (typeof userPhone !== 'undefined' && userPhone) ? userPhone : '' %>";
-    let pendingAction = null; // Callback stored when modal interrupts user action
-
-    function triggerOtpGate(callback) {
-      if (window.isUserLoggedIn) {
-        callback();
-      } else {
-        pendingAction = callback;
-        openOtpModal();
-      }
-    }
-
-    function openOtpModal() {
-      document.getElementById('otp-auth-modal').classList.remove('hidden');
-      document.getElementById('otp-auth-modal').classList.add('flex');
-      
-      // Request location coordinates proactively to resolve precision locality
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (pos) => {
-          const lat = pos.coords.latitude;
-          const lon = pos.coords.longitude;
-          document.getElementById('gps-latitude').value = lat;
-          document.getElementById('gps-longitude').value = lon;
-          try {
-            const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`);
-            const geoData = await geoRes.json();
-            if (geoData && geoData.address) {
-              const locality = geoData.address.suburb || geoData.address.neighbourhood || geoData.address.residential || geoData.address.village || geoData.address.road || '';
-              document.getElementById('gps-locality').value = locality;
-            }
-          } catch(e) {}
-        }, (err) => {
-          console.log('Location access denied or timed out.');
-        });
-      }
-    }
-
-    function closeOtpModal() {
-      document.getElementById('otp-auth-modal').classList.remove('flex');
-      document.getElementById('otp-auth-modal').classList.add('hidden');
-      resetOtpFlow();
-    }
-
-    function resetOtpFlow() {
-      document.getElementById('otp-send-form').classList.remove('hidden');
-      document.getElementById('otp-verify-form').classList.add('hidden');
-      document.getElementById('otp-code').value = '';
-    }
-
-    async function handleSendOtp(e) {
-      e.preventDefault();
-      const phone = document.getElementById('otp-phone').value.trim();
-      const btn = document.getElementById('otp-send-btn');
-      
-      btn.disabled = true;
-      btn.innerText = 'Sending OTP...';
-
-      try {
-        const res = await fetch('/api/otp/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone })
-        });
-        const data = await res.json();
-        btn.disabled = false;
-        btn.innerText = 'Send Verification Code (OTP)';
-
-        if (data.success) {
-          // Switch view
-          document.getElementById('otp-send-form').classList.add('hidden');
-          document.getElementById('otp-verify-form').classList.remove('hidden');
-          
-          // Sandbox alert to user for testing
-          if (data.otpSandboxValue) {
-            alert(`[TEST MODE] OTP code generated: ${data.otpSandboxValue}`);
-          }
-        } else {
-          alert(data.message || 'Error sending OTP.');
-        }
-      } catch(err) {
-        btn.disabled = false;
-        btn.innerText = 'Send Verification Code (OTP)';
-        alert('Network error sending OTP.');
-      }
-    }
-
-    async function handleVerifyOtp(e) {
-      e.preventDefault();
-      const phone = document.getElementById('otp-phone').value.trim();
-      const code = document.getElementById('otp-code').value.trim();
-      const gps_locality = document.getElementById('gps-locality').value;
-      const btn = document.getElementById('otp-verify-btn');
-
-      btn.disabled = true;
-      btn.innerText = 'Verifying...';
-
-      try {
-        const res = await fetch('/api/otp/verify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ phone, code, gps_locality })
-        });
-        const data = await res.json();
-        btn.disabled = false;
-        btn.innerText = 'Verify & Continue';
-
-        if (data.success) {
-          window.isUserLoggedIn = true;
-          window.userPhone = phone;
-          closeOtpModal();
-          
-          // Run the pending callback action
-          if (pendingAction) {
-            pendingAction();
-            pendingAction = null;
-          } else {
-            // Reload page to reflect authenticated state (Logout button) immediately
-            location.reload();
-          }
-        } else {
-          alert(data.message || 'Invalid code.');
-        }
-      } catch(err) {
-        btn.disabled = false;
-        btn.innerText = 'Verify & Continue';
-        alert('Network verification failed.');
-      }
-    }
-  </script>
+  <script src="/js/main.js?v=2.3"></script>
 </body>
 </html>

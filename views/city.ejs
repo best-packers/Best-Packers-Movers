@@ -1,3 +1,52 @@
+<!-- Structured JSON-LD Data for City Directory Page -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.bestpackermovers.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "<%= state.name %>",
+      "item": "https://www.bestpackermovers.com/state/<%= state.slug %>"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "<%= city.name %>",
+      "item": "<%= typeof canonicalUrl !== 'undefined' ? canonicalUrl : 'https://www.bestpackermovers.com/' + city.slug %>"
+    }
+  ]
+}
+</script>
+
+<% if (typeof faqs !== 'undefined' && faqs && faqs.length > 0) { %>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    <% faqs.forEach((faq, index) => { %>
+    {
+      "@type": "Question",
+      "name": <%- JSON.stringify(faq.q) %>,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": <%- JSON.stringify(faq.a) %>
+      }
+    }<%= index < faqs.length - 1 ? ',' : '' %>
+    <% }) %>
+  ]
+}
+</script>
+<% } %>
+
 <!-- City Directory View (Premium Dark Hero Theme) -->
 <div class="bg-slate-900 text-white py-16 relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-tr from-brand-orange/5 to-transparent pointer-events-none"></div>
@@ -243,7 +292,7 @@
               <% sidebarBlogs.forEach(blog => { %>
                 <a href="/blog/<%= blog.slug %>" class="flex items-start space-x-3 group">
                   <% if (blog.cover_image_url) { %>
-                    <img src="<%= blog.cover_image_url %>" alt="<%= blog.title %>" class="w-16 h-12 object-cover rounded-lg shrink-0 border border-slate-200">
+                    <img src="<%= blog.cover_image_url %>" alt="<%= blog.title %>" class="w-16 h-12 object-cover rounded-lg shrink-0 border border-slate-200" loading="lazy">
                   <% } %>
                   <div>
                     <h4 class="text-xs font-bold text-slate-700 group-hover:text-brand-orange transition-colors line-clamp-2 leading-snug"><%= blog.title %></h4>
@@ -261,7 +310,7 @@
             <div class="grid grid-cols-3 gap-2">
               <% cityGallery.forEach(img => { %>
                 <div class="aspect-square rounded-lg overflow-hidden border border-slate-200 cursor-pointer">
-                  <img src="<%= img.image_url %>" alt="<%= img.caption || 'City Gallery' %>" class="gallery-thumb w-full h-full object-cover hover:scale-105 transition duration-300" data-full="<%= img.image_url %>" data-caption="<%= img.caption || '' %>">
+                  <img src="<%= img.image_url %>" alt="<%= img.caption || 'City Gallery' %>" class="gallery-thumb w-full h-full object-cover hover:scale-105 transition duration-300" data-full="<%= img.image_url %>" data-caption="<%= img.caption || '' %>" loading="lazy">
                 </div>
               <% }) %>
             </div>

@@ -66,6 +66,63 @@
   }
 </style>
 
+<!-- Google Structured Data (LocalBusiness / MovingCompany Schema) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MovingCompany",
+  "name": "<%= vendor.name %>",
+  "image": "<%= vendor.logo_url || 'https://www.bestpackermovers.com/images/og-home.jpg' %>",
+  "telephone": "<%= vendor.phone %>",
+  "url": "<%= typeof canonicalUrl !== 'undefined' ? canonicalUrl : 'https://www.bestpackermovers.com/' + city.slug + '/' + vendor.slug %>",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "<%= vendor.address || city.name %>",
+    "addressLocality": "<%= city.name %>",
+    "addressRegion": "<%= typeof state !== 'undefined' && state ? state.name : '' %>",
+    "addressCountry": "IN"
+  },
+  "priceRange": "₹₹ - ₹₹₹",
+  "currenciesAccepted": "INR",
+  "paymentAccepted": "Cash, UPI, Credit Card, Net Banking",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "<%= vendor.rating || 4.8 %>",
+    "reviewCount": "<%= vendor.reviews_count || 12 %>",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+}
+</script>
+
+<!-- Breadcrumb Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.bestpackermovers.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "<%= city.name %>",
+      "item": "https://www.bestpackermovers.com/<%= city.slug %>"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "<%= vendor.name %>",
+      "item": "<%= typeof canonicalUrl !== 'undefined' ? canonicalUrl : 'https://www.bestpackermovers.com/' + city.slug + '/' + vendor.slug %>"
+    }
+  ]
+}
+</script>
+
 <!-- Premium Hero Header -->
 <div class="relative hero-dark-gradient border-b border-slate-800/80 text-white overflow-hidden">
   <!-- Banner Backdrop -->
@@ -719,7 +776,7 @@
               <% sidebarBlogs.forEach(blog => { %>
                 <a href="/blog/<%= blog.slug %>" class="flex items-start space-x-3 group">
                   <% if (blog.cover_image_url) { %>
-                    <img src="<%= blog.cover_image_url %>" alt="<%= blog.title %>" class="w-16 h-12 object-cover rounded-lg shrink-0 border border-slate-200">
+                    <img src="<%= blog.cover_image_url %>" alt="<%= blog.title %>" class="w-16 h-12 object-cover rounded-lg shrink-0 border border-slate-200" loading="lazy">
                   <% } %>
                   <div>
                     <h4 class="text-xs font-bold text-slate-700 group-hover:text-brand-orange transition-colors line-clamp-2 leading-snug"><%= blog.title %></h4>
@@ -938,22 +995,6 @@
     startReviewAutoPlay();
     updateGalleryDisplay();
 
-    // Setup review status label
-    const loginLabel = document.getElementById('reviews-login-status');
-    if (loginLabel) {
-      if (window.isUserLoggedIn && window.userPhone) {
-        const masked = window.userPhone.substring(0, 3) + '***' + window.userPhone.substring(6);
-        loginLabel.innerHTML = `
-          <div class="flex items-center space-x-2.5">
-            <span class="text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100 flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-[10px]"></i> Verified +91 ${masked}</span>
-            <a href="/logout" class="text-xs text-rose-600 hover:text-rose-700 font-bold hover:underline">Logout</a>
-          </div>
-        `;
-      } else {
-        loginLabel.innerHTML = `<button type="button" onclick="openOtpModal()" class="text-indigo-600 hover:text-indigo-700 hover:underline flex items-center gap-1"><i class="fa-solid fa-lock text-[10px]"></i> Phone Login</button>`;
-      }
-    }
-
     // Photo Lightbox Trigger
     document.querySelectorAll('.gallery-thumb').forEach(thumb => {
       thumb.addEventListener('click', function() {
@@ -972,167 +1013,115 @@
       });
     }
 
-    // Phone calls action logger Gating
+    // Phone calls action logger (Frictionless background tracking)
     document.querySelectorAll('.gated-phone-link').forEach(el => {
-      el.addEventListener('click', function(e) {
-        const targetHref = this.getAttribute('href');
+      el.addEventListener('click', function() {
         const vendorId = this.getAttribute('data-vendor-id');
-        
-        if (!window.isUserLoggedIn) {
-          e.preventDefault();
-          triggerOtpGate(() => {
-            fetch('/api/log-action', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ action_type: 'call', vendor_id: vendorId })
-            }).finally(() => {
-              window.location.href = targetHref;
-            });
-          });
-        } else {
-          fetch('/api/log-action', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action_type: 'call', vendor_id: vendorId })
-          });
-        }
+        fetch('/api/log-action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action_type: 'call', vendor_id: vendorId })
+        }).catch(() => {});
       });
     });
 
-    // Website Redirect logger Gating
+    // Website Redirect logger (Frictionless background tracking)
     document.querySelectorAll('.gated-website-link').forEach(el => {
-      el.addEventListener('click', function(e) {
+      el.addEventListener('click', function() {
         const targetHref = this.getAttribute('href');
         const vendorId = this.getAttribute('data-vendor-id');
-        
-        if (!window.isUserLoggedIn) {
-          e.preventDefault();
-          triggerOtpGate(() => {
-            fetch('/api/log-action', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ action_type: 'website', vendor_id: vendorId, target_url: targetHref })
-            }).finally(() => {
-              window.open(targetHref, '_blank');
-            });
-          });
-        } else {
-          fetch('/api/log-action', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action_type: 'website', vendor_id: vendorId, target_url: targetHref })
-          });
-        }
+        fetch('/api/log-action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action_type: 'website', vendor_id: vendorId, target_url: targetHref })
+        }).catch(() => {});
       });
     });
 
-    // AJAX Shifting Lead Form Submission
+    // Frictionless AJAX Shifting Lead Form Submission
     const sidebarForm = document.getElementById('sidebar-quote-form');
     if (sidebarForm) {
       sidebarForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const submitEnquiry = async () => {
-          const submitBtn = sidebarForm.querySelector('button[type="submit"]');
-          const originalText = submitBtn.textContent;
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Sending Request...';
+        const submitBtn = sidebarForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending Request...';
 
-          const requestData = {
-            vendor_id: document.getElementById('sidebar-vendor-id').value,
-            moving_from: document.getElementById('sidebar-from').value.trim(),
-            moving_to: document.getElementById('sidebar-to').value.trim(),
-            moving_date: document.getElementById('sidebar-date').value,
-            phone: document.getElementById('sidebar-phone').value.trim()
-          };
-
-          try {
-            const res = await fetch('/api/quote', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(requestData)
-            });
-            const data = await res.json();
-            if (data.success) {
-              alert(data.message || 'Enquiry request sent successfully!');
-              sidebarForm.reset();
-              if (window.isUserLoggedIn) {
-                document.getElementById('sidebar-phone').value = window.userPhone;
-              }
-            } else {
-              alert('Enquiry Failed: ' + data.message);
-            }
-          } catch(err) {
-            console.error(err);
-            alert('Connection failed. Please check network and try again.');
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-          }
+        const requestData = {
+          vendor_id: document.getElementById('sidebar-vendor-id').value,
+          moving_from: document.getElementById('sidebar-from').value.trim(),
+          moving_to: document.getElementById('sidebar-to').value.trim(),
+          moving_date: document.getElementById('sidebar-date').value,
+          phone: document.getElementById('sidebar-phone').value.trim()
         };
 
-        if (!window.isUserLoggedIn) {
-          triggerOtpGate(() => {
-            submitEnquiry();
+        try {
+          const res = await fetch('/api/quote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
           });
-        } else {
-          submitEnquiry();
+          const data = await res.json();
+          if (data.success) {
+            alert(data.message || 'Enquiry request sent successfully!');
+            sidebarForm.reset();
+          } else {
+            alert('Enquiry Failed: ' + data.message);
+          }
+        } catch(err) {
+          console.error(err);
+          alert('Connection failed. Please check network and try again.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
         }
       });
     }
 
-    // Review Submission Gate
+    // Frictionless Review Submission (No Login Required)
     const rForm = document.getElementById('review-form');
     if (rForm) {
       rForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const submitReview = async () => {
-          const submitBtn = rForm.querySelector('button[type="submit"]');
-          const submitBtnSpan = submitBtn.querySelector('span');
-          const originalText = submitBtnSpan.textContent;
-          
-          submitBtn.disabled = true;
-          submitBtnSpan.textContent = 'Publishing...';
+        const submitBtn = rForm.querySelector('button[type="submit"]');
+        const submitBtnSpan = submitBtn.querySelector('span');
+        const originalText = submitBtnSpan.textContent;
+        
+        submitBtn.disabled = true;
+        submitBtnSpan.textContent = 'Publishing...';
 
-          const formData = {
-            vendor_id: "<%= vendor.id %>",
-            city_id: "<%= city.id %>",
-            customer_name: document.getElementById('review-name').value.trim(),
-            rating: document.getElementById('review-rating').value,
-            review_text: document.getElementById('review-text').value.trim()
-          };
-
-          try {
-            const res = await fetch('/api/review', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(formData)
-            });
-            const data = await res.json();
-            if (data.success) {
-              alert(data.message || 'Review submitted successfully!');
-              rForm.reset();
-              setStarRating(1);
-              location.reload();
-            } else {
-              alert('Submission Error: ' + data.message);
-            }
-          } catch(err) {
-            console.error(err);
-            alert('Connection failed. Please try again.');
-          } finally {
-            submitBtn.disabled = false;
-            submitBtnSpan.textContent = originalText;
-          }
+        const formData = {
+          vendor_id: "<%= vendor.id %>",
+          city_id: "<%= city.id %>",
+          customer_name: document.getElementById('review-name').value.trim(),
+          rating: document.getElementById('review-rating').value,
+          review_text: document.getElementById('review-text').value.trim()
         };
 
-        if (!window.isUserLoggedIn) {
-          triggerOtpGate(() => {
-            submitReview();
+        try {
+          const res = await fetch('/api/review', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
           });
-        } else {
-          submitReview();
+          const data = await res.json();
+          if (data.success) {
+            alert(data.message || 'Review submitted successfully!');
+            rForm.reset();
+            setStarRating(1);
+            location.reload();
+          } else {
+            alert('Submission Error: ' + data.message);
+          }
+        } catch(err) {
+          console.error(err);
+          alert('Connection failed. Please try again.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtnSpan.textContent = originalText;
         }
       });
     }

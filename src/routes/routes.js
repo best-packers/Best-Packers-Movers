@@ -100,20 +100,21 @@ router.get('/api/search-data', async (req, res) => {
 router.get('/robots.txt', (req, res) => {
   const base = 'https://www.bestpackermovers.com';
   res.type('text/plain');
-  res.send(`User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: ${base}/sitemap.xml\n`);
+  res.send(`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\n\nSitemap: ${base}/sitemap.xml\n`);
 });
 
 // ─── Dynamic XML Sitemap ──────────────────────────────────────────────────────
 router.get('/sitemap.xml', async (req, res, next) => {
   try {
     const base = 'https://www.bestpackermovers.com';
+    const lastmod = new Date().toISOString().split('T')[0];
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-    xml += `  <url><loc>${base}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
-    xml += `  <url><loc>${base}/blog</loc><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+    xml += `  <url><loc>${base}/</loc><lastmod>${lastmod}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>\n`;
+    xml += `  <url><loc>${base}/blog</loc><lastmod>${lastmod}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
 
     const states = await db('states').select('slug');
     states.forEach(s => {
-      xml += `  <url><loc>${base}/state/${s.slug}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>\n`;
+      xml += `  <url><loc>${base}/state/${s.slug}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>\n`;
     });
 
     const cities = await db('cities').select('id', 'slug');
@@ -121,25 +122,25 @@ router.get('/sitemap.xml', async (req, res, next) => {
     cities.forEach(c => { citySlugMap[c.id] = c.slug; });
 
     cities.forEach(c => {
-      xml += `  <url><loc>${base}/${c.slug}</loc><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
-      xml += `  <url><loc>${base}/${c.slug}/national-packers-movers</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>\n`;
+      xml += `  <url><loc>${base}/${c.slug}</loc><lastmod>${lastmod}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n`;
+      xml += `  <url><loc>${base}/${c.slug}/national-packers-movers</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>\n`;
       KEYWORD_CONFIGS.forEach(kw => {
-        xml += `  <url><loc>${base}/${c.slug}/${kw.suffix}</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>\n`;
+        xml += `  <url><loc>${base}/${c.slug}/${kw.suffix}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.75</priority></url>\n`;
       });
     });
 
     const vendors = await db('vendors').where({ is_national: false }).select('slug', 'city_id');
     vendors.forEach(v => {
       const cs = citySlugMap[v.city_id];
-      if (cs) xml += `  <url><loc>${base}/${cs}/${v.slug}</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>\n`;
+      if (cs) xml += `  <url><loc>${base}/${cs}/${v.slug}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>\n`;
     });
 
     try {
       const blogs = await db('blog_posts').where({ is_published: true }).select('slug');
       blogs.forEach(b => {
-        xml += `  <url><loc>${base}/blog/${b.slug}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
+        xml += `  <url><loc>${base}/blog/${b.slug}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
       });
-    } catch(e) { /* blog table not yet created */ }
+    } catch(e) { /* blog table fallback */ }
 
     xml += `</urlset>`;
     res.header('Content-Type', 'application/xml');
@@ -221,7 +222,11 @@ router.get('/state/:state_slug', async (req, res, next) => {
 
 // ─── 3. Quote Lead API ────────────────────────────────────────────────────────
 router.post('/api/quote', async (req, res) => {
-  const { vendor_id, moving_from, moving_to, moving_date, phone } = req.body;
+  const { vendor_id, moving_from, moving_to, moving_date, phone, website_hp } = req.body;
+  // Honeypot spam bot check
+  if (website_hp) {
+    return res.json({ success: true, message: 'Your quote request has been received! Our representative will contact you shortly.' });
+  }
   if (!moving_from || !moving_to || !phone) {
     return res.status(400).json({ success: false, message: 'Please fill in all required fields.' });
   }
@@ -241,105 +246,17 @@ router.post('/api/quote', async (req, res) => {
   }
 });
 
-// ─── 4. OTP Auth APIs (v2.2) ──────────────────────────────────────────────────
-router.post('/api/otp/send', async (req, res) => {
-  const { phone } = req.body;
-  if (!phone || !/^\d{10}$/.test(phone)) {
-    return res.status(400).json({ success: false, message: 'Invalid 10-digit phone number.' });
-  }
-  try {
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    req.session.otpCode = code;
-    req.session.otpPhone = phone;
-
-    // TODO: Replace this with a real SMS provider (MSG91, Fast2SMS, Twilio)
-    // For development, the OTP is logged to server console only - never sent in API response
-    console.log(`\n========================================`);
-    console.log(`[SMS OTP SANDBOX] Code for ${phone}: ${code}`);
-    console.log(`========================================\n`);
-
-    return res.json({
-      success: true,
-      message: 'A verification code has been sent to your phone number.'
-      // NOTE: otpSandboxValue intentionally removed for security
-    });
-  } catch (error) {
-    return res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-router.post('/api/otp/verify', async (req, res) => {
-  const { phone, code, gps_locality } = req.body;
-  if (!phone || !code) {
-    return res.status(400).json({ success: false, message: 'Phone and verification code are required.' });
-  }
-  
-  if (req.session.otpPhone !== phone || req.session.otpCode !== code) {
-    return res.status(400).json({ success: false, message: 'Incorrect verification code. Please try again.' });
-  }
-
-  try {
-    const ip = (req.headers['x-forwarded-for'] || req.ip || req.socket.remoteAddress || '').split(',')[0].trim();
-    const ua = req.headers['user-agent'] || '';
-    const deviceType = ua.toLowerCase().includes('mobi') || ua.toLowerCase().includes('android') || ua.toLowerCase().includes('iphone') ? 'Mobile' : 'Desktop';
-    
-    let city = req.headers['x-vercel-ip-city'] ? decodeURIComponent(req.headers['x-vercel-ip-city']) : 'Unknown';
-    let state = req.headers['x-vercel-ip-country-region'] ? decodeURIComponent(req.headers['x-vercel-ip-country-region']) : 'Unknown';
-    
-    if (city === 'Unknown') {
-      if (ip === '::1' || ip === '127.0.0.1') {
-        city = 'Localhost';
-        state = 'Development';
-      } else {
-        try {
-          const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-          const geoRes = await fetch(`http://ip-api.com/json/${ip}`);
-          const geoData = await geoRes.json();
-          if (geoData && geoData.status === 'success') {
-            city = geoData.city || city;
-            state = geoData.regionName || state;
-          }
-        } catch(e) {}
-      }
-    }
-
-    const locality = gps_locality ? gps_locality.trim() : null;
-
-    const [sessionIdObj] = await db('user_sessions').insert({
-      phone: phone.trim(),
-      ip_address: ip,
-      device_type: deviceType,
-      state,
-      city,
-      locality
-    }).returning('id');
-    const sessionId = typeof sessionIdObj === 'object' ? sessionIdObj.id : sessionIdObj;
-
-    req.session.userId = sessionId;
-    req.session.userPhone = phone.trim();
-    req.session.locality = locality;
-    req.session.city = city;
-    req.session.state = state;
-
-    delete req.session.otpCode;
-    delete req.session.otpPhone;
-
-    return res.json({ success: true, message: 'Verified successfully!', phone });
-  } catch (error) {
-    console.error('Verify OTP error:', error);
-    return res.status(500).json({ success: false, message: 'Verification error.' });
-  }
-});
-
+// ─── 4. Analytics Action Logger (Background Click Tracking) ───────────────────
 router.post('/api/log-action', async (req, res) => {
   const { action_type, vendor_id, target_url } = req.body;
-  if (!action_type || !req.session.userPhone) {
-    return res.status(400).json({ success: false, message: 'Login session required.' });
+  if (!action_type) {
+    return res.status(400).json({ success: false, message: 'Action type is required.' });
   }
   try {
+    const ip = (req.headers['x-forwarded-for'] || req.ip || req.socket.remoteAddress || '').split(',')[0].trim();
     await db('user_actions').insert({
-      session_id: req.session.userId || null,
-      phone: req.session.userPhone,
+      session_id: req.session?.userId || null,
+      phone: req.session?.userPhone || `anon_${ip}`,
       action_type: action_type,
       vendor_id: vendor_id ? parseInt(vendor_id, 10) : null,
       target_url: target_url || null
@@ -351,14 +268,15 @@ router.post('/api/log-action', async (req, res) => {
   }
 });
 
-// ─── 4B. Review API ───────────────────────────────────────────────────────────
+// ─── 4B. Open Public Review API (No Login Barrier) ────────────────────────────
 router.post('/api/review', async (req, res) => {
-  const { vendor_id, city_id, customer_name, rating, review_text } = req.body;
-  if (!req.session.userPhone) {
-    return res.status(401).json({ success: false, message: 'Verification required to submit reviews.' });
+  const { vendor_id, city_id, customer_name, rating, review_text, website_hp } = req.body;
+  // Honeypot spam bot check
+  if (website_hp) {
+    return res.json({ success: true, message: 'Review published successfully!' });
   }
   if (!vendor_id || !customer_name || !rating) {
-    return res.status(400).json({ success: false, message: 'Please fill in all required fields.' });
+    return res.status(400).json({ success: false, message: 'Please fill in all required fields (Name, Rating, Feedback).' });
   }
   const parsedRating = parseInt(rating, 10);
   if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 5) {
@@ -367,46 +285,21 @@ router.post('/api/review', async (req, res) => {
   try {
     const vId = parseInt(vendor_id, 10);
     const cId = city_id ? parseInt(city_id, 10) : null;
-    const uId = req.session.userId || null;
+    const uId = req.session?.userId || null;
 
-    let vendorName = 'National Packers & Movers';
     if (vId !== 0) {
       const vendor = await db('vendors').where({ id: vId }).first();
       if (!vendor) return res.status(404).json({ success: false, message: 'Business listing not found.' });
-      vendorName = vendor.name;
     }
 
-    // Check if logged-in user already posted a review for this vendor
-    let existingReview = null;
-    if (uId) {
-      existingReview = await db('reviews').where({ vendor_id: vId, user_id: uId }).first();
-    }
-
-    if (existingReview) {
-      // UPDATE existing customer review
-      await db('reviews').where({ id: existingReview.id }).update({
-        customer_name: customer_name.trim(),
-        rating: parsedRating,
-        review_text: (review_text || '').trim()
-      });
-    } else {
-      // INSERT new review
-      await db('reviews').insert({
-        vendor_id: vId,
-        city_id: cId,
-        customer_name: customer_name.trim(),
-        rating: parsedRating,
-        review_text: (review_text || '').trim(),
-        user_id: uId
-      });
-    }
-
-    await db('user_actions').insert({
-      session_id: uId,
-      phone: req.session.userPhone,
-      action_type: existingReview ? 'edit_review' : 'review',
+    // Insert public customer review
+    await db('reviews').insert({
       vendor_id: vId,
-      target_url: `/vendor/profile/${vId}`
+      city_id: cId,
+      customer_name: customer_name.trim(),
+      rating: parsedRating,
+      review_text: (review_text || '').trim(),
+      user_id: uId
     });
 
     if (vId !== 0) {
@@ -414,10 +307,10 @@ router.post('/api/review', async (req, res) => {
       const newAvgRating = parseFloat(parseFloat(stats[0].avg_rating || 0).toFixed(1));
       const newCount = parseInt(stats[0].count || 0, 10);
       await db('vendors').where({ id: vId }).update({ rating: newAvgRating, reviews_count: newCount });
-      return res.json({ success: true, message: existingReview ? 'Your review has been updated!' : 'Review published successfully!', new_rating: newAvgRating, new_count: newCount });
+      return res.json({ success: true, message: 'Review published successfully!', new_rating: newAvgRating, new_count: newCount });
     }
 
-    return res.json({ success: true, message: existingReview ? 'Your review has been updated!' : 'Review published successfully!' });
+    return res.json({ success: true, message: 'Review published successfully!' });
   } catch (error) {
     console.error('Error saving review:', error);
     return res.status(500).json({ success: false, message: 'Error processing review.' });
