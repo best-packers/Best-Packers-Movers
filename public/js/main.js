@@ -338,10 +338,7 @@ function initHeaderSearch() {
     const cachedName = sessionStorage.getItem('user_city_name');
 
     if (cachedSlug && cachedName && !isManual) {
-      selectCity(cachedName, cachedSlug);
-      if (window.location.pathname === '/' && sessionStorage.getItem('force_home') !== 'true') {
-        window.location.href = `/${cachedSlug}`;
-      }
+      selectCity(cachedName, cachedSlug, false);
       return;
     }
 
@@ -352,20 +349,17 @@ function initHeaderSearch() {
         if (ipCity) {
           const matchedCity = searchCities.find(c => c.name.toLowerCase() === ipCity.toLowerCase());
           if (matchedCity) {
-            selectCity(matchedCity.name, matchedCity.slug);
-            if (window.location.pathname === '/' && sessionStorage.getItem('force_home') !== 'true') {
-              window.location.href = `/${matchedCity.slug}`;
-            }
+            selectCity(matchedCity.name, matchedCity.slug, isManual);
             if (isManual) alert(`Location detected: ${matchedCity.name}`);
           } else {
             if (isManual) alert(`Detected city: ${ipCity} is not currently listed. Showing all India.`);
-            selectCity('All India', '');
+            selectCity('All India', '', false);
           }
         } else {
-          selectCity('All India', '');
+          selectCity('All India', '', false);
         }
       })
-      .catch(() => selectCity('All India', ''));
+      .catch(() => selectCity('All India', '', false));
   };
 }
 

@@ -264,12 +264,16 @@ The user shared a comprehensive project plan from his mobile device to build a h
    - Connected live server directly to Supabase (`✅ Connected to Supabase PostgreSQL successfully!`).
 6. **Local Server Status**:
    - Restarted and launched Node.js server daemon on `http://localhost:3000`. Verified HTTP 200 responses.
-7. **Vercel Serverless Production Fix**:
-   - **Diagnosed 3 Root Causes for Unstyled 404 on Vercel**:
+7. **Vercel Serverless Production Fix & Git Sync**:
+   - **Diagnosed & Fixed 3 Root Causes for Unstyled 404 on Vercel**:
      1. `vercel.json` routed `/css/(.*)` to `/css/$1` instead of `/public/css/$1` (causing Tailwind `style.css` to 404).
      2. Serverless function in `@vercel/node` was missing `includeFiles` for `views/**`, `config/**`, and `public/**`.
      3. `startServer()` (and `initDb()`) was only called inside `if (require.main === module)`, which does not run in Vercel's serverless handler. Added an `ensureDb()` cold-start lifecycle middleware in `api/index.js` and added `/tmp/database.sqlite` fallback in `config/db.js`.
      4. Corrected `vercel.json` with `@vercel/static` for `public/**` and proper route definitions.
+8. **Custom Domain DNS Mapping Guide (GoDaddy -> Vercel)**:
+   - Formulated step-by-step master plan for connecting `www.bestpackermovers.com` and `bestpackermovers.com` from GoDaddy DNS records to Vercel (A record `@ -> 76.76.21.21` and CNAME `www -> cname.vercel-dns.com` with automated 301 canonical redirects and free SSL provisioning).
+
+
 
 
 
