@@ -523,5 +523,27 @@ The user shared a comprehensive project plan from his mobile device to build a h
   - Rate disclaimers verification (`scripts/verify_rate_disclaimer.js`): **11/11 Passed**.
   - Do-Follow backlink engine verification (`scripts/verify_dofollow_backlinks.js`): **7/7 Passed**.
   - Justdial profile verification (`scripts/verify_premium_profile.js`): **5/5 Passed**.
-  - Production server restarted as daemon on `http://localhost:3000`.
   - Pushed to GitHub via `upload_to_github.bat` (commit `90c0440`).
+
+---
+
+## Session 35: Resolution of Vercel 404 Routing on Dynamic City Pages
+- **Date:** 2026-09-25
+- **User Issue:**
+  - Homepage rendered live on `bestpackermovers.com`, but navigating to city or route pages (e.g. `/packers-and-movers-bhubaneswar`) rendered "404 - Page Not Found".
+- **Root Cause Analysis:**
+  - Vercel serverless Lambda functions for dynamic routes (`/[slug]`, `/mover/[slug]`) execute in isolated `/var/task` environments.
+  - While static pages prerendered during build, dynamic serverless functions could not locate `database.sqlite` because `outputFileTracingIncludes` was missing broad patterns for dynamic segments, and the database was not inside `public/`.
+  - When the database path failed, `lib/db.js` instantiated an empty in-memory SQLite database (0 rows), causing `app/[slug]/page.js` database lookups to return 0 records and trigger `notFound()`.
+- **Architectural & Deployment Fix:**
+  1. **Dual-Bundled SQLite Asset:**
+     - Copied `database.sqlite` directly into `public/database.sqlite` (2.52 MB). Files in `public/` are permanently deployed by Vercel alongside every serverless function.
+  2. **Multi-Location Search Resolver (`lib/db.js`):**
+     - Implemented `findSqliteFile()` scanning `public/database.sqlite`, `database.sqlite`, parent directories, and `/tmp/database.sqlite`.
+     - Validates byte size (> 500KB) and auto-copies to `/tmp` for ultra-fast in-memory WebAssembly I/O.
+     - Added explicit logging (`✅ Loaded SQLite database from: ...`).
+  3. **Comprehensive NFT Output Tracing (`next.config.js`):**
+     - Added `outputFileTracingIncludes` covering `/**`, `/*`, `/[slug]`, `/mover/[slug]`, `/api/**`, and `/admin/**`.
+- **Verification & Deployment:**
+  - Local production server verified: `http://localhost:3000/packers-and-movers-bhubaneswar` returns HTTP 200 with complete H1, city data, and National Packers at #1.
+  - Committed and pushed upstream to GitHub `origin/main` in commit `8405f4d`.

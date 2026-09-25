@@ -1,0 +1,1856 @@
+[
+  {
+    "id": "62726e11-6ad8-431c-b363-f1f19e9d6815",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Lucknow",
+    "slug": "lucknow",
+    "tier": 1,
+    "popular_localities": "[\"Gomti Nagar\",\"Alambagh\",\"Hazratganj\",\"Indira Nagar\",\"Mahanagar\",\"Vikas Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b7aaa756-ed1d-4b2e-8509-32a9ceececb3",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Kanpur",
+    "slug": "kanpur",
+    "tier": 1,
+    "popular_localities": "[\"Civil Lines\",\"Swaroop Nagar\",\"Kidwai Nagar\",\"Kalyanpur\",\"Kakadeo\"]",
+    "is_active": 1
+  },
+  {
+    "id": "71acc43c-f8d4-45dd-a2ad-a6654e267cba",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Noida",
+    "slug": "noida",
+    "tier": 1,
+    "popular_localities": "[\"Sector 62\",\"Sector 18\",\"Sector 137\",\"Sector 50\",\"Greater Noida\"]",
+    "is_active": 1
+  },
+  {
+    "id": "25d6b691-c1c5-4471-9e8d-dc804395d499",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Ghaziabad",
+    "slug": "ghaziabad",
+    "tier": 1,
+    "popular_localities": "[\"Indirapuram\",\"Vaishali\",\"Vasundhara\",\"Raj Nagar\",\"Crossings Republik\"]",
+    "is_active": 1
+  },
+  {
+    "id": "9cd7ac29-f374-4809-ad2d-f9aa925fd449",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Varanasi",
+    "slug": "varanasi",
+    "tier": 2,
+    "popular_localities": "[\"Lanka\",\"Sigra\",\"Bhelupur\",\"Shivpur\",\"Cantt\",\"Godowlia\"]",
+    "is_active": 1
+  },
+  {
+    "id": "9719ac2d-17bd-4393-a018-5b80da5cef2d",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Agra",
+    "slug": "agra",
+    "tier": 2,
+    "popular_localities": "[\"Sanjay Place\",\"Tajganj\",\"Kamla Nagar\",\"Fatehabad Road\",\"Dayal Bagh\"]",
+    "is_active": 1
+  },
+  {
+    "id": "c3a4f8b9-4351-49d1-bb58-ffe529255849",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Prayagraj",
+    "slug": "prayagraj",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Georgetown\",\"Katra\",\"Tagore Town\",\"Naini\"]",
+    "is_active": 1
+  },
+  {
+    "id": "199fa094-0a72-4761-86f0-c0fd16f5fc50",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Bareilly",
+    "slug": "bareilly",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"DD Puram\",\"Rajendra Nagar\",\"Izzatnagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "cd45a227-e6cd-40b1-bed1-54d1ab2282bc",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Aligarh",
+    "slug": "aligarh",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Centre Point\",\"Marris Road\",\"Ramghat Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "143eb9c3-ce9d-46f6-86ed-785d3886ec17",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Moradabad",
+    "slug": "moradabad",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Ram Ganga Vihar\",\"Majhola\",\"Kanth Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "3a6e9587-2723-4aac-9340-9b04df175b1c",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Gorakhpur",
+    "slug": "gorakhpur",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Golghar\",\"Taramandal\",\"Shahpur\",\"Medical College\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b88d394a-8e0d-4b52-97d9-c91c3127be1e",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Meerut",
+    "slug": "meerut",
+    "tier": 2,
+    "popular_localities": "[\"Shastri Nagar\",\"Modipuram\",\"Ganga Nagar\",\"Saket\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a97a8b7a-03fa-442b-976e-f27c7290a76b",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Jhansi",
+    "slug": "jhansi",
+    "tier": 2,
+    "popular_localities": "[\"Sadar Bazar\",\"Sipri Bazar\",\"Civil Lines\",\"Nandan Pura\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b0ba907c-bb1c-45e5-a47e-1dbe637528b7",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Mathura",
+    "slug": "mathura",
+    "tier": 2,
+    "popular_localities": "[\"Krishna Nagar\",\"Vrindavan\",\"Dampier Nagar\",\"Refinery Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "963eb50d-02b0-438c-ad8d-3af98ee39d07",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Ayodhya",
+    "slug": "ayodhya",
+    "tier": 2,
+    "popular_localities": "[\"Faizabad Cantt\",\"Civil Lines\",\"Naya Ghat\",\"Rikabganj\"]",
+    "is_active": 1
+  },
+  {
+    "id": "9e6717f7-62a0-4173-b0f1-8e0457bbc5c8",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Renukoot",
+    "slug": "renukoot",
+    "tier": 3,
+    "popular_localities": "[\"Hindalco Colony\",\"Murdhawa\",\"Pipri\",\"Turra\"]",
+    "is_active": 1
+  },
+  {
+    "id": "43af90d0-620d-4708-a638-d0b5b254825a",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Singrauli Belt (UP)",
+    "slug": "singrauli-belt-up",
+    "tier": 3,
+    "popular_localities": "[\"Anpara\",\"Shaktinagar\",\"Obra\",\"Bijpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e27883e8-d20a-4779-8c74-2c9f3ab06e0e",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Firozabad",
+    "slug": "firozabad",
+    "tier": 3,
+    "popular_localities": "[\"Suhag Nagar\",\"Station Road\",\"Raja Ka Taal\"]",
+    "is_active": 1
+  },
+  {
+    "id": "fdfad492-d277-482e-8706-5fe143455833",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Muzaffarnagar",
+    "slug": "muzaffarnagar",
+    "tier": 3,
+    "popular_localities": "[\"New Mandi\",\"Civil Lines\",\"Gandhi Colony\"]",
+    "is_active": 1
+  },
+  {
+    "id": "bbdde850-34f9-4721-a342-f61067174f41",
+    "state_id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Saharanpur",
+    "slug": "saharanpur",
+    "tier": 2,
+    "popular_localities": "[\"Court Road\",\"Mission Compound\",\"Delhi Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "d0c0a1e7-73af-4e1a-a036-3e7c776e9f04",
+    "state_id": "ddf4b067-2340-46a0-95ac-53383f3532ac",
+    "name": "New Delhi",
+    "slug": "new-delhi",
+    "tier": 1,
+    "popular_localities": "[\"Connaught Place\",\"Chanakyapuri\",\"Vasant Kunj\",\"Hauz Khas\",\"Saket\",\"Lajpat Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "45b0488d-5dca-4190-942e-3d810d60c269",
+    "state_id": "ddf4b067-2340-46a0-95ac-53383f3532ac",
+    "name": "North Delhi",
+    "slug": "north-delhi",
+    "tier": 1,
+    "popular_localities": "[\"Rohini\",\"Pitampura\",\"Model Town\",\"Civil Lines\",\"Shalimar Bagh\"]",
+    "is_active": 1
+  },
+  {
+    "id": "87a3d875-f2e0-45c8-a0e0-59473294511c",
+    "state_id": "ddf4b067-2340-46a0-95ac-53383f3532ac",
+    "name": "South Delhi",
+    "slug": "south-delhi",
+    "tier": 1,
+    "popular_localities": "[\"Greater Kailash\",\"South Extension\",\"Green Park\",\"Malviya Nagar\",\"Kalkaji\"]",
+    "is_active": 1
+  },
+  {
+    "id": "7b53ebd8-600d-48a3-bdfd-5cc90f416419",
+    "state_id": "ddf4b067-2340-46a0-95ac-53383f3532ac",
+    "name": "West Delhi",
+    "slug": "west-delhi",
+    "tier": 1,
+    "popular_localities": "[\"Janakpuri\",\"Rajouri Garden\",\"Punjabi Bagh\",\"Dwarka\",\"Paschim Vihar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0c44c9a5-bcc4-4a40-b4bc-60106fc773b6",
+    "state_id": "ddf4b067-2340-46a0-95ac-53383f3532ac",
+    "name": "East Delhi",
+    "slug": "east-delhi",
+    "tier": 1,
+    "popular_localities": "[\"Mayur Vihar\",\"Preet Vihar\",\"Laxmi Nagar\",\"Patparganj\",\"Vivek Vihar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "be14abff-06ca-4885-81fd-2848d8304e5f",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Gurugram",
+    "slug": "gurugram",
+    "tier": 1,
+    "popular_localities": "[\"Cyber City\",\"DLF Phase 1-5\",\"Sohna Road\",\"Golf Course Road\",\"Sector 56\",\"Palam Vihar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "63cea753-24dc-4f38-a658-e20104282f45",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Faridabad",
+    "slug": "faridabad",
+    "tier": 1,
+    "popular_localities": "[\"Sector 15\",\"Sector 21\",\"NIT Faridabad\",\"Greenfield\",\"Surajkund\"]",
+    "is_active": 1
+  },
+  {
+    "id": "c8f1f985-8a65-4266-bee4-8054f866bbf5",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Panipat",
+    "slug": "panipat",
+    "tier": 2,
+    "popular_localities": "[\"Model Town\",\"Sector 11\",\"Sector 25 Industrial Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "cfa886a2-6e76-40a2-8cde-aac454035ae5",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Ambala",
+    "slug": "ambala",
+    "tier": 2,
+    "popular_localities": "[\"Ambala Cantt\",\"Ambala City\",\"Model Town\",\"Sector 9\"]",
+    "is_active": 1
+  },
+  {
+    "id": "45706164-bef9-42e9-a8d3-a461eab22391",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Karnal",
+    "slug": "karnal",
+    "tier": 2,
+    "popular_localities": "[\"Model Town\",\"Sector 13\",\"Sector 6\",\"Kunjpura Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0e0a7ac6-5cc3-45f7-9ab0-cecff9806aa1",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Hisar",
+    "slug": "hisar",
+    "tier": 2,
+    "popular_localities": "[\"Urban Estate\",\"Model Town\",\"Auto Market\",\"Sector 14\"]",
+    "is_active": 1
+  },
+  {
+    "id": "f3316672-14fc-4a80-bf6c-64b37639722e",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Rohtak",
+    "slug": "rohtak",
+    "tier": 2,
+    "popular_localities": "[\"Model Town\",\"Sector 1\",\"Subhash Nagar\",\"Mansarovar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "8aa3d089-0d18-4958-a736-40099724efae",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Sonipat",
+    "slug": "sonipat",
+    "tier": 2,
+    "popular_localities": "[\"Model Town\",\"Kundli\",\"Sector 14\",\"Rai\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2b35d524-b9bd-4bfb-85a0-d29ec630e76a",
+    "state_id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Panchkula",
+    "slug": "panchkula",
+    "tier": 2,
+    "popular_localities": "[\"Sector 4\",\"Sector 7\",\"Sector 20\",\"MDC\"]",
+    "is_active": 1
+  },
+  {
+    "id": "5440ea12-7afc-4361-be6d-3de26cc38537",
+    "state_id": "b97cff7f-b96c-4d1b-a006-f9be7d891b43",
+    "name": "Ludhiana",
+    "slug": "ludhiana",
+    "tier": 1,
+    "popular_localities": "[\"Model Town\",\"Sarabha Nagar\",\"BRS Nagar\",\"Civil Lines\",\"Ferozepur Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "98cf4382-16d9-487e-a29d-caffac9dca0e",
+    "state_id": "b97cff7f-b96c-4d1b-a006-f9be7d891b43",
+    "name": "Amritsar",
+    "slug": "amritsar",
+    "tier": 2,
+    "popular_localities": "[\"Ranjit Avenue\",\"Mall Road\",\"Lawrence Road\",\"Civil Lines\",\"Majitha Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "16e1143a-caee-46bc-8d3a-6858d84b5660",
+    "state_id": "b97cff7f-b96c-4d1b-a006-f9be7d891b43",
+    "name": "Jalandhar",
+    "slug": "jalandhar",
+    "tier": 2,
+    "popular_localities": "[\"Model Town\",\"Civil Lines\",\"Urban Estate\",\"Defence Colony\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b287dbd9-e68f-4be1-b1d5-9f4fb38bf650",
+    "state_id": "b97cff7f-b96c-4d1b-a006-f9be7d891b43",
+    "name": "Patiala",
+    "slug": "patiala",
+    "tier": 2,
+    "popular_localities": "[\"Model Town\",\"Urban Estate Phase 1\",\"Baradari\",\"Leela Bhawan\"]",
+    "is_active": 1
+  },
+  {
+    "id": "04ab3315-a54a-4540-81d1-b307a682fca0",
+    "state_id": "b97cff7f-b96c-4d1b-a006-f9be7d891b43",
+    "name": "Bathinda",
+    "slug": "bathinda",
+    "tier": 2,
+    "popular_localities": "[\"Model Town\",\"Civil Lines\",\"Thermal Colony\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a085ff0a-9816-401e-acc0-b197e95aaeb6",
+    "state_id": "b97cff7f-b96c-4d1b-a006-f9be7d891b43",
+    "name": "Mohali",
+    "slug": "mohali",
+    "tier": 1,
+    "popular_localities": "[\"Phase 7\",\"Phase 3B2\",\"Sector 70\",\"Sector 82 IT City\",\"Aerocity\"]",
+    "is_active": 1
+  },
+  {
+    "id": "bf2a67b4-d162-45ee-b4ca-58c2b77d3f10",
+    "state_id": "6693b365-aae6-4a9c-b049-ebb54460d698",
+    "name": "Chandigarh",
+    "slug": "chandigarh",
+    "tier": 1,
+    "popular_localities": "[\"Sector 17\",\"Sector 35\",\"Sector 8\",\"Sector 22\",\"Sector 43\",\"Manimajra\"]",
+    "is_active": 1
+  },
+  {
+    "id": "daeb804e-7cda-4cc1-ae7b-b8d01840bc30",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Jaipur",
+    "slug": "jaipur",
+    "tier": 1,
+    "popular_localities": "[\"Vaishali Nagar\",\"Malviya Nagar\",\"Mansarovar\",\"C Scheme\",\"Raja Park\",\"Jagatpura\"]",
+    "is_active": 1
+  },
+  {
+    "id": "81574e37-eb49-495d-9151-7c8767d19684",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Jodhpur",
+    "slug": "jodhpur",
+    "tier": 2,
+    "popular_localities": "[\"Shastri Nagar\",\"Ratanada\",\"Sardarpura\",\"Pal Road\",\"Basni\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2c136ef7-6f3c-4fee-b5bd-b70fa67bd091",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Kota",
+    "slug": "kota",
+    "tier": 2,
+    "popular_localities": "[\"Talwandi\",\"Vigyan Nagar\",\"Dadabari\",\"Mahaveer Nagar\",\"Indraprastha\"]",
+    "is_active": 1
+  },
+  {
+    "id": "1729a753-94af-4a6e-a7a9-7628790567c3",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Udaipur",
+    "slug": "udaipur",
+    "tier": 2,
+    "popular_localities": "[\"Hiran Magri\",\"Fatehpura\",\"Panchwati\",\"Madhuban\",\"Sukher\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0c9f4ae9-1d6a-4986-b735-3df557bef6cf",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Ajmer",
+    "slug": "ajmer",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Vaishali Nagar\",\"Panchsheel Nagar\",\"Adarsh Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "47b67695-a388-4c6f-a430-2b7100435e2d",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Bikaner",
+    "slug": "bikaner",
+    "tier": 2,
+    "popular_localities": "[\"Kanta Khaturia Colony\",\"Jai Narayan Vyas Colony\",\"Sadar Bazar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "cca9596e-c336-40a3-a490-624e099881e7",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Bhilwara",
+    "slug": "bhilwara",
+    "tier": 3,
+    "popular_localities": "[\"Subhash Nagar\",\"Bhopal Ganj\",\"Patel Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "00c46196-8c68-44ec-8b8d-b688b213a395",
+    "state_id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Alwar",
+    "slug": "alwar",
+    "tier": 2,
+    "popular_localities": "[\"Company Bagh\",\"MIA Industrial Area\",\"Neemrana\",\"Bhiwadi\"]",
+    "is_active": 1
+  },
+  {
+    "id": "afd3b238-6b22-4c33-886b-d48f0f1cba54",
+    "state_id": "40cb435a-cc1b-4f51-b867-c53e56d1ccae",
+    "name": "Dehradun",
+    "slug": "dehradun",
+    "tier": 2,
+    "popular_localities": "[\"Rajpur Road\",\"Jakhan\",\"Vasant Vihar\",\"Dalanwala\",\"Clement Town\"]",
+    "is_active": 1
+  },
+  {
+    "id": "32bdd629-e4b2-4dd0-993a-775caae16bc0",
+    "state_id": "40cb435a-cc1b-4f51-b867-c53e56d1ccae",
+    "name": "Haridwar",
+    "slug": "haridwar",
+    "tier": 2,
+    "popular_localities": "[\"Ranipur More\",\"Shivalik Nagar\",\"Kankhal\",\"SIIDCUL\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0d2dfaa8-854b-4d49-bb7d-f1f8ea7ae9ae",
+    "state_id": "40cb435a-cc1b-4f51-b867-c53e56d1ccae",
+    "name": "Roorkee",
+    "slug": "roorkee",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"IIT Campus\",\"Solani Puram\"]",
+    "is_active": 1
+  },
+  {
+    "id": "eee85349-e982-48c8-98ab-2d6374952697",
+    "state_id": "40cb435a-cc1b-4f51-b867-c53e56d1ccae",
+    "name": "Haldwani",
+    "slug": "haldwani",
+    "tier": 2,
+    "popular_localities": "[\"Kaladhungi Road\",\"Nainital Road\",\"Kathgodam\",\"Tikonia\"]",
+    "is_active": 1
+  },
+  {
+    "id": "569f34dc-9f0c-40e9-b2e3-fd83d9b8721b",
+    "state_id": "40cb435a-cc1b-4f51-b867-c53e56d1ccae",
+    "name": "Rishikesh",
+    "slug": "rishikesh",
+    "tier": 3,
+    "popular_localities": "[\"Tapovan\",\"Muni Ki Reti\",\"Awas Vikas Colony\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a671232d-e234-47be-a1dd-27b79993f10b",
+    "state_id": "40cb435a-cc1b-4f51-b867-c53e56d1ccae",
+    "name": "Rudrapur",
+    "slug": "rudrapur",
+    "tier": 3,
+    "popular_localities": "[\"Pantnagar SIDCUL\",\"Awas Vikas\",\"Civil Lines\"]",
+    "is_active": 1
+  },
+  {
+    "id": "1a9f0386-86e4-4868-893a-600e0d381676",
+    "state_id": "fb8ad253-a55a-4117-94f3-ad95012a58f3",
+    "name": "Shimla",
+    "slug": "shimla",
+    "tier": 2,
+    "popular_localities": "[\"Mall Road\",\"Sanjauli\",\"Chotta Shimla\",\"Kasumpti\",\"New Shimla\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2c377476-49c1-46e1-8d81-4c1dee3690a5",
+    "state_id": "fb8ad253-a55a-4117-94f3-ad95012a58f3",
+    "name": "Dharamshala",
+    "slug": "dharamshala",
+    "tier": 3,
+    "popular_localities": "[\"McLeod Ganj\",\"Kotwali Bazar\",\"Dari\",\"Civil Lines\"]",
+    "is_active": 1
+  },
+  {
+    "id": "37602eae-a44c-452b-9a46-d9568cdcb6d1",
+    "state_id": "fb8ad253-a55a-4117-94f3-ad95012a58f3",
+    "name": "Mandi",
+    "slug": "mandi",
+    "tier": 3,
+    "popular_localities": "[\"Bhiuli\",\"Sauli Khad\",\"Motibagh\"]",
+    "is_active": 1
+  },
+  {
+    "id": "11c7bf58-71bf-4cc7-89e0-bb84f474290a",
+    "state_id": "fb8ad253-a55a-4117-94f3-ad95012a58f3",
+    "name": "Solan",
+    "slug": "solan",
+    "tier": 3,
+    "popular_localities": "[\"Mall Road\",\"Chambaghat\",\"Kumarhatti\",\"Baddi Industrial Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "7c193f01-9166-4aa8-a270-9ec9089e7ac3",
+    "state_id": "fb8ad253-a55a-4117-94f3-ad95012a58f3",
+    "name": "Kullu Manali",
+    "slug": "kullu-manali",
+    "tier": 3,
+    "popular_localities": "[\"Model Town Manali\",\"Sarvari\",\"Dhalpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "219d3fe4-eba6-449b-8f8c-e68bfedfd2a9",
+    "state_id": "29282286-8f9c-43ab-8189-88e004aba8f7",
+    "name": "Srinagar",
+    "slug": "srinagar",
+    "tier": 2,
+    "popular_localities": "[\"Lal Chowk\",\"Rajbagh\",\"Hyderpora\",\"Karan Nagar\",\"Sanat Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a45c807f-e2bf-4238-ab4a-c64a1502cb83",
+    "state_id": "29282286-8f9c-43ab-8189-88e004aba8f7",
+    "name": "Jammu",
+    "slug": "jammu",
+    "tier": 2,
+    "popular_localities": "[\"Gandhi Nagar\",\"Trikuta Nagar\",\"Channi Himmat\",\"Bahu Plaza\",\"Talab Tillo\"]",
+    "is_active": 1
+  },
+  {
+    "id": "f4dd6af1-057b-4007-ae6e-2e8f28b023f7",
+    "state_id": "29282286-8f9c-43ab-8189-88e004aba8f7",
+    "name": "Anantnag",
+    "slug": "anantnag",
+    "tier": 3,
+    "popular_localities": "[\"KP Road\",\"Nai Basti\",\"Ashajipora\"]",
+    "is_active": 1
+  },
+  {
+    "id": "98a0979b-a27e-4733-b352-426a75829f6e",
+    "state_id": "29282286-8f9c-43ab-8189-88e004aba8f7",
+    "name": "Udhampur",
+    "slug": "udhampur",
+    "tier": 3,
+    "popular_localities": "[\"Subash Nagar\",\"Dhar Road\",\"Kallar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2e21fbdb-e004-4782-b5e2-51797c268b4b",
+    "state_id": "ddbae3af-2d99-449f-a3a2-5efa86eb198f",
+    "name": "Leh",
+    "slug": "leh",
+    "tier": 3,
+    "popular_localities": "[\"Main Bazaar\",\"Choglamsar\",\"Skalzangling\"]",
+    "is_active": 1
+  },
+  {
+    "id": "6736a0e9-177d-4372-9ab5-580f2577dc1e",
+    "state_id": "ddbae3af-2d99-449f-a3a2-5efa86eb198f",
+    "name": "Kargil",
+    "slug": "kargil",
+    "tier": 3,
+    "popular_localities": "[\"Baroo\",\"Biamathang\",\"Main Market\"]",
+    "is_active": 1
+  },
+  {
+    "id": "5f7878ca-937f-4a32-a351-5cd52dc5d191",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Dhanbad",
+    "slug": "dhanbad",
+    "tier": 1,
+    "popular_localities": "[\"Bank More\",\"Saraidhela\",\"Hirapur\",\"Steel Gate\",\"Koyla Nagar\",\"Jharia\",\"Katras\",\"Govindpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e0678685-2815-498e-a820-5fb2c8d32ef2",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Ranchi",
+    "slug": "ranchi",
+    "tier": 1,
+    "popular_localities": "[\"Harmu Housing Colony\",\"Ashok Nagar\",\"Kanke Road\",\"Lalpur\",\"Bariatu\",\"Doranda\",\"Morabadi\"]",
+    "is_active": 1
+  },
+  {
+    "id": "06b9b100-8ad0-4593-a10b-a6b8a0f1dfe6",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Jamshedpur",
+    "slug": "jamshedpur",
+    "tier": 1,
+    "popular_localities": "[\"Bistupur\",\"Sakchi\",\"Kadma\",\"Sonari\",\"Telco Colony\",\"Baridih\",\"Mango\",\"Adityapur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "1ab60742-88b5-45c5-b473-898326c2a597",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Bokaro Steel City",
+    "slug": "bokaro-steel-city",
+    "tier": 2,
+    "popular_localities": "[\"Sector 4\",\"Sector 1\",\"Sector 9\",\"Chas\",\"Cooperative Colony\",\"Marafari\"]",
+    "is_active": 1
+  },
+  {
+    "id": "040341d3-ad69-4c17-bb4a-018697f38dba",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Hazaribagh",
+    "slug": "hazaribagh",
+    "tier": 2,
+    "popular_localities": "[\"Matwari\",\"Korrah\",\"Canary Hill Road\",\"Pelawal\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a53eb6d9-9f72-4db6-bf42-57e28f271028",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Deoghar",
+    "slug": "deoghar",
+    "tier": 2,
+    "popular_localities": "[\"Castairs Town\",\"Bilasir Town\",\"Jasidih Industrial Area\",\"Kunda\"]",
+    "is_active": 1
+  },
+  {
+    "id": "4fbea052-d527-455d-a622-013f001f253f",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Giridih",
+    "slug": "giridih",
+    "tier": 2,
+    "popular_localities": "[\"Bada Chowk\",\"Makatpur\",\"Beniadih\",\"Sirsiya\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2b6a4dbd-8974-49b8-8e80-a400bbed27d1",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Ramgarh",
+    "slug": "ramgarh",
+    "tier": 2,
+    "popular_localities": "[\"Patratu\",\"Ramgarh Cantt\",\"Gola Road\",\"Kuju\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b1039f8d-4c05-4f03-9dcc-0523e988f208",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Medininagar (Daltonganj)",
+    "slug": "medininagar-daltonganj",
+    "tier": 3,
+    "popular_localities": "[\"Shahpur\",\"Hamid Ganj\",\"Redma\",\"Bairia\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a6045a77-e43f-42d6-812a-7e8e1c3eae03",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Chas",
+    "slug": "chas",
+    "tier": 3,
+    "popular_localities": "[\"Check Post\",\"Kanta Phari\",\"Telidih\",\"Bypass Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "4fd5c519-44fa-4d42-b367-82054b3053df",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Jhumri Telaiya",
+    "slug": "jhumri-telaiya",
+    "tier": 3,
+    "popular_localities": "[\"Station Road\",\"Gumo\",\"Ranchi-Patna Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e001f28d-87b8-408a-8bcc-6b896884f66d",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Chaibasa",
+    "slug": "chaibasa",
+    "tier": 3,
+    "popular_localities": "[\"Tata College Road\",\"Sadar Bazar\",\"Tambu Chowk\"]",
+    "is_active": 1
+  },
+  {
+    "id": "d20c562a-f950-4d4f-ab40-41546f1e2509",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Dumka",
+    "slug": "dumka",
+    "tier": 3,
+    "popular_localities": "[\"Tin Bazaar\",\"Kurwa\",\"Dudhani\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e62b0908-48f5-46d6-9c42-e2d628043e1e",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Ghatshila",
+    "slug": "ghatshila",
+    "tier": 3,
+    "popular_localities": "[\"Mouhandar\",\"Dahi Goria\",\"College Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "46c32419-e91a-4b3f-85d9-d0855981e96f",
+    "state_id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Bermo",
+    "slug": "bermo",
+    "tier": 3,
+    "popular_localities": "[\"Phusro\",\"Dhori\",\"Jarangdih\"]",
+    "is_active": 1
+  },
+  {
+    "id": "d16704b4-5ebf-46c4-8463-73b01bf2422a",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Patna",
+    "slug": "patna",
+    "tier": 1,
+    "popular_localities": "[\"Boring Road\",\"Kankarbagh\",\"Bailey Road\",\"Rajendra Nagar\",\"Danapur\",\"Patliputra Colony\",\"Anisabad\"]",
+    "is_active": 1
+  },
+  {
+    "id": "4c0b4c75-5a89-4633-8c38-2ed8f5f7f92d",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Gaya",
+    "slug": "gaya",
+    "tier": 2,
+    "popular_localities": "[\"AP Colony\",\"Civil Lines\",\"Bodhgaya Road\",\"Chandauti\"]",
+    "is_active": 1
+  },
+  {
+    "id": "bbf6cba9-5565-427d-9a76-9a8702983a69",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Muzaffarpur",
+    "slug": "muzaffarpur",
+    "tier": 2,
+    "popular_localities": "[\"Mithanpura\",\"Aghoria Bazar\",\"Kalambagh Road\",\"Brahmpura\",\"Juran Chapra\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e8e10949-cf5d-43ea-8650-8192d91fe706",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Bhagalpur",
+    "slug": "bhagalpur",
+    "tier": 2,
+    "popular_localities": "[\"Adampur\",\"Zero Mile\",\"Tilkamanjhi\",\"Barari\"]",
+    "is_active": 1
+  },
+  {
+    "id": "163afdfc-4fbf-4212-93ce-c8611b2bbe56",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Darbhanga",
+    "slug": "darbhanga",
+    "tier": 2,
+    "popular_localities": "[\"Laheriasarai\",\"Allalpatti\",\"Donar\",\"Mirzapur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "46332e42-63d2-4be9-a2bf-b3906657294c",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Purnia",
+    "slug": "purnia",
+    "tier": 2,
+    "popular_localities": "[\"Line Bazar\",\"Bhatta Bazar\",\"Gulabbagh\",\"Madhubani\"]",
+    "is_active": 1
+  },
+  {
+    "id": "d4142155-d857-4ffb-bcb3-a489b225465d",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Begusarai",
+    "slug": "begusarai",
+    "tier": 2,
+    "popular_localities": "[\"Harrakh\",\"Barauni Refinery Colony\",\"Kapasiya\"]",
+    "is_active": 1
+  },
+  {
+    "id": "ae56f718-88ca-41f9-a594-9c550f7007b2",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Arrah (Bhojpur)",
+    "slug": "arrah-bhojpur",
+    "tier": 2,
+    "popular_localities": "[\"Nawada\",\"Anaith\",\"Civil Lines\"]",
+    "is_active": 1
+  },
+  {
+    "id": "5a1d8aab-7525-441c-ad03-13e023c18cd4",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Katihar",
+    "slug": "katihar",
+    "tier": 2,
+    "popular_localities": "[\"Mirchaibari\",\"Mangal Bazar\",\"Tingachia\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a47cb16b-b297-4dc9-9cfe-f5232460f4ca",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Munger",
+    "slug": "munger",
+    "tier": 3,
+    "popular_localities": "[\"Jamalpur\",\"Bekapur\",\"Purabsarai\"]",
+    "is_active": 1
+  },
+  {
+    "id": "bbf711b2-57a5-486f-957e-58026062c40b",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Chhapra",
+    "slug": "chhapra",
+    "tier": 2,
+    "popular_localities": "[\"Garkha Road\",\"Dahiyawan\",\"Prabhunath Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "48d0d985-9910-4d55-b1bb-bef1e19e1fc1",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Bihar Sharif",
+    "slug": "bihar-sharif",
+    "tier": 2,
+    "popular_localities": "[\"Ranchi Road\",\"Khandak Par\",\"Ramchandrapur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b61aac7e-b951-4428-91ae-bd6bd9db21f7",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Sasaram",
+    "slug": "sasaram",
+    "tier": 3,
+    "popular_localities": "[\"Gaurakshini\",\"Fazalganj Industrial Area\",\"Civil Lines\"]",
+    "is_active": 1
+  },
+  {
+    "id": "7548d879-8c37-40e0-a6d8-3307c9f1ddb8",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Motihari",
+    "slug": "motihari",
+    "tier": 3,
+    "popular_localities": "[\"Chhatauni\",\"Main Road\",\"Janpul\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b999277f-5797-42fb-b8c9-6ca6db1275df",
+    "state_id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Samastipur",
+    "slug": "samastipur",
+    "tier": 3,
+    "popular_localities": "[\"Magardahi\",\"Kashipur\",\"Mohanpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "34593776-8a11-4b7c-a3a4-811562bf2cc5",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Kolkata",
+    "slug": "kolkata",
+    "tier": 1,
+    "popular_localities": "[\"Salt Lake\",\"New Town\",\"Ballygunge\",\"Alipore\",\"Behala\",\"Garia\",\"Dum Dum\",\"Rajarhat\",\"Jadavpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a8067723-aa97-43f1-aab0-1855c0b00ec9",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Howrah",
+    "slug": "howrah",
+    "tier": 1,
+    "popular_localities": "[\"Shibpur\",\"Salkia\",\"Bally\",\"Mandirtala\",\"Santragachi\",\"Liluah\"]",
+    "is_active": 1
+  },
+  {
+    "id": "588c588b-feef-43ac-966f-d24e574de9d0",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Siliguri",
+    "slug": "siliguri",
+    "tier": 2,
+    "popular_localities": "[\"Sevoke Road\",\"Pradhan Nagar\",\"Hakim Para\",\"Matigara\",\"Khalpara\"]",
+    "is_active": 1
+  },
+  {
+    "id": "3a373317-8e01-466b-a590-3c97ae05ba74",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Asansol",
+    "slug": "asansol",
+    "tier": 2,
+    "popular_localities": "[\"Burnpur\",\"Ushagram\",\"Kalyanpur Housing\",\"Chelidanga\",\"SB Gorai Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "47f76fa9-a36f-4275-b3b6-d9383dfc2ef3",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Durgapur",
+    "slug": "durgapur",
+    "tier": 2,
+    "popular_localities": "[\"City Centre\",\"Benachity\",\"Bidhannagar\",\"Steel Township\",\"Muchipara\"]",
+    "is_active": 1
+  },
+  {
+    "id": "489fc9d2-d9d4-48b3-9d91-478f33afd712",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Kharagpur",
+    "slug": "kharagpur",
+    "tier": 2,
+    "popular_localities": "[\"IIT Campus Area\",\"Gol Bazar\",\"Inda\",\"Malancha\"]",
+    "is_active": 1
+  },
+  {
+    "id": "3b3359f9-21a5-4dd8-871e-0b845049964e",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Haldia",
+    "slug": "haldia",
+    "tier": 2,
+    "popular_localities": "[\"Durgachak\",\"City Centre Haldia\",\"Basudevpur\",\"Sutahata\"]",
+    "is_active": 1
+  },
+  {
+    "id": "6ead066b-e763-45cf-bcce-571f5eb140cd",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Bardhaman",
+    "slug": "bardhaman",
+    "tier": 2,
+    "popular_localities": "[\"Curzon Gate\",\"Golapbag\",\"Birhata\",\"Vivekananda Pally\"]",
+    "is_active": 1
+  },
+  {
+    "id": "5c7b9ef7-93c6-4175-9b9f-6198be60e894",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Malda",
+    "slug": "malda",
+    "tier": 2,
+    "popular_localities": "[\"English Bazar\",\"Mangalbari\",\"Mokdumpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "14dd3c61-2da9-4955-9c4b-08ea20581264",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Darjeeling",
+    "slug": "darjeeling",
+    "tier": 3,
+    "popular_localities": "[\"Mall Road\",\"Chowrasta\",\"Lebong\",\"Jalapahar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "90cc586a-b406-4052-9d72-91b61c284547",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Jalpaiguri",
+    "slug": "jalpaiguri",
+    "tier": 3,
+    "popular_localities": "[\"Kadamtala\",\"Mohitnagar\",\"Raninagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "162f58cb-58b1-48ae-9729-1d26333be6aa",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Kalyani",
+    "slug": "kalyani",
+    "tier": 3,
+    "popular_localities": "[\"Block A\",\"Block B\",\"AIIMS Kalyani Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e2153d66-1a76-4815-b354-aa5f534be241",
+    "state_id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "Habra",
+    "slug": "habra",
+    "tier": 3,
+    "popular_localities": "[\"Jessore Road\",\"Banipur\",\"Station Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "409b1557-c221-46d0-8c7c-d96f7b6f3bed",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Bhubaneswar",
+    "slug": "bhubaneswar",
+    "tier": 1,
+    "popular_localities": "[\"Patia\",\"Nayapalli\",\"Saheed Nagar\",\"Khandagiri\",\"Chandrasekharpur\",\"Jayadev Vihar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0d107a9e-7c68-4ba0-9e61-633f3001d971",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Cuttack",
+    "slug": "cuttack",
+    "tier": 2,
+    "popular_localities": "[\"CDA Sector 6-10\",\"Badambadi\",\"Link Road\",\"Madhupatna\",\"College Square\"]",
+    "is_active": 1
+  },
+  {
+    "id": "8174a882-a0bf-4f92-9dca-e3e6cc309688",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Rourkela",
+    "slug": "rourkela",
+    "tier": 2,
+    "popular_localities": "[\"Civil Township\",\"Koel Nagar\",\"Udit Nagar\",\"Panposh\",\"Sector 1-20\"]",
+    "is_active": 1
+  },
+  {
+    "id": "d139cfd4-61f1-4683-a95d-76f59c9f611c",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Sambalpur",
+    "slug": "sambalpur",
+    "tier": 2,
+    "popular_localities": "[\"Dhanupali\",\"Ainthapali\",\"Budharaja\",\"Khetrajpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "417ced31-310c-42dc-9e19-d1783b4b110e",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Puri",
+    "slug": "puri",
+    "tier": 3,
+    "popular_localities": "[\"VIP Road\",\"Sea Beach\",\"Grand Road\",\"Talabania\"]",
+    "is_active": 1
+  },
+  {
+    "id": "3156a0ea-e3c0-48f8-92a2-1b2474762c10",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Balasore",
+    "slug": "balasore",
+    "tier": 2,
+    "popular_localities": "[\"OT Road\",\"Fakir Mohan Nagar\",\"Kuruda\"]",
+    "is_active": 1
+  },
+  {
+    "id": "77bde55b-5665-4034-aa9f-0d334355ce22",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Berhampur",
+    "slug": "berhampur",
+    "tier": 2,
+    "popular_localities": "[\"Gandhinagar\",\"Kamapalli\",\"Gosani Nuagaon\"]",
+    "is_active": 1
+  },
+  {
+    "id": "033c32e5-629b-40e3-babc-536361409d92",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Jharsuguda",
+    "slug": "jharsuguda",
+    "tier": 3,
+    "popular_localities": "[\"Vedanta Township\",\"Mangalbazar\",\"Sarbahal\",\"Brundamal\"]",
+    "is_active": 1
+  },
+  {
+    "id": "96f5fb45-3b4f-4d18-8996-21249aed31db",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Baripada",
+    "slug": "baripada",
+    "tier": 3,
+    "popular_localities": "[\"Baghra Road\",\"Station Road\",\"Deulasahi\"]",
+    "is_active": 1
+  },
+  {
+    "id": "45e768a8-4fac-42fd-9efa-0310daabc516",
+    "state_id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Bhadrak",
+    "slug": "bhadrak",
+    "tier": 3,
+    "popular_localities": "[\"Charampa\",\"Bonth Chowk\",\"Kacheri Bazar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "64e77fe5-a601-41eb-8780-ba9fdbb53593",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Indore",
+    "slug": "indore",
+    "tier": 1,
+    "popular_localities": "[\"Vijay Nagar\",\"Palasia\",\"Bhawarkua\",\"Super Corridor\",\"Rau\",\"Sapna Sangeeta\"]",
+    "is_active": 1
+  },
+  {
+    "id": "93e56997-9300-4201-a260-2d5b41a55e51",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Bhopal",
+    "slug": "bhopal",
+    "tier": 1,
+    "popular_localities": "[\"Arera Colony\",\"MP Nagar\",\"Hoshangabad Road\",\"Kolar Road\",\"Ayodhya Bypass\"]",
+    "is_active": 1
+  },
+  {
+    "id": "810b62d8-16d1-4db6-ba7d-fe9426208e57",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Jabalpur",
+    "slug": "jabalpur",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Wright Town\",\"Vijay Nagar\",\"Napier Town\",\"Gorakhpur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "4e0a4a77-6e13-454e-bdae-1484d20c66d5",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Gwalior",
+    "slug": "gwalior",
+    "tier": 2,
+    "popular_localities": "[\"City Centre\",\"Lashkar\",\"Morar\",\"Thatipur\",\"Maharaj Bada\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b06734b3-4f48-4fe8-aa9d-87a2fd931257",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Ujjain",
+    "slug": "ujjain",
+    "tier": 2,
+    "popular_localities": "[\"Freeganj\",\"Nanakheda\",\"Madhav Nagar\",\"Dewas Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "aff2db98-9ac7-42fd-87bb-f959c10da299",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Singrauli (MP HQ)",
+    "slug": "singrauli-mp-hq",
+    "tier": 2,
+    "popular_localities": "[\"Waidhan\",\"Morwa\",\"Vindhyanagar NTPC\",\"Jayant NCL\",\"Nigahi\"]",
+    "is_active": 1
+  },
+  {
+    "id": "4e622fdd-edf9-452e-b844-19546d12aee6",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Satna",
+    "slug": "satna",
+    "tier": 2,
+    "popular_localities": "[\"Panna Naka\",\"Civil Lines\",\"Bharhut Nagar\",\"Birla Colony\"]",
+    "is_active": 1
+  },
+  {
+    "id": "f60cb1fb-b498-4a2f-a102-1831c9f957e4",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Sagar",
+    "slug": "sagar",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Makronia\",\"Tili Road\",\"Gopal Ganj\"]",
+    "is_active": 1
+  },
+  {
+    "id": "592f43aa-1168-41d8-a78a-39dd349a5545",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Rewa",
+    "slug": "rewa",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Bodabag\",\"University Road\",\"Urrhat\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2bfcd81b-7acd-49b3-b957-cde8f076b3fd",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Katni",
+    "slug": "katni",
+    "tier": 2,
+    "popular_localities": "[\"Madhav Nagar\",\"Barhi Road\",\"Civil Lines\"]",
+    "is_active": 1
+  },
+  {
+    "id": "faceef6f-f4cb-4877-9b9e-ab70af67da5a",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Ratlam",
+    "slug": "ratlam",
+    "tier": 3,
+    "popular_localities": "[\"Station Road\",\"Alkapuri\",\"Kasturba Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2db17e75-3ac2-457a-993a-1078f89c7863",
+    "state_id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Dewas",
+    "slug": "dewas",
+    "tier": 3,
+    "popular_localities": "[\"Bhopal Road\",\"Vikas Nagar\",\"Industrial Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "69459dba-0b72-485f-94e4-69843eafc39b",
+    "state_id": "4f58a827-3b32-4325-8a30-b3e2046e1e50",
+    "name": "Raipur",
+    "slug": "raipur",
+    "tier": 1,
+    "popular_localities": "[\"Shankar Nagar\",\"Telibandha\",\"Samta Colony\",\"Pandri\",\"Tatibandh\",\"Naya Raipur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "f2c7f044-c0ff-442f-bb6c-8aaa13b7904b",
+    "state_id": "4f58a827-3b32-4325-8a30-b3e2046e1e50",
+    "name": "Bhilai",
+    "slug": "bhilai",
+    "tier": 2,
+    "popular_localities": "[\"Sector 1-10\",\"Nehru Nagar\",\"Smriti Nagar\",\"Supela\",\"Power House\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0d24efcc-bda1-47a6-8cf1-f885cf956712",
+    "state_id": "4f58a827-3b32-4325-8a30-b3e2046e1e50",
+    "name": "Bilaspur",
+    "slug": "bilaspur",
+    "tier": 2,
+    "popular_localities": "[\"Civil Lines\",\"Vyapar Vihar\",\"Mangla\",\"Torwa\",\"Sarkanda\"]",
+    "is_active": 1
+  },
+  {
+    "id": "04d56c95-f049-47c1-a6b1-99c2137dd59b",
+    "state_id": "4f58a827-3b32-4325-8a30-b3e2046e1e50",
+    "name": "Korba",
+    "slug": "korba",
+    "tier": 2,
+    "popular_localities": "[\"CSEB Colony\",\"TP Nagar\",\"Darri\",\"Balco Township\",\"Kusmunda\"]",
+    "is_active": 1
+  },
+  {
+    "id": "215ab7f9-529e-4c02-8dd0-43105c699765",
+    "state_id": "4f58a827-3b32-4325-8a30-b3e2046e1e50",
+    "name": "Raigarh",
+    "slug": "raigarh",
+    "tier": 3,
+    "popular_localities": "[\"Jindal Industrial Park\",\"Chakradhar Nagar\",\"Station Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a6e9b391-b56a-439f-b6a5-6255f5aefa3c",
+    "state_id": "4f58a827-3b32-4325-8a30-b3e2046e1e50",
+    "name": "Rajnandgaon",
+    "slug": "rajnandgaon",
+    "tier": 3,
+    "popular_localities": "[\"Ganj Para\",\"Civil Lines\",\"Dongargarh Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "fcd85cb5-1e96-43c4-94b5-1606fdafd032",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Mumbai",
+    "slug": "mumbai",
+    "tier": 1,
+    "popular_localities": "[\"Andheri\",\"Bandra\",\"Borivali\",\"Powai\",\"Goregaon\",\"Dadar\",\"Worli\",\"Malad\",\"Juhu\"]",
+    "is_active": 1
+  },
+  {
+    "id": "232d653a-c4bd-4669-b556-2cbaa5013a40",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Pune",
+    "slug": "pune",
+    "tier": 1,
+    "popular_localities": "[\"Hinjawadi\",\"Wakad\",\"Kothrud\",\"Baner\",\"Hadapsar\",\"Viman Nagar\",\"Kharadi\",\"Aundh\"]",
+    "is_active": 1
+  },
+  {
+    "id": "68393010-0d42-456e-be31-85af7491d6fb",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Nagpur",
+    "slug": "nagpur",
+    "tier": 1,
+    "popular_localities": "[\"Dharampeth\",\"Manish Nagar\",\"Ramdaspeth\",\"Sitabuldi\",\"Pratap Nagar\",\"MIHAN\"]",
+    "is_active": 1
+  },
+  {
+    "id": "70dfe7fb-b480-44f0-91f3-134cae9157dd",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Thane",
+    "slug": "thane",
+    "tier": 1,
+    "popular_localities": "[\"Ghodbunder Road\",\"Majiwada\",\"Vartak Nagar\",\"Hiranandani Estate\",\"Kolshet\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2d0ad0e1-1c4f-4b2a-86fb-0da25b3cea61",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Navi Mumbai",
+    "slug": "navi-mumbai",
+    "tier": 1,
+    "popular_localities": "[\"Vashi\",\"Nerul\",\"Kharghar\",\"Panvel\",\"Belapur\",\"Seawoods\",\"Airoli\"]",
+    "is_active": 1
+  },
+  {
+    "id": "ca351ac9-b23d-4043-b31e-6cc7f9a05541",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Nashik",
+    "slug": "nashik",
+    "tier": 2,
+    "popular_localities": "[\"Indira Nagar\",\"College Road\",\"Gangapur Road\",\"CIDCO\",\"Panchavati\"]",
+    "is_active": 1
+  },
+  {
+    "id": "dfa8c28a-6115-4caa-9682-1d67eb59bda5",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Aurangabad (Chhatrapati Sambhajinagar)",
+    "slug": "aurangabad-chhatrapati-sambhajinagar",
+    "tier": 2,
+    "popular_localities": "[\"CIDCO\",\"Samarth Nagar\",\"Garkheda\",\"Waluj\",\"Shendra\"]",
+    "is_active": 1
+  },
+  {
+    "id": "2ef6050d-138c-4b42-9d38-f019e7cdae46",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Solapur",
+    "slug": "solapur",
+    "tier": 2,
+    "popular_localities": "[\"Jule Solapur\",\"Saat Rasta\",\"Old Pune Naka\"]",
+    "is_active": 1
+  },
+  {
+    "id": "9109d664-1b52-4afc-bb31-d5bf0f24d836",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Kolhapur",
+    "slug": "kolhapur",
+    "tier": 2,
+    "popular_localities": "[\"Rajarampuri\",\"Tarabai Park\",\"Nagala Park\"]",
+    "is_active": 1
+  },
+  {
+    "id": "ddb1c624-ea04-45f4-a7e6-bf631e7b376d",
+    "state_id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Amravati",
+    "slug": "amravati",
+    "tier": 3,
+    "popular_localities": "[\"Rathinam Nagar\",\"Camp Area\",\"Gadge Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "aba1e970-4254-4c60-9cf3-b9b8110534c1",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Ahmedabad",
+    "slug": "ahmedabad",
+    "tier": 1,
+    "popular_localities": "[\"Satellite\",\"Bopal\",\"SG Highway\",\"Bodakdev\",\"Prahlad Nagar\",\"Vastrapur\",\"Maninagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "ef2b8957-c79e-45e0-923d-a731a142d1fc",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Surat",
+    "slug": "surat",
+    "tier": 1,
+    "popular_localities": "[\"Adajan\",\"Vesu\",\"Varachha\",\"Pal\",\"Piplod\",\"Ghanshyam Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "bd18b8b8-cc60-451a-9f62-99f479e6f331",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Vadodara",
+    "slug": "vadodara",
+    "tier": 1,
+    "popular_localities": "[\"Alkapuri\",\"Gotri\",\"Manjalpur\",\"Sayajigunj\",\"Karelibaug\",\"Vasna Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b955f735-19dc-40cf-95be-6d38d46bd9b8",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Rajkot",
+    "slug": "rajkot",
+    "tier": 2,
+    "popular_localities": "[\"Kalawad Road\",\"150 Feet Ring Road\",\"University Road\",\"Yagnik Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "ea6055d7-d898-4818-b4d6-8d28a0767de3",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Bhavnagar",
+    "slug": "bhavnagar",
+    "tier": 2,
+    "popular_localities": "[\"Kalanala\",\"Waghawadi Road\",\"Vidhyanagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "a142bab0-2a35-4df1-a052-3c7f960a49ec",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Jamnagar",
+    "slug": "jamnagar",
+    "tier": 2,
+    "popular_localities": "[\"Patel Colony\",\"Digvijay Plot\",\"Reliance Greens\"]",
+    "is_active": 1
+  },
+  {
+    "id": "043ddcbd-0fa9-4dff-a160-8631d759e447",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Gandhinagar",
+    "slug": "gandhinagar",
+    "tier": 2,
+    "popular_localities": "[\"Sector 7\",\"Sector 21\",\"Kudasan\",\"Infocity\",\"Sargasan\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e4114282-ce62-40bb-9501-b06dc58df13a",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Vapi",
+    "slug": "vapi",
+    "tier": 3,
+    "popular_localities": "[\"GIDC Industrial Area\",\"Chala\",\"Gunjan\"]",
+    "is_active": 1
+  },
+  {
+    "id": "9bef7880-b1a3-46f2-9618-0f61642dce92",
+    "state_id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Ankleshwar",
+    "slug": "ankleshwar",
+    "tier": 3,
+    "popular_localities": "[\"GIDC Ankleshwar\",\"Station Road\",\"Goya Bazar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "4a7291c3-8573-4a79-a32c-a3afc1b465cd",
+    "state_id": "07a96a71-1c30-48ca-8d3a-da3f6444a719",
+    "name": "Panaji",
+    "slug": "panaji",
+    "tier": 2,
+    "popular_localities": "[\"Miramar\",\"Campal\",\"Fontainhas\",\"Dona Paula\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0909d09a-7333-4c73-8592-3632828dac36",
+    "state_id": "07a96a71-1c30-48ca-8d3a-da3f6444a719",
+    "name": "Margao",
+    "slug": "margao",
+    "tier": 2,
+    "popular_localities": "[\"Fatorda\",\"Borda\",\"Aquem\",\"Pajifond\"]",
+    "is_active": 1
+  },
+  {
+    "id": "edff15c6-40bb-4e22-a5c2-6570f30f9ffd",
+    "state_id": "07a96a71-1c30-48ca-8d3a-da3f6444a719",
+    "name": "Vasco da Gama",
+    "slug": "vasco-da-gama",
+    "tier": 3,
+    "popular_localities": "[\"Chicalim\",\"Dabolim\",\"Baina\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e6ead538-c3eb-46e6-8af1-b78bfe10350c",
+    "state_id": "a7bb1b0a-b311-4065-b166-0bf7eb844f54",
+    "name": "Bengaluru",
+    "slug": "bengaluru",
+    "tier": 1,
+    "popular_localities": "[\"Whitefield\",\"Electronic City\",\"HSR Layout\",\"Koramangala\",\"Indiranagar\",\"Marathahalli\",\"Bellandur\",\"Hebbal\",\"JP Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e6f604f9-855b-4fa5-ad3c-1e829d02901c",
+    "state_id": "a7bb1b0a-b311-4065-b166-0bf7eb844f54",
+    "name": "Mysuru",
+    "slug": "mysuru",
+    "tier": 2,
+    "popular_localities": "[\"Jayalakshmipuram\",\"Gokulam\",\"Kuvempunagar\",\"Vijayanagar\",\"Hebbal Industrial\"]",
+    "is_active": 1
+  },
+  {
+    "id": "7c519ae3-1063-439c-90a6-317254c63616",
+    "state_id": "a7bb1b0a-b311-4065-b166-0bf7eb844f54",
+    "name": "Mangaluru",
+    "slug": "mangaluru",
+    "tier": 2,
+    "popular_localities": "[\"Kadri\",\"Kodialbail\",\"Bejai\",\"Kankanady\",\"Surathkal\"]",
+    "is_active": 1
+  },
+  {
+    "id": "8b8e9432-f4c3-4530-aa77-58f06d1d1bbd",
+    "state_id": "a7bb1b0a-b311-4065-b166-0bf7eb844f54",
+    "name": "Hubballi-Dharwad",
+    "slug": "hubballi-dharwad",
+    "tier": 2,
+    "popular_localities": "[\"Vidyanagar\",\"Gokul Road\",\"Navanagar\",\"Keshwapur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "65edeab6-dd81-4961-9423-13c1631ed4bf",
+    "state_id": "a7bb1b0a-b311-4065-b166-0bf7eb844f54",
+    "name": "Belagavi",
+    "slug": "belagavi",
+    "tier": 2,
+    "popular_localities": "[\"Tilakwadi\",\"Camp Area\",\"Udyambag Industrial\",\"Hindwadi\"]",
+    "is_active": 1
+  },
+  {
+    "id": "43795bd0-b32f-44a0-80bf-b2f0b9add3e7",
+    "state_id": "a7bb1b0a-b311-4065-b166-0bf7eb844f54",
+    "name": "Hosur Border (Bangalore South)",
+    "slug": "hosur-border-bangalore-south",
+    "tier": 3,
+    "popular_localities": "[\"Sipcot Phase 1\",\"Mookandapalli\",\"Bagalur Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "02bb54e7-f3d1-4bc8-8f9b-2d2c61c75889",
+    "state_id": "e4299bc5-c1d3-4cc7-8dce-339ccb04066f",
+    "name": "Hyderabad",
+    "slug": "hyderabad",
+    "tier": 1,
+    "popular_localities": "[\"Gachibowli\",\"Madhapur\",\"Hitec City\",\"Kondapur\",\"Kukatpally\",\"Banjara Hills\",\"Jubilee Hills\",\"Miyapur\",\"Secunderabad\"]",
+    "is_active": 1
+  },
+  {
+    "id": "95b3aa7c-0b0a-4500-8b66-f4606e9b9f2f",
+    "state_id": "e4299bc5-c1d3-4cc7-8dce-339ccb04066f",
+    "name": "Warangal",
+    "slug": "warangal",
+    "tier": 2,
+    "popular_localities": "[\"Hanamkonda\",\"Kazipet\",\"Subedari\",\"Nayeem Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e8cbdd5c-92b1-4267-a846-1c5709aa9fd7",
+    "state_id": "e4299bc5-c1d3-4cc7-8dce-339ccb04066f",
+    "name": "Nizamabad",
+    "slug": "nizamabad",
+    "tier": 2,
+    "popular_localities": "[\"Khaleelwadi\",\"Armoor Road\",\"Bodhan Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "6bd3a06a-b76e-4b4f-a666-1447d9e54177",
+    "state_id": "e4299bc5-c1d3-4cc7-8dce-339ccb04066f",
+    "name": "Karimnagar",
+    "slug": "karimnagar",
+    "tier": 2,
+    "popular_localities": "[\"Mukarampura\",\"Kothirampur\",\"Collectorate Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "c4393bc4-71e1-4145-9afa-e12f4d3682f5",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Visakhapatnam",
+    "slug": "visakhapatnam",
+    "tier": 1,
+    "popular_localities": "[\"MVP Colony\",\"Gajuwaka\",\"Madhurawada\",\"Dwaraka Nagar\",\"Seethammadhara\",\"Steel Plant Township\"]",
+    "is_active": 1
+  },
+  {
+    "id": "e0b766cc-0928-4795-8691-068331392304",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Vijayawada",
+    "slug": "vijayawada",
+    "tier": 1,
+    "popular_localities": "[\"Moghalrajpuram\",\"Benz Circle\",\"Governorpet\",\"Poranki\",\"Patamata\"]",
+    "is_active": 1
+  },
+  {
+    "id": "bb18b289-963c-4530-bb4c-f62656e782d0",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Guntur",
+    "slug": "guntur",
+    "tier": 2,
+    "popular_localities": "[\"Brodipet\",\"Arundelpet\",\"Kothapet\",\"Pattabhipuram\"]",
+    "is_active": 1
+  },
+  {
+    "id": "d25f4d83-10f5-4760-b5f0-0788d290460e",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Nellore",
+    "slug": "nellore",
+    "tier": 2,
+    "popular_localities": "[\"Dargamitta\",\"Balaji Nagar\",\"Magunta Layout\",\"Vedayapalem\"]",
+    "is_active": 1
+  },
+  {
+    "id": "aa0eae6c-6087-481b-a414-a639383fe8ea",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Tirupati",
+    "slug": "tirupati",
+    "tier": 2,
+    "popular_localities": "[\"Korlagunta\",\"Bhavani Nagar\",\"KT Road\",\"Air Bypass Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "70ad3407-c94a-4a26-b51c-939715bee480",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Kurnool",
+    "slug": "kurnool",
+    "tier": 2,
+    "popular_localities": "[\"Nandyal Road\",\"Gayatri Estate\",\"Santosh Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "fac51c61-d3b9-40bb-a6af-b961c874f7ce",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Kakinada",
+    "slug": "kakinada",
+    "tier": 2,
+    "popular_localities": "[\"Suryaraopeta\",\"Bhanugudi\",\"Madhavapatnam\"]",
+    "is_active": 1
+  },
+  {
+    "id": "8ca7259c-e591-4bbe-9cfe-795a775edc27",
+    "state_id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Rajamahendravaram (Rajahmundry)",
+    "slug": "rajamahendravaram-rajahmundry",
+    "tier": 2,
+    "popular_localities": "[\"Danavaipeta\",\"Morampudi\",\"Jawaharlal Nehru Road\"]",
+    "is_active": 1
+  },
+  {
+    "id": "cb67fc7e-18ca-4f80-b95e-428e01f0de07",
+    "state_id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Chennai",
+    "slug": "chennai",
+    "tier": 1,
+    "popular_localities": "[\"Anna Nagar\",\"Velachery\",\"OMR\",\"Adyar\",\"T. Nagar\",\"Porur\",\"Tambaram\",\"Perungudi\",\"Thiruvanmiyur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "1b8c3465-8921-4ceb-be92-5b345cb86c53",
+    "state_id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Coimbatore",
+    "slug": "coimbatore",
+    "tier": 1,
+    "popular_localities": "[\"RS Puram\",\"Gandhipuram\",\"Saibaba Colony\",\"Peelamedu\",\"Saravanampatti\",\"Singanallur\"]",
+    "is_active": 1
+  },
+  {
+    "id": "941f046c-9322-43dd-8b2f-e62b3adf354f",
+    "state_id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Madurai",
+    "slug": "madurai",
+    "tier": 2,
+    "popular_localities": "[\"KK Nagar\",\"Anna Nagar\",\"SS Colony\",\"TVS Nagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "1a9cf495-b65c-46e3-8577-d35db10b124d",
+    "state_id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Tiruchirappalli (Trichy)",
+    "slug": "tiruchirappalli-trichy",
+    "tier": 2,
+    "popular_localities": "[\"Thillai Nagar\",\"KK Nagar\",\"Cantonment\",\"Srirangam\"]",
+    "is_active": 1
+  },
+  {
+    "id": "45c8c3f7-0b56-4d51-8978-cf8932e53877",
+    "state_id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Salem",
+    "slug": "salem",
+    "tier": 2,
+    "popular_localities": "[\"Fairlands\",\"Alagapuram\",\"Hasthampatti\",\"Suramangalam\"]",
+    "is_active": 1
+  },
+  {
+    "id": "6dd035ee-33bd-4ffd-bd67-01fd1e948c61",
+    "state_id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Tirunelveli",
+    "slug": "tirunelveli",
+    "tier": 3,
+    "popular_localities": "[\"Palayamkottai\",\"Vannarpettai\",\"Perumalpuram\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b5c0b1a2-05ed-4521-863c-6f9073fbd05a",
+    "state_id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Hosur",
+    "slug": "hosur",
+    "tier": 3,
+    "popular_localities": "[\"Sipcot Phase 2\",\"Denkanikottai Road\",\"Mathigiri\"]",
+    "is_active": 1
+  },
+  {
+    "id": "cbb3ee62-87e4-496e-a79b-507963956271",
+    "state_id": "668e8bd6-ea78-46fc-b61f-fe023c5bcf8b",
+    "name": "Kochi (Cochin)",
+    "slug": "kochi-cochin",
+    "tier": 1,
+    "popular_localities": "[\"Kakkanad (Infopark)\",\"Edappally\",\"Kaloor\",\"Palarivattom\",\"Panampilly Nagar\",\"Aluva\"]",
+    "is_active": 1
+  },
+  {
+    "id": "7b1fc883-7344-4a48-99b7-39cbc66ae05c",
+    "state_id": "668e8bd6-ea78-46fc-b61f-fe023c5bcf8b",
+    "name": "Thiruvananthapuram (Trivandrum)",
+    "slug": "thiruvananthapuram-trivandrum",
+    "tier": 1,
+    "popular_localities": "[\"Kazhakoottam (Technopark)\",\"Kowdiar\",\"Pattom\",\"Vellayambalam\",\"Sasthamangalam\"]",
+    "is_active": 1
+  },
+  {
+    "id": "1c10bdb3-4faf-4b0a-82fc-9a7088720fec",
+    "state_id": "668e8bd6-ea78-46fc-b61f-fe023c5bcf8b",
+    "name": "Kozhikode (Calicut)",
+    "slug": "kozhikode-calicut",
+    "tier": 2,
+    "popular_localities": "[\"Mavoor Road\",\"Palayam\",\"Nadakkavu\",\"Eranhipalam\"]",
+    "is_active": 1
+  },
+  {
+    "id": "ee8c316d-85f6-4e4a-aa15-6b4901dd042b",
+    "state_id": "668e8bd6-ea78-46fc-b61f-fe023c5bcf8b",
+    "name": "Thrissur",
+    "slug": "thrissur",
+    "tier": 2,
+    "popular_localities": "[\"Round North\",\"Ayyanthole\",\"Ollur\",\"Poothole\"]",
+    "is_active": 1
+  },
+  {
+    "id": "7b73316f-7cb5-4cd9-b4c0-2156693ead79",
+    "state_id": "19037f35-148a-42b2-8bbe-9b5f746649c9",
+    "name": "Guwahati",
+    "slug": "guwahati",
+    "tier": 1,
+    "popular_localities": "[\"GS Road\",\"Dispur\",\"Zoo Road\",\"Beltola\",\"Six Mile\",\"Jalukbari\",\"Ulubari\"]",
+    "is_active": 1
+  },
+  {
+    "id": "4d751230-acb4-4ca7-8917-630a41954cd9",
+    "state_id": "19037f35-148a-42b2-8bbe-9b5f746649c9",
+    "name": "Silchar",
+    "slug": "silchar",
+    "tier": 2,
+    "popular_localities": "[\"Tarapur\",\"Rangirkhari\",\"Civil Hospital Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "81e41ffb-8411-4f6d-9543-ab499999215c",
+    "state_id": "19037f35-148a-42b2-8bbe-9b5f746649c9",
+    "name": "Dibrugarh",
+    "slug": "dibrugarh",
+    "tier": 2,
+    "popular_localities": "[\"Mancotta Road\",\"Chowkidinghee\",\"Graham Bazar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "7c49b61a-4c8c-452a-8bb4-e6ffd5a179be",
+    "state_id": "19037f35-148a-42b2-8bbe-9b5f746649c9",
+    "name": "Jorhat",
+    "slug": "jorhat",
+    "tier": 3,
+    "popular_localities": "[\"Gar-Ali\",\"Tarajan\",\"Na-Ali\"]",
+    "is_active": 1
+  },
+  {
+    "id": "dc2c95e9-30a6-483c-8b9e-eae4bfe366b4",
+    "state_id": "57ff1269-2c58-42b5-941f-cd31e4c9d879",
+    "name": "Agartala",
+    "slug": "agartala",
+    "tier": 2,
+    "popular_localities": "[\"Banamalipur\",\"Dhaleswar\",\"Kunjaban\",\"Radhanagar\"]",
+    "is_active": 1
+  },
+  {
+    "id": "01ee4ba0-1572-4f6e-9ac2-c3eb5c759102",
+    "state_id": "3d6a251e-d025-4c31-bcfe-e0dd6f1201db",
+    "name": "Shillong",
+    "slug": "shillong",
+    "tier": 2,
+    "popular_localities": "[\"Police Bazar\",\"Laitumkhrah\",\"Labal\",\"Nongthymmai\"]",
+    "is_active": 1
+  },
+  {
+    "id": "cfc80f21-241c-4c1a-a4f5-62b9884b6f21",
+    "state_id": "778cf415-fcec-43ee-a312-b0f5f95cb199",
+    "name": "Imphal",
+    "slug": "imphal",
+    "tier": 2,
+    "popular_localities": "[\"Thangal Bazar\",\"Paona Bazar\",\"Lamphelpat\"]",
+    "is_active": 1
+  },
+  {
+    "id": "b29912ba-a624-47aa-bde5-a113047a4c72",
+    "state_id": "e9d5033d-424b-4e41-91f9-b90fc08168bb",
+    "name": "Dimapur",
+    "slug": "dimapur",
+    "tier": 2,
+    "popular_localities": "[\"Circular Road\",\"Purana Bazar\",\"Duncan Bosti\"]",
+    "is_active": 1
+  },
+  {
+    "id": "04fb2d28-83dc-423a-823d-0b2a55ada32b",
+    "state_id": "e9d5033d-424b-4e41-91f9-b90fc08168bb",
+    "name": "Kohima",
+    "slug": "kohima",
+    "tier": 3,
+    "popular_localities": "[\"PR Hill\",\"High School Junction\",\"Midland\"]",
+    "is_active": 1
+  },
+  {
+    "id": "de7d462d-0efa-4937-896e-033c80ba9caa",
+    "state_id": "b131220d-c458-4c1a-9f30-0b72f2b4574d",
+    "name": "Itanagar",
+    "slug": "itanagar",
+    "tier": 2,
+    "popular_localities": "[\"Ganga Market\",\"E-Sector\",\"Zero Point\"]",
+    "is_active": 1
+  },
+  {
+    "id": "0fd04ec4-88ec-4847-a9b0-d336ddd0a7af",
+    "state_id": "b131220d-c458-4c1a-9f30-0b72f2b4574d",
+    "name": "Naharlagun",
+    "slug": "naharlagun",
+    "tier": 3,
+    "popular_localities": "[\"Barapani\",\"Model Village\"]",
+    "is_active": 1
+  },
+  {
+    "id": "cc6ae5bc-486e-4282-859d-4c970ade6e9b",
+    "state_id": "3e6b40fb-fcb3-4225-aa1b-3ce20679147a",
+    "name": "Aizawl",
+    "slug": "aizawl",
+    "tier": 2,
+    "popular_localities": "[\"Chanmari\",\"Zarkawt\",\"Khatla\",\"Bawngkawn\"]",
+    "is_active": 1
+  },
+  {
+    "id": "da50b257-ac27-4555-aeda-df369de5b548",
+    "state_id": "69b5152d-12af-48ed-9d91-c65a1df5f587",
+    "name": "Gangtok",
+    "slug": "gangtok",
+    "tier": 2,
+    "popular_localities": "[\"MG Marg\",\"Deorali\",\"Tadong\",\"Ranipool\"]",
+    "is_active": 1
+  },
+  {
+    "id": "24404780-a9ab-41d8-9d83-4c4257858565",
+    "state_id": "acb3a785-47a6-4ecc-becf-196e5436f1fe",
+    "name": "Pondicherry",
+    "slug": "pondicherry",
+    "tier": 2,
+    "popular_localities": "[\"White Town\",\"Lawspet\",\"Muthialpet\",\"Auroville Area\"]",
+    "is_active": 1
+  },
+  {
+    "id": "84209839-c63d-4ad0-a07d-187342aab9bc",
+    "state_id": "2963bbf8-d580-432f-aad8-8b7226ff35ee",
+    "name": "Silvassa",
+    "slug": "silvassa",
+    "tier": 3,
+    "popular_localities": "[\"Piparia Industrial\",\"Tokarkhada\",\"Kilwani\"]",
+    "is_active": 1
+  },
+  {
+    "id": "87d6f09d-d929-4e05-a62d-437a4433d32a",
+    "state_id": "2963bbf8-d580-432f-aad8-8b7226ff35ee",
+    "name": "Daman",
+    "slug": "daman",
+    "tier": 3,
+    "popular_localities": "[\"Nani Daman\",\"Moti Daman\",\"Somnath\"]",
+    "is_active": 1
+  },
+  {
+    "id": "3d965631-a72d-4955-9966-4fb26ad7a6c6",
+    "state_id": "3e86680d-48f6-476a-b1b2-780606d62770",
+    "name": "Port Blair",
+    "slug": "port-blair",
+    "tier": 3,
+    "popular_localities": "[\"Aberdeen Bazaar\",\"Haddo\",\"Garacharma\",\"Dollygunj\"]",
+    "is_active": 1
+  },
+  {
+    "id": "c7b6bcf6-2f1f-48a7-bf57-1f63c339847d",
+    "state_id": "b20630ea-ac11-4c67-bb07-6a8f247ebf6e",
+    "name": "Kavaratti",
+    "slug": "kavaratti",
+    "tier": 3,
+    "popular_localities": "[\"Main Island Hub\"]",
+    "is_active": 1
+  }
+]

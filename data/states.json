@@ -1,0 +1,218 @@
+[
+  {
+    "id": "fcc814d0-5d2c-452d-a13a-f6ea46084773",
+    "name": "Uttar Pradesh",
+    "slug": "uttar-pradesh",
+    "region": "North"
+  },
+  {
+    "id": "ddf4b067-2340-46a0-95ac-53383f3532ac",
+    "name": "Delhi NCR",
+    "slug": "delhi",
+    "region": "North"
+  },
+  {
+    "id": "3464a850-ea8e-41fc-8873-1226aeb30ca6",
+    "name": "Haryana",
+    "slug": "haryana",
+    "region": "North"
+  },
+  {
+    "id": "b97cff7f-b96c-4d1b-a006-f9be7d891b43",
+    "name": "Punjab",
+    "slug": "punjab",
+    "region": "North"
+  },
+  {
+    "id": "6693b365-aae6-4a9c-b049-ebb54460d698",
+    "name": "Chandigarh",
+    "slug": "chandigarh",
+    "region": "North"
+  },
+  {
+    "id": "8bfb0acb-fa88-440b-99d9-ee9126c531f0",
+    "name": "Rajasthan",
+    "slug": "rajasthan",
+    "region": "North"
+  },
+  {
+    "id": "40cb435a-cc1b-4f51-b867-c53e56d1ccae",
+    "name": "Uttarakhand",
+    "slug": "uttarakhand",
+    "region": "North"
+  },
+  {
+    "id": "fb8ad253-a55a-4117-94f3-ad95012a58f3",
+    "name": "Himachal Pradesh",
+    "slug": "himachal-pradesh",
+    "region": "North"
+  },
+  {
+    "id": "29282286-8f9c-43ab-8189-88e004aba8f7",
+    "name": "Jammu and Kashmir",
+    "slug": "jammu-and-kashmir",
+    "region": "North"
+  },
+  {
+    "id": "ddbae3af-2d99-449f-a3a2-5efa86eb198f",
+    "name": "Ladakh",
+    "slug": "ladakh",
+    "region": "North"
+  },
+  {
+    "id": "dbcb9f2e-b641-42e0-9cab-e88d0e829516",
+    "name": "Jharkhand",
+    "slug": "jharkhand",
+    "region": "East"
+  },
+  {
+    "id": "758e8cf9-ca47-4316-b8da-a2e6cfc6bb61",
+    "name": "Bihar",
+    "slug": "bihar",
+    "region": "East"
+  },
+  {
+    "id": "32e3c57e-576a-4974-bb7e-1e45bdfcc130",
+    "name": "West Bengal",
+    "slug": "west-bengal",
+    "region": "East"
+  },
+  {
+    "id": "b55e75c2-8ba7-421b-bdff-bf7ad82c4401",
+    "name": "Odisha",
+    "slug": "odisha",
+    "region": "East"
+  },
+  {
+    "id": "c628f157-7c38-4137-9543-dd8f559e324d",
+    "name": "Madhya Pradesh",
+    "slug": "madhya-pradesh",
+    "region": "Central"
+  },
+  {
+    "id": "4f58a827-3b32-4325-8a30-b3e2046e1e50",
+    "name": "Chhattisgarh",
+    "slug": "chhattisgarh",
+    "region": "Central"
+  },
+  {
+    "id": "67506da5-5b03-437e-822f-bd50abe0c152",
+    "name": "Maharashtra",
+    "slug": "maharashtra",
+    "region": "West"
+  },
+  {
+    "id": "b38d48a0-4a42-47e8-a29f-0c672c620b4e",
+    "name": "Gujarat",
+    "slug": "gujarat",
+    "region": "West"
+  },
+  {
+    "id": "07a96a71-1c30-48ca-8d3a-da3f6444a719",
+    "name": "Goa",
+    "slug": "goa",
+    "region": "West"
+  },
+  {
+    "id": "a7bb1b0a-b311-4065-b166-0bf7eb844f54",
+    "name": "Karnataka",
+    "slug": "karnataka",
+    "region": "South"
+  },
+  {
+    "id": "e4299bc5-c1d3-4cc7-8dce-339ccb04066f",
+    "name": "Telangana",
+    "slug": "telangana",
+    "region": "South"
+  },
+  {
+    "id": "c1a6b7ef-c971-44db-9580-26ccbf34e01b",
+    "name": "Andhra Pradesh",
+    "slug": "andhra-pradesh",
+    "region": "South"
+  },
+  {
+    "id": "91f850f2-47eb-4633-9cc1-c2d6fbda8092",
+    "name": "Tamil Nadu",
+    "slug": "tamil-nadu",
+    "region": "South"
+  },
+  {
+    "id": "668e8bd6-ea78-46fc-b61f-fe023c5bcf8b",
+    "name": "Kerala",
+    "slug": "kerala",
+    "region": "South"
+  },
+  {
+    "id": "19037f35-148a-42b2-8bbe-9b5f746649c9",
+    "name": "Assam",
+    "slug": "assam",
+    "region": "Northeast"
+  },
+  {
+    "id": "57ff1269-2c58-42b5-941f-cd31e4c9d879",
+    "name": "Tripura",
+    "slug": "tripura",
+    "region": "Northeast"
+  },
+  {
+    "id": "3d6a251e-d025-4c31-bcfe-e0dd6f1201db",
+    "name": "Meghalaya",
+    "slug": "meghalaya",
+    "region": "Northeast"
+  },
+  {
+    "id": "778cf415-fcec-43ee-a312-b0f5f95cb199",
+    "name": "Manipur",
+    "slug": "manipur",
+    "region": "Northeast"
+  },
+  {
+    "id": "e9d5033d-424b-4e41-91f9-b90fc08168bb",
+    "name": "Nagaland",
+    "slug": "nagaland",
+    "region": "Northeast"
+  },
+  {
+    "id": "b131220d-c458-4c1a-9f30-0b72f2b4574d",
+    "name": "Arunachal Pradesh",
+    "slug": "arunachal-pradesh",
+    "region": "Northeast"
+  },
+  {
+    "id": "3e6b40fb-fcb3-4225-aa1b-3ce20679147a",
+    "name": "Mizoram",
+    "slug": "mizoram",
+    "region": "Northeast"
+  },
+  {
+    "id": "69b5152d-12af-48ed-9d91-c65a1df5f587",
+    "name": "Sikkim",
+    "slug": "sikkim",
+    "region": "Northeast"
+  },
+  {
+    "id": "acb3a785-47a6-4ecc-becf-196e5436f1fe",
+    "name": "Puducherry",
+    "slug": "puducherry",
+    "region": "South"
+  },
+  {
+    "id": "2963bbf8-d580-432f-aad8-8b7226ff35ee",
+    "name": "Dadra and Nagar Haveli and Daman and Diu",
+    "slug": "dadra-and-nagar-haveli-and-daman-and-diu",
+    "region": "West"
+  },
+  {
+    "id": "3e86680d-48f6-476a-b1b2-780606d62770",
+    "name": "Andaman and Nicobar Islands",
+    "slug": "andaman-and-nicobar-islands",
+    "region": "South"
+  },
+  {
+    "id": "b20630ea-ac11-4c67-bb07-6a8f247ebf6e",
+    "name": "Lakshadweep",
+    "slug": "lakshadweep",
+    "region": "South"
+  }
+]
