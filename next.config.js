@@ -10,7 +10,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    serverComponentsExternalPackages: ['sqlite3', 'pg'],
+    serverComponentsExternalPackages: ['sql.js', 'pg'],
     outputFileTracingIncludes: {
       '/*': ['./database.sqlite'],
     },
