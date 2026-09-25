@@ -1,36 +1,34 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "**/*.ejs",
-    "public/js/**/*.js",
-    "!node_modules/**"
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '400px',
+      },
       colors: {
-        primary: {
-          50: '#f5f7fa',
-          100: '#e4e8f0',
-          200: '#c8d1e0',
-          300: '#9fb0cb',
-          400: '#6f8ab0',
-          500: '#4c6b94',
-          600: '#3b5376',
-          700: '#30435f',
-          800: '#2a3a51',
-          900: '#273347',
-          950: '#1a2230',
-        },
         brand: {
-          orange: '#FF5A1F', // Eye-catching, premium lead conversion CTA orange
-          dark: '#0F172A',   // Clean premium slate/dark mode base
-          accent: '#1E293B'  // Muted card elements
+          dark: "#0a1128",
+          primary: "#1e3a8a",
+          secondary: "#2563eb",
+          accent: "#f59e0b",
+          orange: "#ea580c",
+          gold: "#d97706",
+          emerald: "#10b981",
+          slate: "#0f172a",
         }
       },
-      fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+      boxShadow: {
+        'premium': '0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 20px 25px -5px rgba(15, 23, 42, 0.04)',
+        'card-hover': '0 20px 35px -5px rgba(15, 23, 42, 0.12), 0 10px 10px -5px rgba(15, 23, 42, 0.04)',
+        'glow': '0 0 25px -5px rgba(245, 158, 11, 0.4)',
       }
     },
   },
   plugins: [],
-}
+};

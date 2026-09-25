@@ -1,24 +1,10 @@
-# Node dependencies
 node_modules/
-
-# Environment files
+.next/
 .env
 .env.local
 .env.production
-
-# Local SQLite Database
-database.sqlite
-*.sqlite
-
-# Vercel deployment files
-.vercel/
-
-# Logs & temp files
+.DS_Store
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# OS specific files
-.DS_Store
-Thumbs.db
