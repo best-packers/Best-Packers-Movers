@@ -11,7 +11,10 @@ import {
 
 // DYNAMIC METADATA GENERATOR (FOR GOOGLEBOT)
 export async function generateMetadata({ params }) {
-  const { slug } = params;
+  let { slug } = params;
+  if (slug && slug.startsWith('packers-and-movers-in-')) {
+    slug = slug.replace('packers-and-movers-in-', 'packers-and-movers-');
+  }
 
   try {
     // 1. Check intent_routes
@@ -142,7 +145,10 @@ function getLocalFaqs(city, state, intentType) {
 
 // 100% SERVER COMPONENT ROUTE HANDLER
 export default async function DirectoryRoutePage({ params }) {
-  const { slug } = params;
+  let { slug } = params;
+  if (slug && slug.startsWith('packers-and-movers-in-')) {
+    slug = slug.replace('packers-and-movers-in-', 'packers-and-movers-');
+  }
 
   let pageType = null; // 'intent', 'city', 'state'
   let currentCity = null;
