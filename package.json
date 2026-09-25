@@ -10,6 +10,9 @@
     "migrate": "node scripts/migrate.js",
     "seed": "node scripts/seed_pan_india.js"
   },
+  "allowScripts": {
+    "sqlite3": true
+  },
   "dependencies": {
     "clsx": "^2.1.1",
     "cookie": "^0.7.2",
