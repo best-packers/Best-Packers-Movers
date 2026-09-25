@@ -144,7 +144,6 @@ export default async function Footer() {
             <Link href="/" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/sitemap.xml" className="hover:text-white transition-colors">XML Sitemap</Link>
-            <Link href="/admin" className="hover:text-amber-400 transition-colors">Admin Login</Link>
           </div>
         </div>
       </div>

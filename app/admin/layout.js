@@ -1,8 +1,12 @@
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 import { 
   LayoutDashboard, Globe, Users, Route, 
   Inbox, ExternalLink, ShieldAlert, Sparkles 
 } from 'lucide-react';
+import { ADMIN_COOKIE_NAME, verifyAdminSessionToken } from '@/lib/adminAuth';
+import AdminLoginGate from '@/components/AdminLoginGate';
+import AdminLogoutButton from '@/components/AdminLogoutButton';
 
 export const metadata = {
   title: 'Admin Omnipotence Portal | BestPackerMovers.com',
@@ -10,6 +14,15 @@ export const metadata = {
 };
 
 export default function AdminLayout({ children }) {
+  const cookieStore = cookies();
+  const sessionToken = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
+  const isAuthenticated = verifyAdminSessionToken(sessionToken);
+
+  // If unauthenticated, gate all /admin routes behind high-security credentials barrier
+  if (!isAuthenticated) {
+    return <AdminLoginGate />;
+  }
+
   const navItems = [
     { label: 'Overview Dashboard', href: '/admin', icon: LayoutDashboard },
     { label: 'Live Google Maps Crawler', href: '/admin/crawler', icon: Globe },
@@ -66,6 +79,9 @@ export default function AdminLayout({ children }) {
             <span>View Live Website</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
+          
+          <AdminLogoutButton />
+
           <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300">
             <div className="font-bold flex items-center gap-1 mb-0.5">
               <ShieldAlert className="w-3.5 h-3.5" /> Slot #1 Enforced

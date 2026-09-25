@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Truck, ShieldCheck, PhoneCall, Award, Menu, X, Sparkles, Calculator, Lock, ChevronRight } from 'lucide-react';
+import { Truck, ShieldCheck, PhoneCall, Award, Menu, X, Sparkles, Calculator, ChevronRight } from 'lucide-react';
 import QuoteModal from './QuoteModal';
 
 export default function Navbar() {
@@ -103,12 +103,6 @@ export default function Navbar() {
             >
               Cost Calculator
             </Link>
-            <Link 
-              href="/admin" 
-              className="text-slate-700 hover:text-slate-900 transition-colors text-xs font-semibold px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded-md flex items-center gap-1"
-            >
-              <Lock className="w-3 h-3 text-slate-500" /> Admin Portal
-            </Link>
           </nav>
 
           {/* Action Buttons & Mobile Hamburger */}
@@ -201,17 +195,6 @@ export default function Navbar() {
                   <div className="flex items-center gap-2">
                     <Calculator className="w-4 h-4 text-amber-600" />
                     <span>Cost Calculator</span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400" />
-                </Link>
-
-                <Link
-                  href="/admin"
-                  className="flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm text-slate-700 bg-slate-50 hover:bg-slate-100 transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <Lock className="w-4 h-4 text-slate-500" />
-                    <span>Admin Control Center</span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-slate-400" />
                 </Link>

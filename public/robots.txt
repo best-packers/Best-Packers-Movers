@@ -1,0 +1,6 @@
+# BestPackerMovers Public Asset Root
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Sitemap: https://bestpackermovers.com/sitemap.xml
