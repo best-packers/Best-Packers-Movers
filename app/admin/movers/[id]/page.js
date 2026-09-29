@@ -1,4 +1,4 @@
-import { query } from '@/lib/db';
+import { query, getMasterNationalProfile } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import ProfileEditorUI from './ProfileEditorUI';
 
@@ -6,6 +6,9 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
   const { id } = params;
+  if (id === 'np-master' || (typeof id === 'string' && id.startsWith('np-'))) {
+    return { title: 'Edit National Packers & Movers (Master Profile) | Admin' };
+  }
   try {
     const res = await query('SELECT name FROM movers WHERE id = $1', [id]);
     if (res.rows.length > 0) {
@@ -19,23 +22,38 @@ export default async function EditMoverPage({ params }) {
   const { id } = params;
 
   let mover = null;
-  try {
-    const res = await query(
-      `SELECT m.*, c.name as city_name, c.slug as city_slug, s.name as state_name, s.slug as state_slug 
-       FROM movers m 
-       LEFT JOIN cities c ON m.city_id = c.id 
-       LEFT JOIN states s ON c.state_id = s.id 
-       WHERE m.id = $1`,
-      [id]
-    );
 
-    if (res.rows.length === 0) {
-      notFound();
+  // Master Singleton Shortcut for National Packers
+  if (id === 'np-master' || (typeof id === 'string' && id.startsWith('np-'))) {
+    const master = getMasterNationalProfile();
+    mover = {
+      ...master,
+      id: 'np-master',
+      city_name: 'All 7,000+ Indian Cities (Central Master)',
+      city_slug: 'all-cities',
+      state_name: 'All States & UTs',
+      state_slug: 'pan-india'
+    };
+  } else {
+    try {
+      const res = await query(
+        `SELECT m.*, c.name as city_name, c.slug as city_slug, s.name as state_name, s.slug as state_slug 
+         FROM movers m 
+         LEFT JOIN cities c ON m.city_id = c.id 
+         LEFT JOIN states s ON c.state_id = s.id 
+         WHERE m.id = $1`,
+        [id]
+      );
+
+      if (res.rows.length > 0) {
+        mover = res.rows[0];
+      }
+    } catch (err) {
+      console.error('Error loading mover for editor:', err);
     }
+  }
 
-    mover = res.rows[0];
-  } catch (err) {
-    console.error('Error loading mover for editor:', err);
+  if (!mover) {
     notFound();
   }
 

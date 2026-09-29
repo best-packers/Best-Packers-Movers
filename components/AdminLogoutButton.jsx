@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { LogOut } from 'lucide-react';
+import { LogOut, Lock } from 'lucide-react';
 
 export default function AdminLogoutButton() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -18,14 +18,11 @@ export default function AdminLogoutButton() {
     <button
       onClick={handleLogout}
       disabled={isLoggingOut}
-      className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition-colors border border-rose-500/20"
+      className="w-full py-2.5 px-3.5 rounded-xl text-xs font-bold text-[#E63946] bg-[#C1121F]/10 hover:bg-[#C1121F] hover:text-white transition-all duration-200 border border-[#C1121F]/30 hover:border-[#C1121F] flex items-center justify-center gap-2 cursor-pointer shadow-sm active:scale-95 disabled:opacity-50"
       title="Securely Lock Admin Portal"
     >
-      <span className="flex items-center gap-2">
-        <LogOut className="w-3.5 h-3.5" />
-        <span>{isLoggingOut ? 'Locking...' : 'Lock & Log Out'}</span>
-      </span>
-      <span className="text-[10px] uppercase font-mono tracking-wider opacity-70">Exit</span>
+      <LogOut className="w-3.5 h-3.5" />
+      <span>{isLoggingOut ? 'Terminating Session...' : 'Lock & Secure Log Out'}</span>
     </button>
   );
 }

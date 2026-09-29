@@ -1,23 +1,43 @@
 'use client';
 
 import { useState } from 'react';
-import { PhoneCall, ArrowRight, MessageSquare, Globe, ExternalLink } from 'lucide-react';
+import { PhoneCall, ArrowRight, MessageSquare, Globe, ExternalLink, Lock } from 'lucide-react';
 import QuoteModal from '@/components/QuoteModal';
 import ReviewModal from '@/components/ReviewModal';
 
-export default function ProfileActions({ phone, moverId, moverName, cityName, websiteUrl, isNational }) {
+export default function ProfileActions({ phone, moverId, moverName, cityName, websiteUrl, isNational, isPaid }) {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const canViewPhone = isNational || isPaid;
 
   return (
     <div className="flex flex-col gap-3 w-full md:w-64 flex-shrink-0">
-      <a
-        href={`tel:${phone.replace(/\s+/g, '')}`}
-        className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-slate-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 transition-colors flex items-center justify-center gap-2 shadow-sm active:scale-95"
-      >
-        <PhoneCall className="w-4 h-4 text-amber-700" />
-        <span>{phone}</span>
-      </a>
+      {canViewPhone ? (
+        <a
+          href={`tel:${phone.replace(/\s+/g, '')}`}
+          className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-slate-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 transition-colors flex items-center justify-center gap-2 shadow-sm active:scale-95"
+        >
+          <PhoneCall className="w-4 h-4 text-amber-700" />
+          <span>{phone}</span>
+        </a>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setIsQuoteOpen(true)}
+          className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-slate-700 bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 hover:from-amber-50 hover:to-amber-100 border border-slate-300 hover:border-amber-400 transition-all flex items-center justify-center gap-2.5 shadow-xs group active:scale-95 cursor-pointer"
+          title="Direct phone is locked. Click to request an instant quote."
+        >
+          <div className="w-5 h-5 rounded-full bg-slate-200 group-hover:bg-amber-200 flex items-center justify-center transition-colors shrink-0">
+            <Lock className="w-3.5 h-3.5 text-slate-600 group-hover:text-amber-800 transition-colors" />
+          </div>
+          <span className="blur-[4px] select-none font-mono tracking-wider text-slate-900 opacity-60">
+            +91 98••• •••••
+          </span>
+          <span className="text-[10px] font-extrabold text-amber-950 bg-amber-300 group-hover:bg-amber-400 px-2 py-0.5 rounded-full transition-colors shrink-0 shadow-xs ml-0.5">
+            Unlock
+          </span>
+        </button>
+      )}
 
       <button
         type="button"

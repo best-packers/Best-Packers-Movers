@@ -119,6 +119,41 @@ export default async function Footer() {
           </div>
         </div>
 
+        {/* Specialized Logistics Services Hub (Full Crawlability) */}
+        <div className="py-8 border-b border-slate-800/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <h4 className="text-white font-bold text-sm uppercase tracking-wider text-slate-300">
+              Specialized Logistics & Relocation Verticals
+            </h4>
+            <Link href="/services" className="text-xs font-bold text-amber-400 hover:underline">
+              Explore Services Hub →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 text-xs">
+            <Link href="/services/household-relocation" className="text-slate-400 hover:text-amber-400 transition-colors">
+              Household Relocation
+            </Link>
+            <Link href="/services/corporate-relocation" className="text-slate-400 hover:text-amber-400 transition-colors">
+              Corporate Office Shifting
+            </Link>
+            <Link href="/services/industrial-relocation" className="text-slate-400 hover:text-amber-400 transition-colors">
+              Industrial Heavy Freight
+            </Link>
+            <Link href="/services/vehicle-relocation" className="text-slate-400 hover:text-amber-400 transition-colors">
+              Car & Bike Transport
+            </Link>
+            <Link href="/services/warehousing-storage" className="text-slate-400 hover:text-amber-400 transition-colors">
+              Warehousing & Storage
+            </Link>
+            <Link href="/services/transit-insurance" className="text-slate-400 hover:text-amber-400 transition-colors">
+              Transit Insurance Cover
+            </Link>
+            <Link href="/services/loading-unloading" className="text-slate-400 hover:text-amber-400 transition-colors">
+              Loading & Balcony Rigging
+            </Link>
+          </div>
+        </div>
+
         {/* States & Union Territories Full Links Matrix (Crawl Depth Engine) */}
         <div className="py-10 border-b border-slate-800/80">
           <h4 className="text-white font-bold text-sm mb-4 uppercase tracking-wider text-slate-300">

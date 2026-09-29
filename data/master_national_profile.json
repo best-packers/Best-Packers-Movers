@@ -1,0 +1,72 @@
+{
+  "id": "np-master",
+  "name": "National Packers & Movers",
+  "name_template": "National Packers & Movers ({cityName})",
+  "phone": "+91 98351 68368",
+  "email": "dispatch@thenationalpackersmovers.com",
+  "website_url": "https://www.thenationalpackersmovers.com/",
+  "address_template": "Plot No. 45, Transport Nagar, Main Highway Bypass, {cityName}, {stateName}",
+  "rating": 4.9,
+  "review_count": 1540,
+  "established_year": "1987",
+  "fleet_size": "45+ Container Trucks",
+  "badges": [
+    "#1 Top Rated",
+    "Platinum Verified",
+    "IBA Approved",
+    "ISO Certified",
+    "100% Damage Protection",
+    "GPS Tracked Fleets"
+  ],
+  "services_offered": [
+    "Household Relocation",
+    "Car & Bike Transport",
+    "Corporate Office Shifting",
+    "Warehouse Storage",
+    "Transit Insurance",
+    "Industrial Heavy Transport"
+  ],
+  "about_template": "National Packers & Movers is India's leading IBA-approved relocation conglomerate with over 35+ years of excellence. Operating dedicated company-owned containerized fleets across {cityName}, {stateName} and PAN-India with GPS tracking, multi-layer waterproof bubble packaging, and zero-damage guarantee.",
+  "pricing_table": {
+    "1bhk": "₹3,500 - ₹6,500",
+    "2bhk": "₹5,500 - ₹9,500",
+    "3bhk": "₹8,500 - ₹14,500",
+    "4bhk_villa": "₹12,500 - ₹22,000",
+    "vehicle": "₹4,500 - ₹9,000",
+    "office": "Custom Inspection Quote"
+  },
+  "logo_url": "/uploads/cropped_circle_image_1790454324107.png",
+  "banner_url": null,
+  "gallery_images": [
+    {
+      "id": "g-1",
+      "url": "/uploads/IMG_9473_1790454363385.JPG",
+      "caption": "Dedicated Company Container Fleet",
+      "category": "Fleet"
+    },
+    {
+      "id": "g-2",
+      "url": "/uploads/IMG_9479_1790454363434.JPG",
+      "caption": "Professional Household Loading Operation",
+      "category": "Fleet"
+    },
+    {
+      "id": "g-3",
+      "url": "/uploads/IMG_20260322_124603_1790454363445.jpg",
+      "caption": "4-Layer Waterproof Bubble Packaging",
+      "category": "Packaging"
+    },
+    {
+      "id": "g-4",
+      "url": "/uploads/IMG-20250121-WA0021_1790454363467.jpg",
+      "caption": "High-Grade Foam Corner Protection",
+      "category": "Packaging"
+    },
+    {
+      "id": "g-5",
+      "url": "/uploads/IMG-20250717-WA0005_1790454363474.jpg",
+      "caption": "Secure Transit Warehouse Facility",
+      "category": "Warehousing"
+    }
+  ]
+}

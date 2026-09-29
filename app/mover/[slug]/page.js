@@ -8,8 +8,9 @@ import {
   MapPin, Truck, Calendar, CheckCircle2, ChevronRight, 
   MessageSquare, Clock, Globe, ExternalLink, Sparkles, 
   CreditCard, Shield, ThumbsUp, Users, ArrowRight, Building2,
-  PackageCheck, Eye
+  PackageCheck, Eye, Camera
 } from 'lucide-react';
+import MoverPhotoGallery from '@/components/MoverPhotoGallery';
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
@@ -65,6 +66,7 @@ export default async function MoverProfilePage({ params }) {
       mover.badges = typeof mover.badges === 'string' ? JSON.parse(mover.badges || '[]') : (mover.badges || []);
       mover.services_offered = typeof mover.services_offered === 'string' ? JSON.parse(mover.services_offered || '[]') : (mover.services_offered || []);
       mover.pricing_table = typeof mover.pricing_table === 'string' ? JSON.parse(mover.pricing_table || '{}') : (mover.pricing_table || {});
+      mover.gallery_images = typeof mover.gallery_images === 'string' ? JSON.parse(mover.gallery_images || '[]') : (mover.gallery_images || []);
 
       // Fetch reviews
       const reviewsRes = await query(
@@ -100,7 +102,7 @@ export default async function MoverProfilePage({ params }) {
     image: mover.logo_url || 'https://www.bestpackermovers.com/favicon.ico',
     '@id': `https://www.bestpackermovers.com/mover/${mover.slug}`,
     url: `https://www.bestpackermovers.com/mover/${mover.slug}`,
-    telephone: mover.phone,
+    telephone: isNational || mover.is_paid === 1 ? mover.phone : '+91 98351 68368',
     address: {
       '@type': 'PostalAddress',
       streetAddress: mover.address,
@@ -164,12 +166,16 @@ export default async function MoverProfilePage({ params }) {
         <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8 justify-between">
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start flex-1 min-w-0">
             {/* Avatar / Brand Logo */}
-            <div className={`w-[clamp(4.25rem,10vw,6rem)] h-[clamp(4.25rem,10vw,6rem)] rounded-3xl flex items-center justify-center font-bold text-3xl shadow-lg flex-shrink-0 ${
+            <div className={`w-[clamp(4.25rem,10vw,6rem)] h-[clamp(4.25rem,10vw,6rem)] rounded-3xl flex items-center justify-center font-bold text-3xl shadow-lg flex-shrink-0 overflow-hidden ${
               isNational 
                 ? 'bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 text-white shadow-amber-500/25 ring-2 ring-white' 
                 : 'bg-gradient-to-br from-slate-800 to-slate-950 text-white'
             }`}>
-              <Truck className="w-[clamp(2.25rem,5vw,3rem)] h-[clamp(2.25rem,5vw,3rem)]" />
+              {mover.logo_url ? (
+                <img src={mover.logo_url} alt={mover.name} className="w-full h-full object-cover" />
+              ) : (
+                <Truck className="w-[clamp(2.25rem,5vw,3rem)] h-[clamp(2.25rem,5vw,3rem)]" />
+              )}
             </div>
 
             <div className="space-y-3 flex-1 min-w-0">
@@ -239,6 +245,7 @@ export default async function MoverProfilePage({ params }) {
               cityName={mover.city_name} 
               websiteUrl={mover.website_url}
               isNational={isNational}
+              isPaid={mover.is_paid === 1}
             />
           </div>
         </div>
@@ -479,6 +486,9 @@ export default async function MoverProfilePage({ params }) {
               </div>
             </div>
           </section>
+ 
+          {/* PHOTO GALLERY SECTION */}
+          <MoverPhotoGallery mover={mover} isNational={isNational} />
 
           {/* 4. CITY LOCALITIES SERVED MESH (Hyper-Local Trust) */}
           <section className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm space-y-4">
@@ -657,6 +667,7 @@ export default async function MoverProfilePage({ params }) {
             moverName={mover.name} 
             cityName={mover.city_name} 
             isNational={isNational}
+            isPaid={mover.is_paid === 1}
           />
         </div>
 

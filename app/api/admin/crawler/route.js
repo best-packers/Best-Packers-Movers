@@ -88,6 +88,52 @@ export async function POST(request) {
     seenNames.add('national packers');
     seenNames.add('national packers & movers');
 
+    // 0. Official Google Places API (If GOOGLE_PLACES_API_KEY or GOOGLE_MAPS_API_KEY is configured in .env)
+    const googleApiKey = process.env.GOOGLE_PLACES_API_KEY || process.env.GOOGLE_MAPS_API_KEY;
+    if (googleApiKey && !googleApiKey.includes('YOUR_KEY')) {
+      try {
+        console.log(`[ADMIN CRAWLER] Using Official Google Places API for: ${city_name}...`);
+        const gRes = await fetch('https://places.googleapis.com/v1/places:searchText', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Goog-Api-Key': googleApiKey,
+            'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.rating,places.userRatingCount,places.websiteUri'
+          },
+          body: JSON.stringify({
+            textQuery: `packers and movers in ${city_name}`,
+            languageCode: 'en',
+            maxResultCount: 15
+          })
+        });
+
+        if (gRes.ok) {
+          const gData = await gRes.json();
+          for (const p of gData.places || []) {
+            const raw = p.displayName?.text;
+            if (!raw) continue;
+            const cleaned = cleanMoverName(raw, city_name) || raw;
+            const lower = cleaned.toLowerCase();
+
+            if (!lower.includes('national packers') && !seenNames.has(cleaned)) {
+              seenNames.add(cleaned);
+              discovered.push({
+                rawName: cleaned,
+                phone: p.nationalPhoneNumber || null,
+                address: p.formattedAddress || null,
+                rating: p.rating ? String(p.rating) : null,
+                reviewCount: p.userRatingCount || null,
+                website: p.websiteUri || null,
+                source: 'google_places_api_official'
+              });
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('[ADMIN CRAWLER] Official Google Places API phase error:', e.message);
+      }
+    }
+
     // 1. Google Live Suggest API (Queries live Google search index for actual movers searched by users)
     try {
       const googleQueries = [

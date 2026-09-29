@@ -80,7 +80,7 @@ export default async function HomePage() {
   };
 
   return (
-    <div className="space-y-16 sm:space-y-24">
+    <>
       {/* Inject Structured Data */}
       <script
         type="application/ld+json"
@@ -91,9 +91,8 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Hero Section */}
-      {/* Hero Section - Powered by clamp() */}
-      <section className="relative bg-gradient-to-b from-amber-500/10 via-slate-50 to-slate-50 py-[clamp(1.5rem,4vw,4rem)] overflow-hidden border-b border-slate-200/60">
+      {/* Hero Section - Sits directly flush against Header with seamless transition */}
+      <section className="relative bg-gradient-to-b from-amber-500/10 via-slate-50 to-slate-50 pt-5 sm:pt-7 md:pt-9 pb-10 sm:pb-12 md:pb-14 overflow-hidden border-b border-slate-200/60">
         <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-60"></div>
         <div className="w-full max-w-7xl mx-auto px-[clamp(0.75rem,3.5vw,2rem)] relative text-center space-y-[clamp(1rem,2.5vw,1.5rem)]">
           {/* Trust Badge Pill */}
@@ -113,7 +112,7 @@ export default async function HomePage() {
 
           {/* Interactive Dual-Input Autocomplete Search */}
           <div className="pt-2 sm:pt-4">
-            <SearchBar cities={cities} />
+            <SearchBar cities={cities} states={states} />
           </div>
 
           {/* Quick Metrics Strip - Liquid Responsive with clamp() */}
@@ -138,8 +137,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Top Rated Mover Spotlight: National Packers & Movers - Fluid clamp() */}
-      <section className="w-full max-w-7xl mx-auto px-[clamp(0.75rem,3.5vw,2rem)]">
+      {/* Sub-Hero Content Sections with Uniform Vertical Spacing */}
+      <div className="space-y-16 sm:space-y-24 py-12 sm:py-16">
+        {/* Top Rated Mover Spotlight: National Packers & Movers - Fluid clamp() */}
+        <section className="w-full max-w-7xl mx-auto px-[clamp(0.75rem,3.5vw,2rem)]">
         <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 rounded-2xl sm:rounded-3xl p-[clamp(1rem,3vw,2.5rem)] text-white relative overflow-hidden shadow-2xl border border-slate-800">
           <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
           
@@ -352,6 +353,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

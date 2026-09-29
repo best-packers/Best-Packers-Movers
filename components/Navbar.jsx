@@ -86,6 +86,12 @@ export default function Navbar() {
               Home
             </Link>
             <Link 
+              href="/services" 
+              className={`transition-colors hover:text-amber-600 ${pathname?.startsWith('/services') ? 'text-amber-600' : ''}`}
+            >
+              Services
+            </Link>
+            <Link 
               href="/top-packers-and-movers" 
               className={`transition-colors hover:text-amber-600 ${pathname === '/top-packers-and-movers' ? 'text-amber-600' : ''}`}
             >
@@ -156,6 +162,21 @@ export default function Navbar() {
                   }`}
                 >
                   <span>Home</span>
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </Link>
+
+                <Link
+                  href="/services"
+                  className={`flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm transition-colors ${
+                    pathname?.startsWith('/services') ? 'bg-amber-50 text-amber-700' : 'text-slate-800 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>Services Hub</span>
+                    <span className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-extrabold uppercase">
+                      7 Verticals
+                    </span>
+                  </div>
                   <ChevronRight className="w-4 h-4 text-slate-400" />
                 </Link>
 

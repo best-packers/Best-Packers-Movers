@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { 
-  LayoutDashboard, Globe, Users, Route, 
-  Inbox, ExternalLink, ShieldAlert, Sparkles 
+  ExternalLink, ShieldCheck, Sparkles, Truck 
 } from 'lucide-react';
 import { ADMIN_COOKIE_NAME, verifyAdminSessionToken } from '@/lib/adminAuth';
 import AdminLoginGate from '@/components/AdminLoginGate';
 import AdminLogoutButton from '@/components/AdminLogoutButton';
+import AdminSidebarNav from '@/components/AdminSidebarNav';
 
 export const metadata = {
-  title: 'Admin Omnipotence Portal | BestPackerMovers.com',
+  title: 'Admin Command Center | BestPackerMovers.com',
   robots: { index: false, follow: false },
 };
 
@@ -18,82 +18,77 @@ export default function AdminLayout({ children }) {
   const sessionToken = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
   const isAuthenticated = verifyAdminSessionToken(sessionToken);
 
-  // If unauthenticated, gate all /admin routes behind high-security credentials barrier
   if (!isAuthenticated) {
     return <AdminLoginGate />;
   }
 
-  const navItems = [
-    { label: 'Overview Dashboard', href: '/admin', icon: LayoutDashboard },
-    { label: 'Live Google Maps Crawler', href: '/admin/crawler', icon: Globe },
-    { label: 'Mover Rankings & Badges', href: '/admin/movers', icon: Users },
-    { label: 'SERP Routes & Meta Tags', href: '/admin/routes', icon: Route },
-    { label: 'Inbound CRM Leads', href: '/admin/leads', icon: Inbox },
-  ];
-
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col md:flex-row">
-      {/* Sidebar Navigation */}
-      <aside className="w-full md:w-64 bg-slate-950 border-r border-slate-800 p-5 flex flex-col justify-between flex-shrink-0">
+    <div className="min-h-screen bg-[#080C12] text-white flex flex-col md:flex-row font-sans">
+      {/* 280px Executive Fixed Sidebar Navigation (NPM-Website Master Standard) */}
+      <aside className="w-full md:w-[280px] bg-[#0D1B2A] border-r border-white/5 p-5 md:p-6 flex flex-col justify-between flex-shrink-0 relative z-20">
         <div className="space-y-6">
-          {/* Admin Header */}
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center font-bold text-white shadow-md">
-                <Sparkles className="w-4 h-4" />
+          {/* Brand Identity */}
+          <div className="pb-5 border-b border-white/5 space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F7B731] via-[#D4951A] to-[#F7B731] flex items-center justify-center font-bold text-[#080C12] shadow-[0_4px_16px_rgba(247,183,49,0.3)]">
+                <Truck className="w-5 h-5 stroke-[2.5]" />
               </div>
-              <span className="font-extrabold text-base tracking-tight text-white">
-                Admin <span className="text-amber-500">Omnipotence</span>
-              </span>
+              <div className="min-w-0">
+                <div className="text-base font-extrabold text-white tracking-tight flex items-center gap-1">
+                  <span>Best<span className="text-[#F7B731]">Packer</span>Movers</span>
+                </div>
+                <div className="text-[10px] text-[#F7B731] font-bold uppercase tracking-wider">
+                  Admin Command Console
+                </div>
+              </div>
             </div>
-            <p className="text-[11px] text-slate-400 font-mono">
-              BestPackerMovers Command Engine
-            </p>
+
+            {/* Active Session Status Beacon */}
+            <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-[#162236]/80 border border-white/5 text-[11px]">
+              <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Active Administrator</span>
+              </span>
+              <span className="text-[10px] text-[#A8B2C1] font-mono">v5.0</span>
+            </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="space-y-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors"
-                >
-                  <Icon className="w-4 h-4 text-amber-500" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Navigation Items */}
+          <AdminSidebarNav />
         </div>
 
-        {/* Bottom Actions */}
-        <div className="pt-6 border-t border-slate-800 space-y-3">
+        {/* Bottom Sidebar Footprint */}
+        <div className="pt-6 border-t border-white/5 space-y-3">
+          {/* Live Website Link */}
           <Link
             href="/"
             target="_blank"
-            className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-[#F7B731] hover:bg-[#F7B731] hover:text-[#080C12] transition-all duration-200 border border-[#F7B731]/40 flex items-center justify-center gap-2 group shadow-xs"
           >
-            <span>View Live Website</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <span>View Public Directory</span>
+            <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
-          
+
+          {/* Secure Logout Button */}
           <AdminLogoutButton />
 
-          <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300">
-            <div className="font-bold flex items-center gap-1 mb-0.5">
-              <ShieldAlert className="w-3.5 h-3.5" /> Slot #1 Enforced
+          {/* Slot #1 Enforcement Pill */}
+          <div className="p-3 rounded-xl bg-[#F7B731]/10 border border-[#F7B731]/20 text-[11px] text-[#FFD166] space-y-1">
+            <div className="font-extrabold flex items-center gap-1 text-[#F7B731]">
+              <ShieldCheck className="w-3.5 h-3.5" /> Slot #1 Enforced
             </div>
-            <div>National Packers & Movers is permanently pinned as #1 Platinum Partner.</div>
+            <p className="text-[10px] text-[#A8B2C1] leading-relaxed">
+              National Packers &amp; Movers permanently pinned as #1 Platinum Partner across all 7,606+ city routes.
+            </p>
           </div>
         </div>
       </aside>
 
-      {/* Main Content Area */}
-      <main className="flex-1 p-6 sm:p-10 overflow-y-auto">
-        {children}
+      {/* Main Administrative Workspace */}
+      <main className="flex-1 bg-[#080C12] min-h-screen p-5 sm:p-8 lg:p-10 overflow-y-auto">
+        <div className="max-w-6xl mx-auto space-y-8">
+          {children}
+        </div>
       </main>
     </div>
   );

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { query, generateId } from '@/lib/db';
+import { query, generateId, updateMasterNationalProfile } from '@/lib/db';
 
 function slugify(text) {
   return text.toString().toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
@@ -60,6 +60,7 @@ export async function PUT(request) {
       rank_order,
       is_verified,
       is_featured,
+      is_paid,
       established_year,
       fleet_size,
       badges,
@@ -95,8 +96,9 @@ export async function PUT(request) {
         about_text = COALESCE($16, about_text),
         gallery_images = COALESCE($17, gallery_images),
         logo_url = COALESCE($18, logo_url),
-        banner_url = COALESCE($19, banner_url)
-       WHERE id = $20`,
+        banner_url = COALESCE($19, banner_url),
+        is_paid = COALESCE($20, is_paid)
+       WHERE id = $21`,
       [
         name !== undefined ? name : null,
         phone !== undefined ? phone : null,
@@ -117,9 +119,32 @@ export async function PUT(request) {
         gallery_images !== undefined ? (typeof gallery_images === 'string' ? gallery_images : JSON.stringify(gallery_images)) : null,
         logo_url !== undefined ? logo_url : null,
         banner_url !== undefined ? banner_url : null,
+        is_paid !== undefined ? (is_paid ? 1 : 0) : null,
         id
       ]
     );
+
+    // If updating National Packers, ensure master singleton file and memory are fully synced
+    if (id === 'np-master' || (typeof id === 'string' && id.startsWith('np-')) || (name && typeof name === 'string' && name.toLowerCase().includes('national'))) {
+      updateMasterNationalProfile({
+        name,
+        phone,
+        email,
+        website_url,
+        address_template: address,
+        rating: rating !== undefined ? Number(rating) : undefined,
+        review_count: review_count !== undefined ? Number(review_count) : undefined,
+        established_year,
+        fleet_size,
+        badges,
+        services_offered,
+        pricing_table,
+        about_template: about_text,
+        gallery_images,
+        logo_url,
+        banner_url
+      });
+    }
 
     return NextResponse.json({ success: true, message: 'Mover profile updated successfully' });
   } catch (err) {

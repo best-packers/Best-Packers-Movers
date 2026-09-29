@@ -98,14 +98,14 @@ export default async function IbaApprovedPage() {
   };
 
   return (
-    <div className="space-y-12 pb-16">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero Header - Powered by clamp() */}
-      <section className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white py-[clamp(2rem,5vw,4rem)] px-[clamp(0.75rem,3.5vw,2rem)] border-b border-slate-800 relative overflow-hidden">
+      {/* Hero Header - Sits directly flush against Header */}
+      <section className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white py-[clamp(1.5rem,3.5vw,3rem)] px-[clamp(0.75rem,3.5vw,2rem)] border-b border-slate-800 relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="w-full max-w-7xl mx-auto space-y-[clamp(1rem,2.5vw,1.5rem)] relative">
           {/* Breadcrumb */}
@@ -151,7 +151,7 @@ export default async function IbaApprovedPage() {
       </section>
 
       {/* Main Content Layout - Powered by clamp() */}
-      <div className="w-full max-w-7xl mx-auto px-[clamp(0.75rem,3.5vw,2rem)] space-y-[clamp(1.5rem,3.5vw,3rem)]">
+      <div className="w-full max-w-7xl mx-auto px-[clamp(0.75rem,3.5vw,2rem)] py-10 sm:py-12 space-y-[clamp(1.5rem,3.5vw,3rem)]">
         {/* National Pinned Slot #1 Carrier Spotlight */}
         {nationalMover && (
           <section className="space-y-4">
@@ -355,6 +355,7 @@ export default async function IbaApprovedPage() {
           <CostEstimator cityName="India" />
         </section>
       </div>
-    </div>
+    </>
   );
 }
+

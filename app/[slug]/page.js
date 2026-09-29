@@ -3,16 +3,28 @@ import Link from 'next/link';
 import { query } from '@/lib/db';
 import MoverCard from '@/components/MoverCard';
 import CostEstimator from '@/components/CostEstimator';
+import StateCitiesDirectory from '@/components/StateCitiesDirectory';
 import { 
   ShieldCheck, MapPin, Award, CheckCircle2, 
   HelpCircle, ChevronRight, PhoneCall, Sparkles, Filter,
   Truck, Clock, Info, AlertCircle
 } from 'lucide-react';
 
+const SPECIALIZED_SERVICES = [
+  { slug: 'household-relocation', title: 'Household Relocation', desc: '1-4 BHK home shifting & unpacking' },
+  { slug: 'corporate-relocation', title: 'Office & Corporate Shifting', desc: 'Zero-downtime office moves & IT servers' },
+  { slug: 'industrial-relocation', title: 'Industrial & Heavy Cargo', desc: 'Machinery rigging & hydraulic trailers' },
+  { slug: 'vehicle-relocation', title: 'Car & Bike Transport', desc: 'Enclosed hydraulic auto carriers' },
+  { slug: 'warehousing-storage', title: 'Warehousing & Storage', desc: '24/7 CCTV moisture-proof depots' },
+  { slug: 'transit-insurance', title: 'Transit Insurance Cover', desc: 'All-risk comprehensive goods protection' },
+];
+
 // DYNAMIC METADATA GENERATOR (FOR GOOGLEBOT)
 export async function generateMetadata({ params }) {
   let { slug } = params;
-  if (slug && slug.startsWith('packers-and-movers-in-')) {
+  if (slug && slug.includes('-packers-and-movers-in-')) {
+    slug = slug.replace('-packers-and-movers-in-', '-packers-and-movers-');
+  } else if (slug && slug.startsWith('packers-and-movers-in-')) {
     slug = slug.replace('packers-and-movers-in-', 'packers-and-movers-');
   }
 
@@ -43,7 +55,22 @@ export async function generateMetadata({ params }) {
       };
     }
 
-    // 2. Check cities
+    // 2. Check states (Top-level geographic entities take precedence)
+    const stateRes = await query('SELECT * FROM states WHERE slug = $1', [slug]);
+    if (stateRes.rows.length > 0) {
+      const state = stateRes.rows[0];
+      const title = `Packers and Movers in ${state.name} | All-India Relocation Directory`;
+      const desc = `Find certified packers and movers across all major cities and districts in ${state.name}. Compare ratings, rates, and book IBA approved movers.`;
+      return {
+        title,
+        description: desc,
+        alternates: {
+          canonical: `https://www.bestpackermovers.com/${slug}`,
+        },
+      };
+    }
+
+    // 3. Check cities
     const cityRes = await query(
       `SELECT c.*, s.name as state_name 
        FROM cities c 
@@ -56,21 +83,6 @@ export async function generateMetadata({ params }) {
       const city = cityRes.rows[0];
       const title = `Packers and Movers in ${city.name} | Verified Moving Directory`;
       const desc = `Compare top verified packers and movers in ${city.name}, ${city.state_name}. View authentic reviews, starting rate cards, and get instant free quotes.`;
-      return {
-        title,
-        description: desc,
-        alternates: {
-          canonical: `https://www.bestpackermovers.com/${slug}`,
-        },
-      };
-    }
-
-    // 3. Check states
-    const stateRes = await query('SELECT * FROM states WHERE slug = $1', [slug]);
-    if (stateRes.rows.length > 0) {
-      const state = stateRes.rows[0];
-      const title = `Packers and Movers in ${state.name} | All-India Relocation Directory`;
-      const desc = `Find certified packers and movers across all major cities and districts in ${state.name}. Compare ratings, rates, and book IBA approved movers.`;
       return {
         title,
         description: desc,
@@ -146,7 +158,9 @@ function getLocalFaqs(city, state, intentType) {
 // 100% SERVER COMPONENT ROUTE HANDLER
 export default async function DirectoryRoutePage({ params }) {
   let { slug } = params;
-  if (slug && slug.startsWith('packers-and-movers-in-')) {
+  if (slug && slug.includes('-packers-and-movers-in-')) {
+    slug = slug.replace('-packers-and-movers-in-', '-packers-and-movers-');
+  } else if (slug && slug.startsWith('packers-and-movers-in-')) {
     slug = slug.replace('packers-and-movers-in-', 'packers-and-movers-');
   }
 
@@ -171,38 +185,136 @@ export default async function DirectoryRoutePage({ params }) {
     );
 
     if (intentRes.rows.length > 0) {
-      pageType = 'intent';
-      currentIntent = intentRes.rows[0];
-      currentCity = {
-        id: currentIntent.city_id,
-        name: currentIntent.city_name,
-        slug: currentIntent.city_slug,
-        popular_localities: typeof currentIntent.popular_localities === 'string' 
-          ? JSON.parse(currentIntent.popular_localities) 
-          : (currentIntent.popular_localities || [])
-      };
-      currentState = {
-        id: currentIntent.state_id,
-        name: currentIntent.state_name,
-        slug: currentIntent.state_slug
-      };
+      const firstRow = intentRes.rows[0];
+      if (firstRow.is_state_intent) {
+        pageType = 'state';
+        currentIntent = firstRow;
+        currentState = {
+          id: firstRow.state_id,
+          name: firstRow.state_name,
+          slug: firstRow.state_slug
+        };
 
-      // Fetch movers for this city (National Packers always #1)
-      const moversRes = await query(
-        `SELECT * FROM movers WHERE city_id = $1 ORDER BY rank_order ASC, rating DESC`,
-        [currentCity.id]
-      );
-      movers = moversRes.rows || [];
+        // Fetch all cities and towns in this state
+        const citiesRes = await query(
+          'SELECT * FROM cities WHERE state_id = $1 ORDER BY tier ASC, name ASC',
+          [currentState.id]
+        );
+        relatedCities = citiesRes.rows || [];
 
-      // Fetch other sibling intent routes for navigation
-      const siblingRes = await query(
-        `SELECT intent_type, slug_pattern, h1_heading FROM intent_routes WHERE city_id = $1`,
-        [currentCity.id]
-      );
-      siblingRoutes = siblingRes.rows || [];
+        // Synthesize National Packers & Movers permanently at Slot #1 for the State Hub
+        const stateBranchSlugs = ['jharkhand', 'west-bengal', 'bihar', 'madhya-pradesh', 'odisha', 'uttar-pradesh'];
+        const branchUrl = stateBranchSlugs.includes(currentState.slug)
+          ? `https://www.thenationalpackersmovers.com/branches/${currentState.slug}`
+          : 'https://www.thenationalpackersmovers.com/';
+
+        const stateNationalPacker = {
+          id: `np-state-${currentState.id}`,
+          city_id: relatedCities[0]?.id || currentState.id,
+          name: `National Packers & Movers (${currentState.name})`,
+          slug: `national-packers-and-movers-${currentState.slug}`,
+          logo_url: null,
+          banner_url: null,
+          phone: '+91 98351 68368',
+          email: 'dispatch@thenationalpackersmovers.com',
+          website_url: branchUrl,
+          address: `Central Logistics Terminal & State Freight Hub, ${currentState.name}`,
+          rating: 4.9,
+          review_count: 1540,
+          rank_order: 1,
+          is_verified: 1,
+          is_featured: 1,
+          badges: '["#1 Top Rated","Platinum Verified","IBA Approved","ISO Certified"]',
+          services_offered: '["Household Relocation","Car & Bike Transport","Corporate Office Shifting","Warehouse Storage","Transit Insurance"]',
+          about_text: `National Packers & Movers is India\'s leading IBA-approved relocation conglomerate with over 35+ years of excellence. Operating dedicated company-owned containerized fleets across ${currentState.name} and PAN-India with GPS tracking, multi-layer waterproof bubble packaging, and zero-damage guarantee.`,
+          fleet_size: '45+ Container Trucks',
+          established_year: '1987',
+          pricing_table: '{"1bhk":"₹3,500 - ₹6,500","2bhk":"₹5,500 - ₹9,500","3bhk":"₹8,500 - ₹14,500","4bhk_villa":"₹12,500 - ₹22,000","vehicle":"₹4,500 - ₹9,000","office":"Custom Inspection Quote"}',
+          gallery_images: '[]'
+        };
+        movers = [stateNationalPacker];
+      } else {
+        pageType = 'intent';
+        currentIntent = firstRow;
+        currentCity = {
+          id: currentIntent.city_id,
+          name: currentIntent.city_name,
+          slug: currentIntent.city_slug,
+          popular_localities: typeof currentIntent.popular_localities === 'string' 
+            ? JSON.parse(currentIntent.popular_localities) 
+            : (currentIntent.popular_localities || [])
+        };
+        currentState = {
+          id: currentIntent.state_id,
+          name: currentIntent.state_name,
+          slug: currentIntent.state_slug
+        };
+
+        // Fetch movers for this city (National Packers always #1)
+        const moversRes = await query(
+          `SELECT * FROM movers WHERE city_id = $1 ORDER BY rank_order ASC, rating DESC`,
+          [currentCity.id]
+        );
+        movers = moversRes.rows || [];
+
+        // Fetch other sibling intent routes for navigation
+        const siblingRes = await query(
+          `SELECT intent_type, slug_pattern, h1_heading FROM intent_routes WHERE city_id = $1`,
+          [currentCity.id]
+        );
+        siblingRoutes = siblingRes.rows || [];
+      }
     }
 
-    // 2. Check if slug is a City
+    // 2. Check if slug is a State (Top-level territory takes precedence over municipal cities)
+    if (!pageType) {
+      const stateRes = await query('SELECT * FROM states WHERE slug = $1', [slug]);
+      if (stateRes.rows.length > 0) {
+        pageType = 'state';
+        currentState = stateRes.rows[0];
+
+        // Fetch all cities and towns in this state
+        const citiesRes = await query(
+          'SELECT * FROM cities WHERE state_id = $1 ORDER BY tier ASC, name ASC',
+          [currentState.id]
+        );
+        relatedCities = citiesRes.rows || [];
+
+        // Synthesize National Packers & Movers permanently at Slot #1 for the State Hub
+        const stateBranchSlugs = ['jharkhand', 'west-bengal', 'bihar', 'madhya-pradesh', 'odisha', 'uttar-pradesh'];
+        const branchUrl = stateBranchSlugs.includes(currentState.slug)
+          ? `https://www.thenationalpackersmovers.com/branches/${currentState.slug}`
+          : 'https://www.thenationalpackersmovers.com/';
+
+        const stateNationalPacker = {
+          id: `np-state-${currentState.id}`,
+          city_id: relatedCities[0]?.id || currentState.id,
+          name: `National Packers & Movers (${currentState.name})`,
+          slug: `national-packers-and-movers-${currentState.slug}`,
+          logo_url: null,
+          banner_url: null,
+          phone: '+91 98351 68368',
+          email: 'dispatch@thenationalpackersmovers.com',
+          website_url: branchUrl,
+          address: `Central Logistics Terminal & State Freight Hub, ${currentState.name}`,
+          rating: 4.9,
+          review_count: 1540,
+          rank_order: 1,
+          is_verified: 1,
+          is_featured: 1,
+          badges: '["#1 Top Rated","Platinum Verified","IBA Approved","ISO Certified"]',
+          services_offered: '["Household Relocation","Car & Bike Transport","Corporate Office Shifting","Warehouse Storage","Transit Insurance"]',
+          about_text: `National Packers & Movers is India\'s leading IBA-approved relocation conglomerate with over 35+ years of excellence. Operating dedicated company-owned containerized fleets across ${currentState.name} and PAN-India with GPS tracking, multi-layer waterproof bubble packaging, and zero-damage guarantee.`,
+          fleet_size: '45+ Container Trucks',
+          established_year: '1987',
+          pricing_table: '{"1bhk":"₹3,500 - ₹6,500","2bhk":"₹5,500 - ₹9,500","3bhk":"₹8,500 - ₹14,500","4bhk_villa":"₹12,500 - ₹22,000","vehicle":"₹4,500 - ₹9,000","office":"Custom Inspection Quote"}',
+          gallery_images: '[]'
+        };
+        movers = [stateNationalPacker];
+      }
+    }
+
+    // 3. Check if slug is a City
     if (!pageType) {
       const cityRes = await query(
         `SELECT c.*, s.id as state_id, s.name as state_name, s.slug as state_slug 
@@ -238,42 +350,6 @@ export default async function DirectoryRoutePage({ params }) {
         siblingRoutes = siblingRes.rows || [];
       }
     }
-
-    // 3. Check if slug is a State
-    if (!pageType) {
-      const stateRes = await query('SELECT * FROM states WHERE slug = $1', [slug]);
-      if (stateRes.rows.length > 0) {
-        pageType = 'state';
-        currentState = stateRes.rows[0];
-
-        // Fetch cities in this state
-        const citiesRes = await query(
-          'SELECT * FROM cities WHERE state_id = $1 ORDER BY tier ASC, name ASC',
-          [currentState.id]
-        );
-        relatedCities = citiesRes.rows || [];
-
-        // Fetch top featured movers in this state
-        if (relatedCities.length > 0) {
-          const firstCityId = relatedCities[0].id;
-          const moversRes = await query(
-            `SELECT * FROM movers WHERE city_id = $1 ORDER BY rank_order ASC LIMIT 5`,
-            [firstCityId]
-          );
-          movers = moversRes.rows || [];
-
-          // Map National Packers website_url to dedicated State Branch URL if it exists on thenationalpackersmovers.com
-          const stateBranchSlugs = ['jharkhand', 'west-bengal', 'bihar', 'madhya-pradesh', 'odisha', 'uttar-pradesh'];
-          if (movers.length > 0 && (movers[0].rank_order === 1 || movers[0].name.toLowerCase().includes('national'))) {
-            if (stateBranchSlugs.includes(currentState.slug)) {
-              movers[0].website_url = `https://www.thenationalpackersmovers.com/branches/${currentState.slug}`;
-            } else {
-              movers[0].website_url = 'https://www.thenationalpackersmovers.com/';
-            }
-          }
-        }
-      }
-    }
   } catch (err) {
     console.error('Directory page query error:', err);
   }
@@ -294,7 +370,7 @@ export default async function DirectoryRoutePage({ params }) {
         '@type': 'MovingCompany',
         name: m.name,
         url: `https://www.bestpackermovers.com/mover/${m.slug}`,
-        telephone: m.phone,
+        telephone: (m.rank_order === 1 || /\bnational\b/i.test(m.name) || m.is_paid === 1) ? m.phone : '+91 98351 68368',
         address: m.address,
         aggregateRating: {
           '@type': 'AggregateRating',
@@ -353,11 +429,41 @@ export default async function DirectoryRoutePage({ params }) {
             <span>{currentState.region} India Relocation Zone</span>
           </div>
           <h1 className="text-[clamp(1.4rem,4vw+0.4rem,3rem)] font-extrabold text-slate-950 tracking-tight leading-[1.2]">
-            Packers and Movers in {currentState.name}
+            {currentIntent ? currentIntent.h1_heading : `Packers and Movers in ${currentState.name}`}
           </h1>
           <p className="text-[clamp(0.8125rem,0.9vw+0.55rem,1.0625rem)] text-slate-600 max-w-3xl leading-relaxed">
-            Select your city or district in {currentState.name} to view licensed moving companies, verified customer ratings, and transparent shifting rate cards.
+            {currentIntent?.intro_text || `Select your city or district in ${currentState.name} to view licensed moving companies, verified customer ratings, and transparent shifting rate cards.`}
           </p>
+
+          {/* State Multi-Intent Filter Chips */}
+          <div className="pt-2 flex flex-wrap items-center gap-[clamp(0.35rem,1vw,0.5rem)]">
+            <span className="text-[clamp(0.6875rem,0.9vw,0.75rem)] font-bold text-slate-400 mr-1 flex items-center gap-1">
+              <Filter className="w-3.5 h-3.5" /> Filter State Intent:
+            </span>
+            {[
+              { type: 'general', slug: currentState.slug, label: 'All Movers' },
+              { type: 'top_rates', slug: `top-rates-packers-and-movers-${currentState.slug}`, label: 'Top Rates' },
+              { type: 'top_rated', slug: `top-rated-packers-and-movers-${currentState.slug}`, label: 'Top Rated' },
+              { type: 'top_10', slug: `top-10-packers-and-movers-${currentState.slug}`, label: 'Top 10' },
+              { type: 'cheap', slug: `cheap-and-affordable-packers-and-movers-${currentState.slug}`, label: 'Affordable / Cheap' },
+              { type: 'iba_approved', slug: `iba-approved-packers-and-movers-${currentState.slug}`, label: 'IBA Approved' }
+            ].map((rt) => {
+              const isCurrent = (currentIntent?.intent_type === rt.type) || (!currentIntent && rt.type === 'general');
+              return (
+                <Link
+                  key={rt.slug}
+                  href={`/${rt.slug}`}
+                  className={`px-[clamp(0.6rem,1.5vw,0.875rem)] py-[clamp(0.3rem,1vw,0.45rem)] rounded-full text-[clamp(0.6875rem,1vw,0.8rem)] font-bold transition-all ${
+                    isCurrent
+                      ? 'bg-amber-500 text-white shadow-sm'
+                      : 'bg-white border border-slate-200 text-slate-700 hover:border-amber-400'
+                  }`}
+                >
+                  {rt.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
         {/* State Featured Top Mover: National Packers & Movers */}
@@ -370,34 +476,42 @@ export default async function DirectoryRoutePage({ params }) {
           </div>
         )}
 
-        {/* Cities Grid in this State */}
-        <div className="space-y-[clamp(1rem,2vw,1.5rem)]">
-          <h2 className="text-[clamp(1.15rem,2.5vw+0.35rem,1.75rem)] font-bold text-slate-950">
-            Cities & Operational Districts in {currentState.name}
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-[clamp(0.65rem,1.8vw,1rem)]">
-            {relatedCities.map((city) => (
-              <Link
-                key={city.slug}
-                href={`/packers-and-movers-${city.slug}`}
-                className="p-[clamp(0.75rem,2vw,1rem)] rounded-xl bg-white border border-slate-200/80 hover:border-amber-500 hover:shadow-md transition-all group flex flex-col justify-between"
+        {/* Classy & Searchable Cities & Operational Districts Directory */}
+        <StateCitiesDirectory stateName={currentState.name} cities={relatedCities} intentType={currentIntent?.intent_type || 'general'} />
+
+        {/* Specialized Logistics Services Strip */}
+        <section className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 rounded-2xl sm:rounded-3xl p-[clamp(1rem,2.5vw,2rem)] text-white border border-slate-800 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+            <div>
+              <h3 className="text-[clamp(1.05rem,2vw,1.35rem)] font-bold text-white flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span>Specialized Logistics Services Across {currentState.name}</span>
+              </h3>
+              <p className="text-xs text-slate-400">
+                Certified sector-specific freight, industrial rigging, and automobile carriers.
+              </p>
+            </div>
+            <Link href="/services" className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1">
+              All Services <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {SPECIALIZED_SERVICES.map((s) => (
+              <Link 
+                key={s.slug} 
+                href={`/services/${s.slug}`}
+                className="p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-400/50 transition-all flex flex-col justify-between group"
               >
-                <div>
-                  <div className="font-bold text-slate-900 group-hover:text-amber-600 text-[clamp(0.875rem,1.2vw,1rem)]">
-                    {city.name}
-                  </div>
-                  <div className="text-[clamp(0.6875rem,0.8vw,0.75rem)] text-slate-400 mt-1">
-                    {city.tier === 1 ? 'Metro Hub' : 'District Hub'}
-                  </div>
-                </div>
-                <div className="mt-3 sm:mt-4 flex items-center justify-between text-xs text-amber-600 font-semibold pt-2 border-t border-slate-100">
-                  <span>View Movers</span>
-                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
+                <span className="text-xs font-bold text-slate-200 group-hover:text-amber-400 transition-colors line-clamp-1">
+                  {s.title}
+                </span>
+                <span className="text-[10px] text-slate-400 mt-1 line-clamp-2 leading-tight">
+                  {s.desc}
+                </span>
               </Link>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Cost Estimator */}
         <CostEstimator cityName={currentState.name} />
@@ -491,7 +605,9 @@ export default async function DirectoryRoutePage({ params }) {
                   }`}
                 >
                   {rt.intent_type === 'general' ? 'All Movers' : 
-                   rt.intent_type === 'best' ? 'Top Rated' :
+                   rt.intent_type === 'top_rates' ? 'Top Rates' :
+                   rt.intent_type === 'top_rated' ? 'Top Rated' :
+                   rt.intent_type === 'best' ? 'Best Movers' :
                    rt.intent_type === 'top_10' ? 'Top 10' :
                    rt.intent_type === 'cheap' ? 'Affordable / Cheap' :
                    rt.intent_type === 'iba_approved' ? 'IBA Approved' : rt.intent_type}
@@ -645,6 +761,40 @@ export default async function DirectoryRoutePage({ params }) {
 
       {/* Interactive Cost Estimator Tool */}
       <CostEstimator cityName={currentCity.name} />
+
+      {/* Specialized Logistics Services Strip */}
+      <section className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 rounded-2xl sm:rounded-3xl p-[clamp(1rem,2.5vw,2rem)] text-white border border-slate-800 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 className="text-[clamp(1.05rem,2vw,1.35rem)] font-bold text-white flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span>Specialized Logistics Verticals in {currentCity.name}</span>
+            </h3>
+            <p className="text-xs text-slate-400">
+              Certified sector-specific relocation, heavy equipment rigging & automobile transit.
+            </p>
+          </div>
+          <Link href="/services" className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1">
+            All Services <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          {SPECIALIZED_SERVICES.map((s) => (
+            <Link 
+              key={s.slug} 
+              href={`/services/${s.slug}`}
+              className="p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-400/50 transition-all flex flex-col justify-between group"
+            >
+              <span className="text-xs font-bold text-slate-200 group-hover:text-amber-400 transition-colors line-clamp-1">
+                {s.title}
+              </span>
+              <span className="text-[10px] text-slate-400 mt-1 line-clamp-2 leading-tight">
+                {s.desc}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* Local Relocation FAQs (with Schema.org Structured Data) */}
       <section className="space-y-4">

@@ -4,7 +4,7 @@ import MoversManagerUI from './MoversManagerUI';
 export default async function AdminMoversPage() {
   let cities = [];
   try {
-    const res = await query('SELECT c.id, c.name, c.slug, s.name as state_name FROM cities c JOIN states s ON c.state_id = s.id ORDER BY c.name ASC');
+    const res = await query('SELECT c.id, c.name, c.slug, c.tier, s.name as state_name FROM cities c JOIN states s ON c.state_id = s.id ORDER BY c.tier ASC, c.name ASC');
     cities = res.rows || [];
   } catch (err) {
     console.error('Error loading cities for movers manager:', err);

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Star, ShieldCheck, PhoneCall, Award, MapPin, Truck, ExternalLink, ArrowRight, Globe, CheckCircle2, Sparkles } from 'lucide-react';
+import { Star, ShieldCheck, PhoneCall, Award, MapPin, Truck, ExternalLink, ArrowRight, Globe, CheckCircle2, Sparkles, Lock, Camera } from 'lucide-react';
 import QuoteModal from './QuoteModal';
 
 export default function MoverCard({ mover, cityName = '' }) {
@@ -12,8 +12,10 @@ export default function MoverCard({ mover, cityName = '' }) {
   const badges = typeof mover.badges === 'string' ? JSON.parse(mover.badges || '[]') : (mover.badges || []);
   const services = typeof mover.services_offered === 'string' ? JSON.parse(mover.services_offered || '[]') : (mover.services_offered || []);
   const pricing = typeof mover.pricing_table === 'string' ? JSON.parse(mover.pricing_table || '{}') : (mover.pricing_table || {});
+  const gallery = typeof mover.gallery_images === 'string' ? JSON.parse(mover.gallery_images || '[]') : (mover.gallery_images || []);
 
   const isNational = mover.rank_order === 1 || /\bnational\b/i.test(mover.name);
+  const canViewPhone = isNational || mover.is_paid === 1;
 
   return (
     <div className={`card-premium p-[clamp(0.875rem,2.5vw,1.75rem)] relative overflow-hidden transition-all duration-300 ${
@@ -42,12 +44,16 @@ export default function MoverCard({ mover, cityName = '' }) {
         <div className="flex items-center sm:items-start gap-3 sm:gap-5 w-full md:w-auto">
           {/* Avatar / Logo */}
           <div className="flex-shrink-0">
-            <div className={`w-[clamp(3.25rem,8vw,4.75rem)] h-[clamp(3.25rem,8vw,4.75rem)] rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl shadow-md ${
+            <div className={`w-[clamp(3.25rem,8vw,4.75rem)] h-[clamp(3.25rem,8vw,4.75rem)] rounded-2xl flex items-center justify-center font-bold text-xl sm:text-2xl shadow-md overflow-hidden ${
               isNational 
                 ? 'bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 text-white shadow-amber-500/20' 
                 : 'bg-gradient-to-br from-slate-800 to-slate-950 text-white'
             }`}>
-              <Truck className="w-[clamp(1.5rem,4vw,2rem)] h-[clamp(1.5rem,4vw,2rem)]" />
+              {mover.logo_url ? (
+                <img src={mover.logo_url} alt={mover.name} className="w-full h-full object-cover" />
+              ) : (
+                <Truck className="w-[clamp(1.5rem,4vw,2rem)] h-[clamp(1.5rem,4vw,2rem)]" />
+              )}
             </div>
           </div>
 
@@ -118,12 +124,21 @@ export default function MoverCard({ mover, cityName = '' }) {
           </div>
 
           {/* Badges Strip */}
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5">
             {badges.map((b, idx) => (
               <span key={idx} className={b.includes('IBA') ? 'badge-iba text-[11px]' : 'badge-platinum text-[11px]'}>
                 {b}
               </span>
             ))}
+            {gallery && gallery.length > 0 && (
+              <Link 
+                href={`/mover/${mover.slug}#gallery`}
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 transition-colors"
+              >
+                <Camera className="w-3 h-3 text-amber-700" />
+                <span>📷 {gallery.length} Photos</span>
+              </Link>
+            )}
           </div>
 
           {/* Address */}
@@ -181,13 +196,32 @@ export default function MoverCard({ mover, cityName = '' }) {
 
         {/* Right CTA Actions - Touch-friendly full width on mobile */}
         <div className="w-full md:w-56 flex flex-col gap-2 flex-shrink-0 pt-2 md:pt-0">
-          <a
-            href={`tel:${mover.phone.replace(/\s+/g, '')}`}
-            className="w-full py-[clamp(0.55rem,1.5vw,0.75rem)] px-[clamp(0.75rem,2vw,1rem)] rounded-xl font-bold text-[clamp(0.75rem,1.2vw,0.875rem)] text-slate-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 transition-colors flex items-center justify-center gap-2 active:scale-95 shadow-sm"
-          >
-            <PhoneCall className="w-4 h-4 text-amber-700" />
-            <span>{mover.phone}</span>
-          </a>
+          {canViewPhone ? (
+            <a
+              href={`tel:${mover.phone.replace(/\s+/g, '')}`}
+              className="w-full py-[clamp(0.55rem,1.5vw,0.75rem)] px-[clamp(0.75rem,2vw,1rem)] rounded-xl font-bold text-[clamp(0.75rem,1.2vw,0.875rem)] text-slate-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 transition-colors flex items-center justify-center gap-2 active:scale-95 shadow-sm"
+            >
+              <PhoneCall className="w-4 h-4 text-amber-700" />
+              <span>{mover.phone}</span>
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsQuoteOpen(true)}
+              className="w-full py-[clamp(0.55rem,1.5vw,0.75rem)] px-[clamp(0.75rem,2vw,1rem)] rounded-xl font-bold text-[clamp(0.75rem,1.2vw,0.875rem)] text-slate-700 bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100 hover:from-amber-50 hover:to-amber-100 border border-slate-300/90 hover:border-amber-400 transition-all flex items-center justify-center gap-2 shadow-xs group active:scale-95 cursor-pointer"
+              title="Phone number locked. Click to request an instant quote."
+            >
+              <div className="w-5 h-5 rounded-full bg-slate-200 group-hover:bg-amber-200 flex items-center justify-center transition-colors shrink-0">
+                <Lock className="w-3 h-3 text-slate-600 group-hover:text-amber-800 transition-colors" />
+              </div>
+              <span className="blur-[4px] select-none font-mono tracking-wider text-slate-900 opacity-60">
+                +91 98••• •••••
+              </span>
+              <span className="text-[10px] font-extrabold text-amber-950 bg-amber-300 group-hover:bg-amber-400 px-2 py-0.5 rounded-full transition-colors shrink-0 shadow-xs">
+                Unlock
+              </span>
+            </button>
+          )}
 
           <button
             type="button"
